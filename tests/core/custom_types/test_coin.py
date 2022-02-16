@@ -6,7 +6,6 @@ import io
 
 
 def coin_serialize(amount: uint64, clvm_serialize: bytes, full_serialize: bytes):
-
     c = Coin(bytes32(b"a" * 32), bytes32(b"b" * 32), amount)
     expected_hash = (b"a" * 32) + (b"b" * 32) + clvm_serialize
 
@@ -26,7 +25,6 @@ def coin_serialize(amount: uint64, clvm_serialize: bytes, full_serialize: bytes)
 
 class TestCoin:
     def test_coin_serialization(self):
-
         coin_serialize(uint64(0xFFFF), bytes([0, 0xFF, 0xFF]), bytes([0, 0, 0, 0, 0, 0, 0xFF, 0xFF]))
         coin_serialize(uint64(1337000000), bytes([0x4F, 0xB1, 0x00, 0x40]), bytes([0, 0, 0, 0, 0x4F, 0xB1, 0x00, 0x40]))
 

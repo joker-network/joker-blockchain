@@ -89,11 +89,11 @@ class FullNode:
     _ui_tasks: Set[asyncio.Task]
 
     def __init__(
-        self,
-        config: Dict,
-        root_path: Path,
-        consensus_constants: ConsensusConstants,
-        name: str = None,
+            self,
+            config: Dict,
+            root_path: Path,
+            consensus_constants: ConsensusConstants,
+            name: str = None,
     ):
         self.initialized = False
         self.root_path = root_path
@@ -216,7 +216,7 @@ class FullNode:
             dns_servers = self.config["dns_servers"]
         elif self.config["port"] == 18444:
             # If `dns_servers` misses from the `config`, hardcode it if we're running mainnet.
-            dns_servers.append("dns-introducer-jokercoin.mykc.cc")
+            dns_servers.append("dns-introducer.mykc.cc")
         try:
             self.full_node_peers = FullNodePeers(
                 self.server,
@@ -259,8 +259,8 @@ class FullNode:
         # Don't trigger multiple batch syncs to the same peer
 
         if (
-            peer.peer_node_id in self.sync_store.backtrack_syncing
-            and self.sync_store.backtrack_syncing[peer.peer_node_id] > 0
+                peer.peer_node_id in self.sync_store.backtrack_syncing
+                and self.sync_store.backtrack_syncing[peer.peer_node_id] > 0
         ):
             return True  # Don't batch sync, we are already in progress of a backtrack sync
         if peer.peer_node_id in self.sync_store.batch_syncing:
@@ -313,7 +313,7 @@ class FullNode:
         return True
 
     async def short_sync_backtrack(
-        self, peer: ws.WSJokerConnection, peak_height: uint32, target_height: uint32, target_unf_hash: bytes32
+            self, peer: ws.WSJokerConnection, peak_height: uint32, target_height: uint32, target_unf_hash: bytes32
     ):
         """
         Performs a backtrack sync, where blocks are downloaded one at a time from newest to oldest. If we do not
@@ -426,7 +426,7 @@ class FullNode:
             if request.height <= curr_peak_height + self.config["short_sync_blocks_behind_threshold"]:
                 # This is the normal case of receiving the next block
                 if await self.short_sync_backtrack(
-                    peer, curr_peak_height, request.height, request.unfinished_reward_block_hash
+                        peer, curr_peak_height, request.height, request.unfinished_reward_block_hash
                 ):
                     return None
 
@@ -446,7 +446,7 @@ class FullNode:
             self._sync_task = asyncio.create_task(self._sync())
 
     async def send_peak_to_timelords(
-        self, peak_block: Optional[FullBlock] = None, peer: Optional[ws.WSJokerConnection] = None
+            self, peak_block: Optional[FullBlock] = None, peer: Optional[ws.WSJokerConnection] = None
     ):
         """
         Sends current peak to timelords
@@ -510,10 +510,10 @@ class FullNode:
 
         now = time.time()
         if (
-            curr is None
-            or curr.timestamp is None
-            or curr.timestamp < uint64(int(now - 60 * 7))
-            or self.sync_store.get_sync_mode()
+                curr is None
+                or curr.timestamp is None
+                or curr.timestamp < uint64(int(now - 60 * 7))
+                or self.sync_store.get_sync_mode()
         ):
             return False
         else:
@@ -763,11 +763,11 @@ class FullNode:
             await self._finish_sync()
 
     async def sync_from_fork_point(
-        self,
-        fork_point_height: uint32,
-        target_peak_sb_height: uint32,
-        peak_hash: bytes32,
-        summaries: List[SubEpochSummary],
+            self,
+            fork_point_height: uint32,
+            target_peak_sb_height: uint32,
+            peak_hash: bytes32,
+            summaries: List[SubEpochSummary],
     ):
         buffer_size = 4
         self.log.info(f"Start syncing from fork point at {fork_point_height} up to {target_peak_sb_height}")
@@ -866,11 +866,11 @@ class FullNode:
         return peers_with_peak
 
     async def update_wallets(
-        self,
-        height: uint32,
-        fork_height: uint32,
-        peak_hash: bytes32,
-        state_update: Tuple[List[CoinRecord], Dict[bytes, Dict[bytes32, CoinRecord]]],
+            self,
+            height: uint32,
+            fork_height: uint32,
+            peak_hash: bytes32,
+            state_update: Tuple[List[CoinRecord], Dict[bytes, Dict[bytes32, CoinRecord]]],
     ):
         changes_for_peer: Dict[bytes32, Set[CoinState]] = {}
 
@@ -909,11 +909,11 @@ class FullNode:
             await ws_peer.send_message(msg)
 
     async def receive_block_batch(
-        self,
-        all_blocks: List[FullBlock],
-        peer: ws.WSJokerConnection,
-        fork_point: Optional[uint32],
-        wp_summaries: Optional[List[SubEpochSummary]] = None,
+            self,
+            all_blocks: List[FullBlock],
+            peer: ws.WSJokerConnection,
+            fork_point: Optional[uint32],
+            wp_summaries: Optional[List[SubEpochSummary]] = None,
     ) -> Tuple[bool, bool, Optional[uint32], Tuple[List[CoinRecord], Dict[bytes, Dict[bytes, CoinRecord]]]]:
         advanced_peak = False
         fork_height: Optional[uint32] = uint32(0)
@@ -1008,24 +1008,24 @@ class FullNode:
 
     def has_valid_pool_sig(self, block: Union[UnfinishedBlock, FullBlock]):
         if (
-            block.foliage.foliage_block_data.pool_target
-            == PoolTarget(self.constants.GENESIS_PRE_FARM_POOL_PUZZLE_HASH, uint32(0))
-            and block.foliage.prev_block_hash != self.constants.GENESIS_CHALLENGE
-            and block.reward_chain_block.proof_of_space.pool_public_key is not None
+                block.foliage.foliage_block_data.pool_target
+                == PoolTarget(self.constants.GENESIS_PRE_FARM_POOL_PUZZLE_HASH, uint32(0))
+                and block.foliage.prev_block_hash != self.constants.GENESIS_CHALLENGE
+                and block.reward_chain_block.proof_of_space.pool_public_key is not None
         ):
             if not AugSchemeMPL.verify(
-                block.reward_chain_block.proof_of_space.pool_public_key,
-                bytes(block.foliage.foliage_block_data.pool_target),
-                block.foliage.foliage_block_data.pool_signature,
+                    block.reward_chain_block.proof_of_space.pool_public_key,
+                    bytes(block.foliage.foliage_block_data.pool_target),
+                    block.foliage.foliage_block_data.pool_signature,
             ):
                 return False
         return True
 
     async def signage_point_post_processing(
-        self,
-        request: full_node_protocol.RespondSignagePoint,
-        peer: ws.WSJokerConnection,
-        ip_sub_slot: Optional[EndOfSubSlotBundle],
+            self,
+            request: full_node_protocol.RespondSignagePoint,
+            peer: ws.WSJokerConnection,
+            ip_sub_slot: Optional[EndOfSubSlotBundle],
     ):
         self.log.info(
             f"⏲️  Finished signage point {request.index_from_challenge}/"
@@ -1078,12 +1078,12 @@ class FullNode:
         await self.server.send_to_all([msg], NodeType.FARMER)
 
     async def peak_post_processing(
-        self,
-        block: FullBlock,
-        record: BlockRecord,
-        fork_height: uint32,
-        peer: Optional[ws.WSJokerConnection],
-        coin_changes: Tuple[List[CoinRecord], Dict[bytes, Dict[bytes32, CoinRecord]]],
+            self,
+            block: FullBlock,
+            record: BlockRecord,
+            fork_height: uint32,
+            peer: Optional[ws.WSJokerConnection],
+            coin_changes: Tuple[List[CoinRecord], Dict[bytes, Dict[bytes32, CoinRecord]]],
     ):
         """
         Must be called under self.blockchain.lock. This updates the internal state of the full node with the
@@ -1102,7 +1102,7 @@ class FullNode:
             f"difficulty: {difficulty}, "
             f"sub slot iters: {sub_slot_iters}, "
             f"Generator size: "
-            f"{len(bytes(block.transactions_generator)) if  block.transactions_generator else 'No tx'}, "
+            f"{len(bytes(block.transactions_generator)) if block.transactions_generator else 'No tx'}, "
             f"Generator ref list size: "
             f"{len(block.transactions_generator_ref_list) if block.transactions_generator else 'No tx'}"
         )
@@ -1173,10 +1173,10 @@ class FullNode:
         if new_sps is not None and peer is not None:
             for index, sp in new_sps:
                 assert (
-                    sp.cc_vdf is not None
-                    and sp.cc_proof is not None
-                    and sp.rc_vdf is not None
-                    and sp.rc_proof is not None
+                        sp.cc_vdf is not None
+                        and sp.cc_proof is not None
+                        and sp.rc_vdf is not None
+                        and sp.rc_proof is not None
                 )
                 await self.signage_point_post_processing(
                     RespondSignagePoint(index, sp.cc_vdf, sp.cc_proof, sp.rc_vdf, sp.rc_proof), peer, sub_slots[1]
@@ -1231,9 +1231,9 @@ class FullNode:
         self._state_changed("new_peak")
 
     async def respond_block(
-        self,
-        respond_block: full_node_protocol.RespondBlock,
-        peer: Optional[ws.WSJokerConnection] = None,
+            self,
+            respond_block: full_node_protocol.RespondBlock,
+            peer: Optional[ws.WSJokerConnection] = None,
     ) -> Optional[Message]:
         """
         Receive a full block from a peer full node (or ourselves).
@@ -1249,19 +1249,19 @@ class FullNode:
 
         pre_validation_result: Optional[PreValidationResult] = None
         if (
-            block.is_transaction_block()
-            and block.transactions_info is not None
-            and block.transactions_info.generator_root != bytes([0] * 32)
-            and block.transactions_generator is None
+                block.is_transaction_block()
+                and block.transactions_info is not None
+                and block.transactions_info.generator_root != bytes([0] * 32)
+                and block.transactions_generator is None
         ):
             # This is the case where we already had the unfinished block, and asked for this block without
             # the transactions (since we already had them). Therefore, here we add the transactions.
             unfinished_rh: bytes32 = block.reward_chain_block.get_unfinished().get_hash()
             unf_block: Optional[UnfinishedBlock] = self.full_node_store.get_unfinished_block(unfinished_rh)
             if (
-                unf_block is not None
-                and unf_block.transactions_generator is not None
-                and unf_block.foliage_transaction_block == block.foliage_transaction_block
+                    unf_block is not None
+                    and unf_block.transactions_generator is not None
+                    and unf_block.foliage_transaction_block == block.foliage_transaction_block
             ):
                 pre_validation_result = self.full_node_store.get_unfinished_block_result(unfinished_rh)
                 assert pre_validation_result is not None
@@ -1329,9 +1329,9 @@ class FullNode:
                 )
 
                 if (
-                    self.full_node_store.previous_generator is not None
-                    and fork_height is not None
-                    and fork_height < self.full_node_store.previous_generator.block_height
+                        self.full_node_store.previous_generator is not None
+                        and fork_height is not None
+                        and fork_height < self.full_node_store.previous_generator.block_height
                 ):
                     self.full_node_store.previous_generator = None
             validation_time = time.time() - validation_start
@@ -1362,9 +1362,9 @@ class FullNode:
                 raise RuntimeError(f"Invalid result from receive_block {added}")
         percent_full_str = (
             (
-                ", percent full: "
-                + str(round(100.0 * float(block.transactions_info.cost) / self.constants.MAX_BLOCK_COST_CLVM, 3))
-                + "%"
+                    ", percent full: "
+                    + str(round(100.0 * float(block.transactions_info.cost) / self.constants.MAX_BLOCK_COST_CLVM, 3))
+                    + "%"
             )
             if block.transactions_info is not None
             else ""
@@ -1394,10 +1394,10 @@ class FullNode:
         return None
 
     async def respond_unfinished_block(
-        self,
-        respond_unfinished_block: full_node_protocol.RespondUnfinishedBlock,
-        peer: Optional[ws.WSJokerConnection],
-        farmed_block: bool = False,
+            self,
+            respond_unfinished_block: full_node_protocol.RespondUnfinishedBlock,
+            peer: Optional[ws.WSJokerConnection],
+            farmed_block: bool = False,
     ):
         """
         We have received an unfinished block, either created by us, or from another peer.
@@ -1407,7 +1407,7 @@ class FullNode:
         block = respond_unfinished_block.unfinished_block
 
         if block.prev_header_hash != self.constants.GENESIS_CHALLENGE and not self.blockchain.contains_block(
-            block.prev_header_hash
+                block.prev_header_hash
         ):
             # No need to request the parent, since the peer will send it to us anyway, via NewPeak
             self.log.debug("Received a disconnected unfinished block")
@@ -1494,9 +1494,10 @@ class FullNode:
         else:
             percent_full_str = (
                 (
-                    ", percent full: "
-                    + str(round(100.0 * float(block.transactions_info.cost) / self.constants.MAX_BLOCK_COST_CLVM, 3))
-                    + "%"
+                        ", percent full: "
+                        + str(
+                    round(100.0 * float(block.transactions_info.cost) / self.constants.MAX_BLOCK_COST_CLVM, 3))
+                        + "%"
                 )
                 if block.transactions_info is not None
                 else ""
@@ -1553,7 +1554,7 @@ class FullNode:
         self._state_changed("unfinished_block")
 
     async def new_infusion_point_vdf(
-        self, request: timelord_protocol.NewInfusionPointVDF, timelord_peer: Optional[ws.WSJokerConnection] = None
+            self, request: timelord_protocol.NewInfusionPointVDF, timelord_peer: Optional[ws.WSJokerConnection] = None
     ) -> Optional[Message]:
         # Lookup unfinished blocks
         unfinished_block: Optional[UnfinishedBlock] = self.full_node_store.get_unfinished_block(
@@ -1656,7 +1657,7 @@ class FullNode:
         return None
 
     async def respond_end_of_sub_slot(
-        self, request: full_node_protocol.RespondEndOfSubSlot, peer: ws.WSJokerConnection
+            self, request: full_node_protocol.RespondEndOfSubSlot, peer: ws.WSJokerConnection
     ) -> Tuple[Optional[Message], bool]:
 
         fetched_ss = self.full_node_store.get_sub_slot(request.end_of_slot_bundle.challenge_chain.get_hash())
@@ -1672,9 +1673,9 @@ class FullNode:
                 request.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
             )
             if (
-                (fetched_ss is None)
-                and request.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
-                != self.constants.GENESIS_CHALLENGE
+                    (fetched_ss is None)
+                    and request.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
+                    != self.constants.GENESIS_CHALLENGE
             ):
                 # If we don't have the prev, request the prev instead
                 full_node_request = full_node_protocol.RequestSignagePointOrEndOfSubSlot(
@@ -1744,11 +1745,11 @@ class FullNode:
         return None, False
 
     async def respond_transaction(
-        self,
-        transaction: SpendBundle,
-        spend_name: bytes32,
-        peer: Optional[ws.WSJokerConnection] = None,
-        test: bool = False,
+            self,
+            transaction: SpendBundle,
+            spend_name: bytes32,
+            peer: Optional[ws.WSJokerConnection] = None,
+            test: bool = False,
     ) -> Tuple[MempoolInclusionStatus, Optional[Err]]:
         if self.sync_store.get_sync_mode():
             return MempoolInclusionStatus.FAILED, Err.NO_TRANSACTIONS_WHILE_SYNCING
@@ -1805,27 +1806,27 @@ class FullNode:
         return status, error
 
     async def _needs_compact_proof(
-        self, vdf_info: VDFInfo, header_block: HeaderBlock, field_vdf: CompressibleVDFField
+            self, vdf_info: VDFInfo, header_block: HeaderBlock, field_vdf: CompressibleVDFField
     ) -> bool:
         if field_vdf == CompressibleVDFField.CC_EOS_VDF:
             for sub_slot in header_block.finished_sub_slots:
                 if sub_slot.challenge_chain.challenge_chain_end_of_slot_vdf == vdf_info:
                     if (
-                        sub_slot.proofs.challenge_chain_slot_proof.witness_type == 0
-                        and sub_slot.proofs.challenge_chain_slot_proof.normalized_to_identity
+                            sub_slot.proofs.challenge_chain_slot_proof.witness_type == 0
+                            and sub_slot.proofs.challenge_chain_slot_proof.normalized_to_identity
                     ):
                         return False
                     return True
         if field_vdf == CompressibleVDFField.ICC_EOS_VDF:
             for sub_slot in header_block.finished_sub_slots:
                 if (
-                    sub_slot.infused_challenge_chain is not None
-                    and sub_slot.infused_challenge_chain.infused_challenge_chain_end_of_slot_vdf == vdf_info
+                        sub_slot.infused_challenge_chain is not None
+                        and sub_slot.infused_challenge_chain.infused_challenge_chain_end_of_slot_vdf == vdf_info
                 ):
                     assert sub_slot.proofs.infused_challenge_chain_slot_proof is not None
                     if (
-                        sub_slot.proofs.infused_challenge_chain_slot_proof.witness_type == 0
-                        and sub_slot.proofs.infused_challenge_chain_slot_proof.normalized_to_identity
+                            sub_slot.proofs.infused_challenge_chain_slot_proof.witness_type == 0
+                            and sub_slot.proofs.infused_challenge_chain_slot_proof.normalized_to_identity
                     ):
                         return False
                     return True
@@ -1835,28 +1836,28 @@ class FullNode:
             if vdf_info == header_block.reward_chain_block.challenge_chain_sp_vdf:
                 assert header_block.challenge_chain_sp_proof is not None
                 if (
-                    header_block.challenge_chain_sp_proof.witness_type == 0
-                    and header_block.challenge_chain_sp_proof.normalized_to_identity
+                        header_block.challenge_chain_sp_proof.witness_type == 0
+                        and header_block.challenge_chain_sp_proof.normalized_to_identity
                 ):
                     return False
                 return True
         if field_vdf == CompressibleVDFField.CC_IP_VDF:
             if vdf_info == header_block.reward_chain_block.challenge_chain_ip_vdf:
                 if (
-                    header_block.challenge_chain_ip_proof.witness_type == 0
-                    and header_block.challenge_chain_ip_proof.normalized_to_identity
+                        header_block.challenge_chain_ip_proof.witness_type == 0
+                        and header_block.challenge_chain_ip_proof.normalized_to_identity
                 ):
                     return False
                 return True
         return False
 
     async def _can_accept_compact_proof(
-        self,
-        vdf_info: VDFInfo,
-        vdf_proof: VDFProof,
-        height: uint32,
-        header_hash: bytes32,
-        field_vdf: CompressibleVDFField,
+            self,
+            vdf_info: VDFInfo,
+            vdf_proof: VDFProof,
+            height: uint32,
+            header_hash: bytes32,
+            field_vdf: CompressibleVDFField,
     ) -> bool:
         """
         - Checks if the provided proof is indeed compact.
@@ -1884,11 +1885,11 @@ class FullNode:
         return is_new_proof
 
     async def _replace_proof(
-        self,
-        vdf_info: VDFInfo,
-        vdf_proof: VDFProof,
-        height: uint32,
-        field_vdf: CompressibleVDFField,
+            self,
+            vdf_info: VDFInfo,
+            vdf_proof: VDFProof,
+            height: uint32,
+            field_vdf: CompressibleVDFField,
     ) -> bool:
         full_blocks = await self.block_store.get_full_blocks_at([height])
         assert len(full_blocks) > 0
@@ -1913,8 +1914,8 @@ class FullNode:
             if field_vdf == CompressibleVDFField.ICC_EOS_VDF:
                 for index, sub_slot in enumerate(block.finished_sub_slots):
                     if (
-                        sub_slot.infused_challenge_chain is not None
-                        and sub_slot.infused_challenge_chain.infused_challenge_chain_end_of_slot_vdf == vdf_info
+                            sub_slot.infused_challenge_chain is not None
+                            and sub_slot.infused_challenge_chain.infused_challenge_chain_end_of_slot_vdf == vdf_info
                     ):
                         new_proofs = dataclasses.replace(sub_slot.proofs, infused_challenge_chain_slot_proof=vdf_proof)
                         new_subslot = dataclasses.replace(sub_slot, proofs=new_proofs)
@@ -1940,7 +1941,7 @@ class FullNode:
     async def respond_compact_proof_of_time(self, request: timelord_protocol.RespondCompactProofOfTime):
         field_vdf = CompressibleVDFField(int(request.field_vdf))
         if not await self._can_accept_compact_proof(
-            request.vdf_info, request.vdf_proof, request.height, request.header_hash, field_vdf
+                request.vdf_info, request.vdf_proof, request.height, request.header_hash, field_vdf
         ):
             return None
         async with self.blockchain.compact_proof_lock:
@@ -1990,19 +1991,19 @@ class FullNode:
         if field_vdf == CompressibleVDFField.ICC_EOS_VDF:
             for sub_slot in header_block.finished_sub_slots:
                 if (
-                    sub_slot.infused_challenge_chain is not None
-                    and sub_slot.infused_challenge_chain.infused_challenge_chain_end_of_slot_vdf == request.vdf_info
+                        sub_slot.infused_challenge_chain is not None
+                        and sub_slot.infused_challenge_chain.infused_challenge_chain_end_of_slot_vdf == request.vdf_info
                 ):
                     vdf_proof = sub_slot.proofs.infused_challenge_chain_slot_proof
                     break
         if (
-            field_vdf == CompressibleVDFField.CC_SP_VDF
-            and header_block.reward_chain_block.challenge_chain_sp_vdf == request.vdf_info
+                field_vdf == CompressibleVDFField.CC_SP_VDF
+                and header_block.reward_chain_block.challenge_chain_sp_vdf == request.vdf_info
         ):
             vdf_proof = header_block.challenge_chain_sp_proof
         if (
-            field_vdf == CompressibleVDFField.CC_IP_VDF
-            and header_block.reward_chain_block.challenge_chain_ip_vdf == request.vdf_info
+                field_vdf == CompressibleVDFField.CC_IP_VDF
+                and header_block.reward_chain_block.challenge_chain_ip_vdf == request.vdf_info
         ):
             vdf_proof = header_block.challenge_chain_ip_proof
         if vdf_proof is None or vdf_proof.witness_type > 0 or not vdf_proof.normalized_to_identity:
@@ -2021,7 +2022,7 @@ class FullNode:
     async def respond_compact_vdf(self, request: full_node_protocol.RespondCompactVDF, peer: ws.WSJokerConnection):
         field_vdf = CompressibleVDFField(int(request.field_vdf))
         if not await self._can_accept_compact_proof(
-            request.vdf_info, request.vdf_proof, request.height, request.header_hash, field_vdf
+                request.vdf_info, request.vdf_proof, request.height, request.header_hash, field_vdf
         ):
             return None
         async with self.blockchain.compact_proof_lock:
@@ -2039,7 +2040,7 @@ class FullNode:
             await self.server.send_to_all_except([msg], NodeType.FULL_NODE, peer.peer_node_id)
 
     async def broadcast_uncompact_blocks(
-        self, uncompact_interval_scan: int, target_uncompact_proofs: int, sanitize_weight_proof_only: bool
+            self, uncompact_interval_scan: int, target_uncompact_proofs: int, sanitize_weight_proof_only: bool
     ):
         try:
             while not self._shut_down:
@@ -2069,8 +2070,8 @@ class FullNode:
                             record = records[header.header_hash]
                         for sub_slot in header.finished_sub_slots:
                             if (
-                                sub_slot.proofs.challenge_chain_slot_proof.witness_type > 0
-                                or not sub_slot.proofs.challenge_chain_slot_proof.normalized_to_identity
+                                    sub_slot.proofs.challenge_chain_slot_proof.witness_type > 0
+                                    or not sub_slot.proofs.challenge_chain_slot_proof.normalized_to_identity
                             ):
                                 broadcast_list.append(
                                     timelord_protocol.RequestCompactProofOfTime(
@@ -2081,8 +2082,8 @@ class FullNode:
                                     )
                                 )
                             if sub_slot.proofs.infused_challenge_chain_slot_proof is not None and (
-                                sub_slot.proofs.infused_challenge_chain_slot_proof.witness_type > 0
-                                or not sub_slot.proofs.infused_challenge_chain_slot_proof.normalized_to_identity
+                                    sub_slot.proofs.infused_challenge_chain_slot_proof.witness_type > 0
+                                    or not sub_slot.proofs.infused_challenge_chain_slot_proof.normalized_to_identity
                             ):
                                 assert sub_slot.infused_challenge_chain is not None
                                 broadcast_list.append(
@@ -2099,8 +2100,8 @@ class FullNode:
                             if not record.is_challenge_block(self.constants):
                                 continue
                         if header.challenge_chain_sp_proof is not None and (
-                            header.challenge_chain_sp_proof.witness_type > 0
-                            or not header.challenge_chain_sp_proof.normalized_to_identity
+                                header.challenge_chain_sp_proof.witness_type > 0
+                                or not header.challenge_chain_sp_proof.normalized_to_identity
                         ):
                             assert header.reward_chain_block.challenge_chain_sp_vdf is not None
                             broadcast_list.append(
@@ -2113,8 +2114,8 @@ class FullNode:
                             )
 
                         if (
-                            header.challenge_chain_ip_proof.witness_type > 0
-                            or not header.challenge_chain_ip_proof.normalized_to_identity
+                                header.challenge_chain_ip_proof.witness_type > 0
+                                or not header.challenge_chain_ip_proof.normalized_to_identity
                         ):
                             broadcast_list.append(
                                 timelord_protocol.RequestCompactProofOfTime(
@@ -2144,9 +2145,8 @@ class FullNode:
 
 
 async def node_next_block_check(
-    peer: ws.WSJokerConnection, potential_peek: uint32, blockchain: BlockchainInterface
+        peer: ws.WSJokerConnection, potential_peek: uint32, blockchain: BlockchainInterface
 ) -> bool:
-
     block_response: Optional[Any] = await peer.request_block(full_node_protocol.RequestBlock(potential_peek, True))
     if block_response is not None and isinstance(block_response, full_node_protocol.RespondBlock):
         peak = blockchain.get_peak()

@@ -2,3 +2,8 @@
 	path = mozilla-ca
 	url = https://github.com/Chia-Network/mozilla-ca.git
         branch = main
+
+[submodule "joker-blockchain-gui"]
+	path = joker-blockchain-gui
+	url = https://github.com/joker-network/joker-blockchain-gui.git
+	branch = main

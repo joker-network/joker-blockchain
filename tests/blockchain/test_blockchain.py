@@ -124,8 +124,8 @@ class TestBlockHeaderValidation:
         blocks = default_1000_blocks
         for block in blocks:
             if (
-                len(block.finished_sub_slots) > 0
-                and block.finished_sub_slots[0].challenge_chain.subepoch_summary_hash is not None
+                    len(block.finished_sub_slots) > 0
+                    and block.finished_sub_slots[0].challenge_chain.subepoch_summary_hash is not None
             ):
                 # Sub/Epoch. Try using a bad ssi and difficulty to test 2m and 2n
                 new_finished_ss = recursive_replace(
@@ -1598,8 +1598,8 @@ class TestPreValidation:
                 )
         end = time.time()
         log.info(f"Total time: {end - start} seconds")
-        log.info(f"Average pv: {sum(times_pv)/(len(blocks)/n_at_a_time)}")
-        log.info(f"Average rb: {sum(times_rb)/(len(blocks))}")
+        log.info(f"Average pv: {sum(times_pv) / (len(blocks) / n_at_a_time)}")
+        log.info(f"Average rb: {sum(times_rb) / (len(blocks))}")
 
 
 class TestBodyValidation:
@@ -2728,8 +2728,8 @@ class TestReorgs:
         blocks_without_filter = await b.get_header_blocks_in_range(0, 10, tx_filter=False)
         header_hash = blocks[-1].header_hash
         assert (
-            blocks_with_filter[header_hash].transactions_filter
-            != blocks_without_filter[header_hash].transactions_filter
+                blocks_with_filter[header_hash].transactions_filter
+                != blocks_without_filter[header_hash].transactions_filter
         )
         assert blocks_with_filter[header_hash].header_hash == blocks_without_filter[header_hash].header_hash
 

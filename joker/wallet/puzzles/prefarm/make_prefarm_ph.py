@@ -1,7 +1,8 @@
 from clvm.casts import int_from_bytes
 from clvm_tools import binutils
 
-from joker.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward, calculate_base_community_reward
+from joker.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward, \
+    calculate_base_community_reward
 from joker.types.blockchain_format.program import Program
 from joker.types.condition_opcodes import ConditionOpcode
 from joker.util.bech32m import decode_puzzle_hash, encode_puzzle_hash
@@ -62,4 +63,5 @@ total_joker += make_puzzle(farmer_amounts)
 print("\nCommunity address: ")
 total_joker += make_puzzle(community_amounts)
 
-assert total_joker == calculate_base_community_reward(uint32(0)) + calculate_base_farmer_reward(uint32(0)) + calculate_pool_reward(uint32(0))
+assert total_joker == calculate_base_community_reward(uint32(0)) + calculate_base_farmer_reward(
+    uint32(0)) + calculate_pool_reward(uint32(0))

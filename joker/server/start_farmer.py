@@ -20,13 +20,12 @@ SERVICE_NAME = "farmer"
 
 
 def service_kwargs_for_farmer(
-    root_path: pathlib.Path,
-    config: Dict,
-    config_pool: Dict,
-    consensus_constants: ConsensusConstants,
-    keychain: Optional[Keychain] = None,
+        root_path: pathlib.Path,
+        config: Dict,
+        config_pool: Dict,
+        consensus_constants: ConsensusConstants,
+        keychain: Optional[Keychain] = None,
 ) -> Dict:
-
     connect_peers = []
     fnp = config.get("full_node_peer")
     if fnp is not None:

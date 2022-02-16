@@ -12,6 +12,7 @@ from threading import Thread
 from time import sleep
 from typing import Dict
 
+
 # Commented-out lines are preserved to aide in debugging the multiprocessing tests
 # import logging
 # import os
@@ -151,9 +152,9 @@ class TestConfig:
         assert config["daemon_port"] == default_config_dict["daemon_port"] == 55400
         assert config["self_hostname"] == default_config_dict["self_hostname"] == "localhost"
         assert (
-            config["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
-            == default_config_dict["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
-            == "ccd5bb71183532bff220ba46c268991a3ff07eb358e8255a65c30a2dce0e5fbb"
+                config["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
+                == default_config_dict["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
+                == "ccd5bb71183532bff220ba46c268991a3ff07eb358e8255a65c30a2dce0e5fbb"
         )
 
     def test_load_config_exit_on_error(self, tmpdir):

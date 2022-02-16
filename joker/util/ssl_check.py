@@ -13,7 +13,7 @@ DEFAULT_PERMISSIONS_KEY_FILE: int = 0o600
 # Masks containing permission bits we don't allow
 RESTRICT_MASK_CERT_FILE: int = stat.S_IWGRP | stat.S_IXGRP | stat.S_IWOTH | stat.S_IXOTH  # 0o033
 RESTRICT_MASK_KEY_FILE: int = (
-    stat.S_IRGRP | stat.S_IWGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IWOTH | stat.S_IXOTH
+        stat.S_IRGRP | stat.S_IWGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IWOTH | stat.S_IXOTH
 )  # 0o077
 
 CERT_CONFIG_KEY_PATHS = [
@@ -52,7 +52,6 @@ KEY_CONFIG_KEY_PATHS = [
     "wallet:ssl:private_key",
     "wallet:ssl:public_key",
 ]
-
 
 # Set to keep track of which files we've already warned about
 warned_ssl_files: Set[Path] = set()
@@ -94,7 +93,7 @@ def get_ssl_perm_warning(path: Path, actual_mode: int, expected_mode: int) -> st
 
 
 def verify_ssl_certs_and_keys(
-    cert_paths: List[Path], key_paths: List[Path], log: Optional[Logger] = None
+        cert_paths: List[Path], key_paths: List[Path], log: Optional[Logger] = None
 ) -> List[Tuple[Path, int, int]]:
     """Check that file permissions are properly set for the provided SSL cert and key files"""
     if sys.platform == "win32" or sys.platform == "cygwin":

@@ -50,7 +50,7 @@ class FarmerAPI:
     @api_request
     @peer_required
     async def new_proof_of_space(
-        self, new_proof_of_space: harvester_protocol.NewProofOfSpace, peer: ws.WSJokerConnection
+            self, new_proof_of_space: harvester_protocol.NewProofOfSpace, peer: ws.WSJokerConnection
     ):
         """
         This is a response from the harvester, for a NewChallenge. Here we check if the proof
@@ -154,7 +154,7 @@ class FarmerAPI:
                     new_proof_of_space.sp_hash,
                 )
                 if required_iters >= calculate_sp_interval_iters(
-                    self.farmer.constants, self.farmer.constants.POOL_SUB_SLOT_ITERS
+                        self.farmer.constants, self.farmer.constants.POOL_SUB_SLOT_ITERS
                 ):
                     self.farmer.log.info(
                         f"Proof of space not good enough for pool {pool_url}: {pool_state_dict['current_difficulty']}"
@@ -231,9 +231,9 @@ class FarmerAPI:
                 try:
                     async with aiohttp.ClientSession() as session:
                         async with session.post(
-                            f"{pool_url}/partial",
-                            json=post_partial_request.to_json_dict(),
-                            ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.farmer.log),
+                                f"{pool_url}/partial",
+                                json=post_partial_request.to_json_dict(),
+                                ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.farmer.log),
                         ) as resp:
                             if resp.ok:
                                 pool_response: Dict = json.loads(await resp.text())

@@ -74,7 +74,7 @@ class MempoolManager:
         self.pool.shutdown(wait=True)
 
     async def create_bundle_from_mempool(
-        self, last_tb_header_hash: bytes32
+            self, last_tb_header_hash: bytes32
     ) -> Optional[Tuple[SpendBundle, List[Coin], List[Coin]]]:
         """
         Returns aggregated spendbundle that can be used for creating new block,
@@ -96,8 +96,8 @@ class MempoolManager:
             for item in dic.values():
                 log.info(f"Cumulative cost: {cost_sum}, fee per cost: {item.fee / item.cost}")
                 if (
-                    item.cost + cost_sum <= self.limit_factor * self.constants.MAX_BLOCK_COST_CLVM
-                    and item.fee + fee_sum <= self.constants.MAX_COIN_AMOUNT
+                        item.cost + cost_sum <= self.limit_factor * self.constants.MAX_BLOCK_COST_CLVM
+                        and item.fee + fee_sum <= self.constants.MAX_COIN_AMOUNT
                 ):
                     spend_bundles.append(item.spend_bundle)
                     cost_sum += item.cost
@@ -137,7 +137,7 @@ class MempoolManager:
             return False
         fees_per_cost = fees / cost
         if not self.mempool.at_full_capacity(cost) or (
-            fees_per_cost >= self.nonzero_fee_minimum_fpc and fees_per_cost > self.mempool.get_min_fee_rate(cost)
+                fees_per_cost >= self.nonzero_fee_minimum_fpc and fees_per_cost > self.mempool.get_min_fee_rate(cost)
         ):
             return True
         return False
@@ -162,11 +162,11 @@ class MempoolManager:
         return 10000000
 
     def can_replace(
-        self,
-        conflicting_items: Dict[bytes32, MempoolItem],
-        removals: Dict[bytes32, CoinRecord],
-        fees: uint64,
-        fees_per_cost: float,
+            self,
+            conflicting_items: Dict[bytes32, MempoolItem],
+            removals: Dict[bytes32, CoinRecord],
+            fees: uint64,
+            fees_per_cost: float,
     ) -> bool:
         conflicting_fees = 0
         conflicting_cost = 0
@@ -221,12 +221,12 @@ class MempoolManager:
         return ret
 
     async def add_spendbundle(
-        self,
-        new_spend: SpendBundle,
-        npc_result: NPCResult,
-        spend_name: bytes32,
-        validate_signature=True,
-        program: Optional[SerializedProgram] = None,
+            self,
+            new_spend: SpendBundle,
+            npc_result: NPCResult,
+            spend_name: bytes32,
+            validate_signature=True,
+            program: Optional[SerializedProgram] = None,
     ) -> Tuple[Optional[uint64], MempoolInclusionStatus, Optional[Err]]:
         """
         Tries to add spend bundle to the mempool
@@ -431,7 +431,7 @@ class MempoolManager:
         log.log(
             logging.WARNING if now - start_time > 1 else logging.DEBUG,
             f"add_spendbundle {spend_name} took {now - start_time:0.2f} seconds. "
-            f"Cost: {cost} ({round(100.0 * cost/self.constants.MAX_BLOCK_COST_CLVM, 3)}% of max block cost)",
+            f"Cost: {cost} ({round(100.0 * cost / self.constants.MAX_BLOCK_COST_CLVM, 3)}% of max block cost)",
         )
 
         return uint64(cost), MempoolInclusionStatus.SUCCESS, None

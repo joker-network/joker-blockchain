@@ -24,10 +24,10 @@ def passphrase_cmd():
 @click.option("--hint", type=str, help="Passphrase hint")
 @click.pass_context
 def set_cmd(
-    ctx: click.Context,
-    passphrase_file: Optional[TextIOWrapper],
-    current_passphrase_file: Optional[TextIOWrapper],
-    hint: Optional[str],
+        ctx: click.Context,
+        passphrase_file: Optional[TextIOWrapper],
+        current_passphrase_file: Optional[TextIOWrapper],
+        hint: Optional[str],
 ) -> None:
     from .passphrase_funcs import (
         async_update_daemon_passphrase_cache_if_running,

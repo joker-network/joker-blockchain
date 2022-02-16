@@ -103,12 +103,12 @@ async def create(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -
 
 
 async def pprint_pool_wallet_state(
-    wallet_client: WalletRpcClient,
-    wallet_id: int,
-    pool_wallet_info: PoolWalletInfo,
-    address_prefix: str,
-    pool_state_dict: Dict,
-    plot_counts: Counter,
+        wallet_client: WalletRpcClient,
+        wallet_id: int,
+        pool_wallet_info: PoolWalletInfo,
+        address_prefix: str,
+        pool_state_dict: Dict,
+        plot_counts: Counter,
 ):
     if pool_wallet_info.current.state == PoolSingletonState.LEAVING_POOL and pool_wallet_info.target is None:
         expected_leave_height = pool_wallet_info.singleton_block_height + pool_wallet_info.current.relative_lock_height
@@ -167,7 +167,6 @@ async def pprint_pool_wallet_state(
 
 
 async def show(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> None:
-
     config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
     self_hostname = config["self_hostname"]
     farmer_rpc_port = config["farmer"]["rpc_port"]
@@ -262,7 +261,7 @@ async def get_login_link(launcher_id_str: str) -> None:
 
 
 async def submit_tx_with_confirmation(
-    message: str, prompt: bool, func: Callable, wallet_client: WalletRpcClient, fingerprint: int, wallet_id: int
+        message: str, prompt: bool, func: Callable, wallet_client: WalletRpcClient, fingerprint: int, wallet_id: int
 ):
     print(message)
     if prompt:

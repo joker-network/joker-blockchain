@@ -55,12 +55,12 @@ def get_transaction_cmd(wallet_rpc_port: Optional[int], fingerprint: int, id: in
     help="Prompt for each page of data.  Defaults to true for interactive consoles, otherwise false.",
 )
 def get_transactions_cmd(
-    wallet_rpc_port: Optional[int],
-    fingerprint: int,
-    id: int,
-    offset: int,
-    verbose: bool,
-    paginate: Optional[bool],
+        wallet_rpc_port: Optional[int],
+        fingerprint: int,
+        id: int,
+        offset: int,
+        verbose: bool,
+        paginate: Optional[bool],
 ) -> None:
     extra_params = {"id": id, "verbose": verbose, "offset": offset, "paginate": paginate}
     import asyncio
@@ -102,7 +102,7 @@ def get_transactions_cmd(
     "-o", "--override", help="Submits transaction without checking for unusual values", is_flag=True, default=False
 )
 def send_cmd(
-    wallet_rpc_port: Optional[int], fingerprint: int, id: int, amount: str, fee: str, address: str, override: bool
+        wallet_rpc_port: Optional[int], fingerprint: int, id: int, amount: str, fee: str, address: str, override: bool
 ) -> None:
     extra_params = {"id": id, "amount": amount, "fee": fee, "address": address, "override": override}
     import asyncio

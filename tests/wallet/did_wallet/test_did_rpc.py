@@ -13,7 +13,6 @@ from tests.setup_nodes import self_hostname, setup_simulators_and_wallets, bt
 from tests.time_out_assert import time_out_assert
 from joker.wallet.did_wallet.did_wallet import DIDWallet
 
-
 log = logging.getLogger(__name__)
 
 

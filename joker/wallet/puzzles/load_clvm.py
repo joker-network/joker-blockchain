@@ -20,7 +20,9 @@ if "CLVM_TOOLS_RS" in os.environ:
             m.update(open(f).read().encode("utf8"))
             return m.hexdigest()
 
+
         from clvm_tools_rs import compile_clvm as compile_clvm_rs
+
 
         def translate_path(p_):
             p = str(p_)
@@ -29,6 +31,7 @@ if "CLVM_TOOLS_RS" in os.environ:
             else:
                 module_object = importlib.import_module(p)
                 return os.path.dirname(inspect.getfile(module_object))
+
 
         def rust_compile_clvm(full_path, output, search_paths=[]):
             treated_include_paths = list(map(translate_path, search_paths))
@@ -45,6 +48,7 @@ if "CLVM_TOOLS_RS" in os.environ:
                     print("Compiled %s: %s vs %s\n" % (full_path, orig256, rs256))
                     print("Aborting compilation due to mismatch with rust")
                     assert orig256 == rs256
+
 
         compile_clvm = rust_compile_clvm
     finally:

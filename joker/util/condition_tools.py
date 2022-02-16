@@ -13,12 +13,13 @@ from joker.util.clvm import int_from_bytes
 from joker.util.errors import ConsensusError, Err
 from joker.util.ints import uint64
 
+
 # TODO: review each `assert` and consider replacing with explicit checks
 #       since asserts can be stripped with python `-OO` flag
 
 
 def parse_sexp_to_condition(
-    sexp: Program,
+        sexp: Program,
 ) -> Tuple[Optional[Err], Optional[ConditionWithArgs]]:
     """
     Takes a JokerLisp sexp and returns a ConditionWithArgs.
@@ -33,7 +34,7 @@ def parse_sexp_to_condition(
 
 
 def parse_sexp_to_conditions(
-    sexp: Program,
+        sexp: Program,
 ) -> Tuple[Optional[Err], Optional[List[ConditionWithArgs]]]:
     """
     Takes a JokerLisp sexp (list) and returns the list of ConditionWithArgss
@@ -52,7 +53,7 @@ def parse_sexp_to_conditions(
 
 
 def conditions_by_opcode(
-    conditions: List[ConditionWithArgs],
+        conditions: List[ConditionWithArgs],
 ) -> Dict[ConditionOpcode, List[ConditionWithArgs]]:
     """
     Takes a list of ConditionWithArgss(CVP) and return dictionary of CVPs keyed of their opcode
@@ -89,7 +90,7 @@ def pkm_pairs(npc_list: List[NPC], additional_data: bytes) -> Tuple[List[G1Eleme
 
 
 def pkm_pairs_for_conditions_dict(
-    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]], coin_name: bytes32, additional_data: bytes
+        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]], coin_name: bytes32, additional_data: bytes
 ) -> List[Tuple[G1Element, bytes]]:
     assert coin_name is not None
     ret: List[Tuple[G1Element, bytes]] = []
@@ -109,8 +110,8 @@ def pkm_pairs_for_conditions_dict(
 
 
 def created_outputs_for_conditions_dict(
-    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
-    input_coin_name: bytes32,
+        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
+        input_coin_name: bytes32,
 ) -> List[Coin]:
     output_coins = []
     for cvp in conditions_dict.get(ConditionOpcode.CREATE_COIN, []):
@@ -122,8 +123,8 @@ def created_outputs_for_conditions_dict(
 
 
 def coin_announcements_for_conditions_dict(
-    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
-    input_coin: Coin,
+        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
+        input_coin: Coin,
 ) -> Set[Announcement]:
     output_announcements: Set[Announcement] = set()
     for cvp in conditions_dict.get(ConditionOpcode.CREATE_COIN_ANNOUNCEMENT, []):
@@ -135,8 +136,8 @@ def coin_announcements_for_conditions_dict(
 
 
 def puzzle_announcements_for_conditions_dict(
-    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
-    input_coin: Coin,
+        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
+        input_coin: Coin,
 ) -> Set[Announcement]:
     output_announcements: Set[Announcement] = set()
     for cvp in conditions_dict.get(ConditionOpcode.CREATE_PUZZLE_ANNOUNCEMENT, []):
@@ -148,25 +149,25 @@ def puzzle_announcements_for_conditions_dict(
 
 
 def coin_announcement_names_for_conditions_dict(
-    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
-    input_coin: Coin,
+        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
+        input_coin: Coin,
 ) -> List[bytes32]:
     output = [an.name() for an in coin_announcements_for_conditions_dict(conditions_dict, input_coin)]
     return output
 
 
 def puzzle_announcement_names_for_conditions_dict(
-    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
-    input_coin: Coin,
+        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
+        input_coin: Coin,
 ) -> List[bytes32]:
     output = [an.name() for an in puzzle_announcements_for_conditions_dict(conditions_dict, input_coin)]
     return output
 
 
 def conditions_dict_for_solution(
-    puzzle_reveal: SerializedProgram,
-    solution: SerializedProgram,
-    max_cost: int,
+        puzzle_reveal: SerializedProgram,
+        solution: SerializedProgram,
+        max_cost: int,
 ) -> Tuple[Optional[Err], Optional[Dict[ConditionOpcode, List[ConditionWithArgs]]], uint64]:
     error, result, cost = conditions_for_solution(puzzle_reveal, solution, max_cost)
     if error or result is None:
@@ -175,9 +176,9 @@ def conditions_dict_for_solution(
 
 
 def conditions_for_solution(
-    puzzle_reveal: SerializedProgram,
-    solution: SerializedProgram,
-    max_cost: int,
+        puzzle_reveal: SerializedProgram,
+        solution: SerializedProgram,
+        max_cost: int,
 ) -> Tuple[Optional[Err], Optional[List[ConditionWithArgs]], uint64]:
     # get the standard script for a puzzle hash and feed in the solution
     try:

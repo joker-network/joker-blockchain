@@ -29,7 +29,7 @@ async def disconnect_all_and_reconnect(server: JokerServer, reconnect_to: JokerS
 
 
 async def add_dummy_connection(
-    server: JokerServer, dummy_port: int, type: NodeType = NodeType.FULL_NODE
+        server: JokerServer, dummy_port: int, type: NodeType = NodeType.FULL_NODE
 ) -> Tuple[asyncio.Queue, bytes32]:
     timeout = aiohttp.ClientTimeout(total=10)
     session = aiohttp.ClientSession(timeout=timeout)

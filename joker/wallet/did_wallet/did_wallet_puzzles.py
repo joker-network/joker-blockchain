@@ -9,7 +9,6 @@ from joker.util.ints import uint64
 from joker.wallet.puzzles.load_clvm import load_clvm
 from joker.types.condition_opcodes import ConditionOpcode
 
-
 SINGLETON_TOP_LAYER_MOD = load_clvm("singleton_top_layer.clvm")
 LAUNCHER_PUZZLE = load_clvm("singleton_launcher.clvm")
 DID_INNERPUZ_MOD = load_clvm("did_innerpuz.clvm")

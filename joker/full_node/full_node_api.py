@@ -82,7 +82,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def respond_peers(
-        self, request: full_node_protocol.RespondPeers, peer: ws.WSJokerConnection
+            self, request: full_node_protocol.RespondPeers, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         self.log.debug(f"Received {len(request.peer_list)} peers")
         if self.full_node.full_node_peers is not None:
@@ -92,7 +92,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def respond_peers_introducer(
-        self, request: introducer_protocol.RespondPeersIntroducer, peer: ws.WSJokerConnection
+            self, request: introducer_protocol.RespondPeersIntroducer, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         self.log.debug(f"Received {len(request.peer_list)} peers from introducer")
         if self.full_node.full_node_peers is not None:
@@ -117,7 +117,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def new_transaction(
-        self, transaction: full_node_protocol.NewTransaction, peer: ws.WSJokerConnection
+            self, transaction: full_node_protocol.NewTransaction, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         """
         A peer notifies us of a new transaction.
@@ -217,11 +217,11 @@ class FullNodeAPI:
     @api_request
     @bytes_required
     async def respond_transaction(
-        self,
-        tx: full_node_protocol.RespondTransaction,
-        peer: ws.WSJokerConnection,
-        tx_bytes: bytes = b"",
-        test: bool = False,
+            self,
+            tx: full_node_protocol.RespondTransaction,
+            peer: ws.WSJokerConnection,
+            tx_bytes: bytes = b"",
+            test: bool = False,
     ) -> Optional[Message]:
         """
         Receives a full transaction from peer.
@@ -266,8 +266,8 @@ class FullNodeAPI:
 
         # Serialization of wp is slow
         if (
-            self.full_node.full_node_store.serialized_wp_message_tip is not None
-            and self.full_node.full_node_store.serialized_wp_message_tip == request.tip
+                self.full_node.full_node_store.serialized_wp_message_tip is not None
+                and self.full_node.full_node_store.serialized_wp_message_tip == request.tip
         ):
             return self.full_node.full_node_store.serialized_wp_message
         message = make_msg(
@@ -342,9 +342,9 @@ class FullNodeAPI:
                 blocks_bytes.append(block_bytes)
 
             respond_blocks_manually_streamed: bytes = (
-                bytes(uint32(request.start_height))
-                + bytes(uint32(request.end_height))
-                + len(blocks_bytes).to_bytes(4, "big", signed=False)
+                    bytes(uint32(request.start_height))
+                    + bytes(uint32(request.end_height))
+                    + len(blocks_bytes).to_bytes(4, "big", signed=False)
             )
             for block_bytes in blocks_bytes:
                 respond_blocks_manually_streamed += block_bytes
@@ -368,9 +368,9 @@ class FullNodeAPI:
     @api_request
     @peer_required
     async def respond_block(
-        self,
-        respond_block: full_node_protocol.RespondBlock,
-        peer: ws.WSJokerConnection,
+            self,
+            respond_block: full_node_protocol.RespondBlock,
+            peer: ws.WSJokerConnection,
     ) -> Optional[Message]:
         """
         Receive a full block from a peer full node (or ourselves).
@@ -381,7 +381,7 @@ class FullNodeAPI:
 
     @api_request
     async def new_unfinished_block(
-        self, new_unfinished_block: full_node_protocol.NewUnfinishedBlock
+            self, new_unfinished_block: full_node_protocol.NewUnfinishedBlock
     ) -> Optional[Message]:
         # Ignore if syncing
         if self.full_node.sync_store.get_sync_mode():
@@ -414,7 +414,7 @@ class FullNodeAPI:
     @api_request
     @reply_type([ProtocolMessageTypes.respond_unfinished_block])
     async def request_unfinished_block(
-        self, request_unfinished_block: full_node_protocol.RequestUnfinishedBlock
+            self, request_unfinished_block: full_node_protocol.RequestUnfinishedBlock
     ) -> Optional[Message]:
         unfinished_block: Optional[UnfinishedBlock] = self.full_node.full_node_store.get_unfinished_block(
             request_unfinished_block.unfinished_reward_hash
@@ -430,9 +430,9 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def respond_unfinished_block(
-        self,
-        respond_unfinished_block: full_node_protocol.RespondUnfinishedBlock,
-        peer: ws.WSJokerConnection,
+            self,
+            respond_unfinished_block: full_node_protocol.RespondUnfinishedBlock,
+            peer: ws.WSJokerConnection,
     ) -> Optional[Message]:
         if self.full_node.sync_store.get_sync_mode():
             return None
@@ -442,22 +442,22 @@ class FullNodeAPI:
     @api_request
     @peer_required
     async def new_signage_point_or_end_of_sub_slot(
-        self, new_sp: full_node_protocol.NewSignagePointOrEndOfSubSlot, peer: ws.WSJokerConnection
+            self, new_sp: full_node_protocol.NewSignagePointOrEndOfSubSlot, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         # Ignore if syncing
         if self.full_node.sync_store.get_sync_mode():
             return None
         if (
-            self.full_node.full_node_store.get_signage_point_by_index(
-                new_sp.challenge_hash,
-                new_sp.index_from_challenge,
-                new_sp.last_rc_infusion,
-            )
-            is not None
+                self.full_node.full_node_store.get_signage_point_by_index(
+                    new_sp.challenge_hash,
+                    new_sp.index_from_challenge,
+                    new_sp.last_rc_infusion,
+                )
+                is not None
         ):
             return None
         if self.full_node.full_node_store.have_newer_signage_point(
-            new_sp.challenge_hash, new_sp.index_from_challenge, new_sp.last_rc_infusion
+                new_sp.challenge_hash, new_sp.index_from_challenge, new_sp.last_rc_infusion
         ):
             return None
 
@@ -482,19 +482,19 @@ class FullNodeAPI:
                         return None
                     collected_eos.append(response)
                     if (
-                        self.full_node.full_node_store.get_sub_slot(
-                            response.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
-                        )
-                        is not None
-                        or response.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
-                        == self.full_node.constants.GENESIS_CHALLENGE
+                            self.full_node.full_node_store.get_sub_slot(
+                                response.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
+                            )
+                            is not None
+                            or response.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.challenge
+                            == self.full_node.constants.GENESIS_CHALLENGE
                     ):
                         for eos in reversed(collected_eos):
                             await self.respond_end_of_sub_slot(eos, peer)
                         return None
                     if (
-                        response.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.number_of_iterations
-                        != response.end_of_slot_bundle.reward_chain.end_of_slot_vdf.number_of_iterations
+                            response.end_of_slot_bundle.challenge_chain.challenge_chain_end_of_slot_vdf.number_of_iterations
+                            != response.end_of_slot_bundle.reward_chain.end_of_slot_vdf.number_of_iterations
                     ):
                         num_non_empty_sub_slots_seen += 1
                     challenge_hash_to_request = (
@@ -506,8 +506,8 @@ class FullNodeAPI:
 
         if new_sp.index_from_challenge > 0:
             if (
-                new_sp.challenge_hash != self.full_node.constants.GENESIS_CHALLENGE
-                and self.full_node.full_node_store.get_sub_slot(new_sp.challenge_hash) is None
+                    new_sp.challenge_hash != self.full_node.constants.GENESIS_CHALLENGE
+                    and self.full_node.full_node_store.get_sub_slot(new_sp.challenge_hash) is None
             ):
                 # If this is a normal signage point,, and we don't have the end of sub slot, request the end of sub slot
                 full_node_request = full_node_protocol.RequestSignagePointOrEndOfSubSlot(
@@ -525,7 +525,7 @@ class FullNodeAPI:
     @api_request
     @reply_type([ProtocolMessageTypes.respond_signage_point, ProtocolMessageTypes.respond_end_of_sub_slot])
     async def request_signage_point_or_end_of_sub_slot(
-        self, request: full_node_protocol.RequestSignagePointOrEndOfSubSlot
+            self, request: full_node_protocol.RequestSignagePointOrEndOfSubSlot
     ) -> Optional[Message]:
 
         if request.index_from_challenge == 0:
@@ -549,10 +549,10 @@ class FullNodeAPI:
             )
             if sp is not None:
                 assert (
-                    sp.cc_vdf is not None
-                    and sp.cc_proof is not None
-                    and sp.rc_vdf is not None
-                    and sp.rc_proof is not None
+                        sp.cc_vdf is not None
+                        and sp.cc_proof is not None
+                        and sp.rc_vdf is not None
+                        and sp.rc_proof is not None
                 )
                 full_node_response = full_node_protocol.RespondSignagePoint(
                     request.index_from_challenge,
@@ -569,7 +569,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def respond_signage_point(
-        self, request: full_node_protocol.RespondSignagePoint, peer: ws.WSJokerConnection
+            self, request: full_node_protocol.RespondSignagePoint, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         if self.full_node.sync_store.get_sync_mode():
             return None
@@ -577,9 +577,9 @@ class FullNodeAPI:
             # Already have signage point
 
             if self.full_node.full_node_store.have_newer_signage_point(
-                request.challenge_chain_vdf.challenge,
-                request.index_from_challenge,
-                request.reward_chain_vdf.challenge,
+                    request.challenge_chain_vdf.challenge,
+                    request.index_from_challenge,
+                    request.reward_chain_vdf.challenge,
             ):
                 return None
             existing_sp = self.full_node.full_node_store.get_signage_point(
@@ -625,7 +625,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def respond_end_of_sub_slot(
-        self, request: full_node_protocol.RespondEndOfSubSlot, peer: ws.WSJokerConnection
+            self, request: full_node_protocol.RespondEndOfSubSlot, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         if self.full_node.sync_store.get_sync_mode():
             return None
@@ -635,9 +635,9 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def request_mempool_transactions(
-        self,
-        request: full_node_protocol.RequestMempoolTransactions,
-        peer: ws.WSJokerConnection,
+            self,
+            request: full_node_protocol.RequestMempoolTransactions,
+            peer: ws.WSJokerConnection,
     ) -> Optional[Message]:
         received_filter = PyBIP158(bytearray(request.filter))
 
@@ -653,7 +653,7 @@ class FullNodeAPI:
     @api_request
     @peer_required
     async def declare_proof_of_space(
-        self, request: farmer_protocol.DeclareProofOfSpace, peer: ws.WSJokerConnection
+            self, request: farmer_protocol.DeclareProofOfSpace, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         """
         Creates a block body and header, with the proof of space, coinbase, and fee targets provided
@@ -802,9 +802,9 @@ class FullNodeAPI:
                     return None
 
                 if (
-                    len(finished_sub_slots) > 0
-                    and pos_sub_slot is not None
-                    and finished_sub_slots[-1] != pos_sub_slot[0]
+                        len(finished_sub_slots) > 0
+                        and pos_sub_slot is not None
+                        and finished_sub_slots[-1] != pos_sub_slot[0]
                 ):
                     self.log.error("Have different sub-slots than is required to farm this block")
                     return None
@@ -946,7 +946,7 @@ class FullNodeAPI:
     @api_request
     @peer_required
     async def signed_values(
-        self, farmer_request: farmer_protocol.SignedValues, peer: ws.WSJokerConnection
+            self, farmer_request: farmer_protocol.SignedValues, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         """
         Signature of header hash, by the harvester. This is enough to create an unfinished
@@ -963,9 +963,9 @@ class FullNodeAPI:
         height, candidate = candidate_tuple
 
         if not AugSchemeMPL.verify(
-            candidate.reward_chain_block.proof_of_space.plot_public_key,
-            candidate.foliage.foliage_block_data.get_hash(),
-            farmer_request.foliage_block_data_signature,
+                candidate.reward_chain_block.proof_of_space.plot_public_key,
+                candidate.foliage.foliage_block_data.get_hash(),
+                farmer_request.foliage_block_data_signature,
         ):
             self.log.warning("Signature not valid. There might be a collision in plots. Ignore this during tests.")
             return None
@@ -1011,7 +1011,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def new_infusion_point_vdf(
-        self, request: timelord_protocol.NewInfusionPointVDF, peer: ws.WSJokerConnection
+            self, request: timelord_protocol.NewInfusionPointVDF, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         if self.full_node.sync_store.get_sync_mode():
             return None
@@ -1022,7 +1022,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def new_signage_point_vdf(
-        self, request: timelord_protocol.NewSignagePointVDF, peer: ws.WSJokerConnection
+            self, request: timelord_protocol.NewSignagePointVDF, peer: ws.WSJokerConnection
     ) -> None:
         if self.full_node.sync_store.get_sync_mode():
             return None
@@ -1039,13 +1039,13 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def new_end_of_sub_slot_vdf(
-        self, request: timelord_protocol.NewEndOfSubSlotVDF, peer: ws.WSJokerConnection
+            self, request: timelord_protocol.NewEndOfSubSlotVDF, peer: ws.WSJokerConnection
     ) -> Optional[Message]:
         if self.full_node.sync_store.get_sync_mode():
             return None
         if (
-            self.full_node.full_node_store.get_sub_slot(request.end_of_sub_slot_bundle.challenge_chain.get_hash())
-            is not None
+                self.full_node.full_node_store.get_sub_slot(request.end_of_sub_slot_bundle.challenge_chain.get_hash())
+                is not None
         ):
             return None
         # Calls our own internal message to handle the end of sub slot, and potentially broadcasts to other peers.
@@ -1085,9 +1085,9 @@ class FullNodeAPI:
 
         # We lock so that the coin store does not get modified
         if (
-            block is None
-            or block.is_transaction_block() is False
-            or self.full_node.blockchain.height_to_hash(block.height) != request.header_hash
+                block is None
+                or block.is_transaction_block() is False
+                or self.full_node.blockchain.height_to_hash(block.height) != request.header_hash
         ):
             reject = wallet_protocol.RejectAdditionsRequest(request.height, request.header_hash)
 
@@ -1148,11 +1148,11 @@ class FullNodeAPI:
 
         # We lock so that the coin store does not get modified
         if (
-            block is None
-            or block.is_transaction_block() is False
-            or block.height != request.height
-            or block.height > self.full_node.blockchain.get_peak_height()
-            or self.full_node.blockchain.height_to_hash(block.height) != request.header_hash
+                block is None
+                or block.is_transaction_block() is False
+                or block.height != request.height
+                or block.height > self.full_node.blockchain.get_peak_height()
+                or self.full_node.blockchain.height_to_hash(block.height) != request.header_hash
         ):
             reject = wallet_protocol.RejectRemovalsRequest(request.height, request.header_hash)
             msg = make_msg(ProtocolMessageTypes.reject_removals_request, reject)
@@ -1295,7 +1295,7 @@ class FullNodeAPI:
     @api_request
     @bytes_required
     async def new_compact_vdf(
-        self, request: full_node_protocol.NewCompactVDF, peer: ws.WSJokerConnection, request_bytes: bytes = b""
+            self, request: full_node_protocol.NewCompactVDF, peer: ws.WSJokerConnection, request_bytes: bytes = b""
     ):
         if self.full_node.sync_store.get_sync_mode():
             return None
@@ -1336,7 +1336,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def register_interest_in_puzzle_hash(
-        self, request: wallet_protocol.RegisterForPhUpdates, peer: ws.WSJokerConnection
+            self, request: wallet_protocol.RegisterForPhUpdates, peer: ws.WSJokerConnection
     ):
         if peer.peer_node_id not in self.full_node.peer_puzzle_hash:
             self.full_node.peer_puzzle_hash[peer.peer_node_id] = set()
@@ -1352,8 +1352,8 @@ class FullNodeAPI:
             if puzzle_hash not in self.full_node.ph_subscriptions:
                 self.full_node.ph_subscriptions[puzzle_hash] = set()
             if (
-                peer.peer_node_id not in self.full_node.ph_subscriptions[puzzle_hash]
-                and self.full_node.peer_sub_counter[peer.peer_node_id] < 100000
+                    peer.peer_node_id not in self.full_node.ph_subscriptions[puzzle_hash]
+                    and self.full_node.peer_sub_counter[peer.peer_node_id] < 100000
             ):
                 self.full_node.ph_subscriptions[puzzle_hash].add(peer.peer_node_id)
                 self.full_node.peer_puzzle_hash[peer.peer_node_id].add(puzzle_hash)
@@ -1377,7 +1377,7 @@ class FullNodeAPI:
     @peer_required
     @api_request
     async def register_interest_in_coin(
-        self, request: wallet_protocol.RegisterForCoinUpdates, peer: ws.WSJokerConnection
+            self, request: wallet_protocol.RegisterForCoinUpdates, peer: ws.WSJokerConnection
     ):
         if peer.peer_node_id not in self.full_node.peer_coin_ids:
             self.full_node.peer_coin_ids[peer.peer_node_id] = set()
@@ -1389,8 +1389,8 @@ class FullNodeAPI:
             if coin_id not in self.full_node.coin_subscriptions:
                 self.full_node.coin_subscriptions[coin_id] = set()
             if (
-                peer.peer_node_id not in self.full_node.coin_subscriptions[coin_id]
-                and self.full_node.peer_sub_counter[peer.peer_node_id] < 100000
+                    peer.peer_node_id not in self.full_node.coin_subscriptions[coin_id]
+                    and self.full_node.peer_sub_counter[peer.peer_node_id] < 100000
             ):
                 self.full_node.coin_subscriptions[coin_id].add(peer.peer_node_id)
                 self.full_node.peer_coin_ids[peer.peer_node_id].add(coin_id)

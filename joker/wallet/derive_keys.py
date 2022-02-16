@@ -4,6 +4,7 @@ from blspy import AugSchemeMPL, PrivateKey, G1Element
 
 from joker.util.ints import uint32
 
+
 # EIP 2334 bls key derivation
 # https://eips.ethereum.org/EIPS/eip-2334
 # 12381 = bls spec number

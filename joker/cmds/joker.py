@@ -50,10 +50,10 @@ def monkey_patch_click() -> None:
 @click.option("--passphrase-file", type=click.File("r"), help="File or descriptor to read the keyring passphrase from")
 @click.pass_context
 def cli(
-    ctx: click.Context,
-    root_path: str,
-    keys_root_path: Optional[str] = None,
-    passphrase_file: Optional[TextIOWrapper] = None,
+        ctx: click.Context,
+        root_path: str,
+        keys_root_path: Optional[str] = None,
+        passphrase_file: Optional[TextIOWrapper] = None,
 ) -> None:
     from pathlib import Path
 

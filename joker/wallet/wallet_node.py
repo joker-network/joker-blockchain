@@ -89,12 +89,12 @@ class WalletNode:
     wallet_peers_initialized: bool
 
     def __init__(
-        self,
-        config: Dict,
-        root_path: Path,
-        consensus_constants: ConsensusConstants,
-        name: str = None,
-        local_keychain: Optional[Keychain] = None,
+            self,
+            config: Dict,
+            root_path: Path,
+            consensus_constants: ConsensusConstants,
+            name: str = None,
+            local_keychain: Optional[Keychain] = None,
     ):
         self.config = config
         self.constants = consensus_constants
@@ -154,11 +154,11 @@ class WalletNode:
         return key
 
     async def _start(
-        self,
-        fingerprint: Optional[int] = None,
-        new_wallet: bool = False,
-        backup_file: Optional[Path] = None,
-        skip_backup_import: bool = False,
+            self,
+            fingerprint: Optional[int] = None,
+            new_wallet: bool = False,
+            backup_file: Optional[Path] = None,
+            skip_backup_import: bool = False,
     ) -> bool:
         try:
             private_key = await self.get_key_for_fingerprint(fingerprint)
@@ -176,8 +176,8 @@ class WalletNode:
         db_path_key_suffix = str(private_key.get_g1().get_fingerprint())
         db_path_replaced: str = (
             self.config["database_path"]
-            .replace("CHALLENGE", self.config["selected_network"])
-            .replace("KEY", db_path_key_suffix)
+                .replace("CHALLENGE", self.config["selected_network"])
+                .replace("KEY", db_path_key_suffix)
         )
         path = path_from_root(self.root_path, db_path_replaced)
         mkdir(path.parent)
@@ -293,19 +293,19 @@ class WalletNode:
 
     async def _resend_queue(self):
         if (
-            self._shut_down
-            or self.server is None
-            or self.wallet_state_manager is None
-            or self.backup_initialized is None
+                self._shut_down
+                or self.server is None
+                or self.wallet_state_manager is None
+                or self.backup_initialized is None
         ):
             return None
 
         for msg, sent_peers in await self._messages_to_resend():
             if (
-                self._shut_down
-                or self.server is None
-                or self.wallet_state_manager is None
-                or self.backup_initialized is None
+                    self._shut_down
+                    or self.server is None
+                    or self.wallet_state_manager is None
+                    or self.backup_initialized is None
             ):
                 return None
             full_nodes = self.server.get_full_node_connections()
@@ -316,10 +316,10 @@ class WalletNode:
 
         for msg in await self._action_messages():
             if (
-                self._shut_down
-                or self.server is None
-                or self.wallet_state_manager is None
-                or self.backup_initialized is None
+                    self._shut_down
+                    or self.server is None
+                    or self.wallet_state_manager is None
+                    or self.backup_initialized is None
             ):
                 return None
             await self.server.send_to_all([msg], NodeType.FULL_NODE)
@@ -405,8 +405,8 @@ class WalletNode:
                 self.log.info(f"Will not attempt to connect to other nodes, already connected to {full_node_peer}")
                 for connection in self.server.get_full_node_connections():
                     if (
-                        connection.get_peer_info() != full_node_peer
-                        and connection.get_peer_info() != full_node_resolved
+                            connection.get_peer_info() != full_node_peer
+                            and connection.get_peer_info() != full_node_resolved
                     ):
                         self.log.info(f"Closing unnecessary connection to {connection.get_peer_logging()}.")
                         asyncio.create_task(connection.close())
@@ -488,7 +488,7 @@ class WalletNode:
             header_block = response.header_block
             curr_peak_height = 0 if curr_peak is None else curr_peak.height
             if (curr_peak_height == 0 and peak.height < self.constants.WEIGHT_PROOF_RECENT_BLOCKS) or (
-                curr_peak_height > peak.height - 200
+                    curr_peak_height > peak.height - 200
             ):
 
                 if peak.height <= curr_peak_height + self.config["short_sync_blocks_behind_threshold"]:
@@ -673,11 +673,11 @@ class WalletNode:
             await self.batch_sync_to_peak(fork_height, peak)
 
     async def fetch_blocks_and_validate(
-        self,
-        peer: WSJokerConnection,
-        height_start: uint32,
-        height_end: uint32,
-        fork_point_with_peak: Optional[uint32],
+            self,
+            peer: WSJokerConnection,
+            height_start: uint32,
+            height_end: uint32,
+            fork_point_with_peak: Optional[uint32],
     ) -> Tuple[bool, bool]:
         """
         Returns whether the blocks validated, and whether the peak was advanced
@@ -768,10 +768,10 @@ class WalletNode:
         return True, advanced_peak
 
     def validate_additions(
-        self,
-        coins: List[Tuple[bytes32, List[Coin]]],
-        proofs: Optional[List[Tuple[bytes32, bytes, Optional[bytes]]]],
-        root,
+            self,
+            coins: List[Tuple[bytes32, List[Coin]]],
+            proofs: Optional[List[Tuple[bytes32, bytes, Optional[bytes]]]],
+            root,
     ):
         if proofs is None:
             # Verify root
@@ -882,7 +882,7 @@ class WalletNode:
         return CoinSpend(coin, solution_response.response.puzzle, solution_response.response.solution)
 
     async def get_additional_coin_spends(
-        self, peer, block, added_coins: List[Coin], removed_coins: List[Coin]
+            self, peer, block, added_coins: List[Coin], removed_coins: List[Coin]
     ) -> List[CoinSpend]:
         assert self.wallet_state_manager is not None
         additional_coin_spends: List[CoinSpend] = []
@@ -927,7 +927,7 @@ class WalletNode:
         return additional_coin_spends
 
     async def get_additions(
-        self, peer: WSJokerConnection, block_i, additions: Optional[List[bytes32]], get_all_additions: bool = False
+            self, peer: WSJokerConnection, block_i, additions: Optional[List[bytes32]], get_all_additions: bool = False
     ) -> Optional[List[Coin]]:
         if (additions is not None and len(additions) > 0) or get_all_additions:
             if get_all_additions:
@@ -961,7 +961,7 @@ class WalletNode:
             return []  # No added coins
 
     async def get_removals(
-        self, peer: WSJokerConnection, block_i, additions, removals, request_all_removals=False
+            self, peer: WSJokerConnection, block_i, additions, removals, request_all_removals=False
     ) -> Optional[List[Coin]]:
         assert self.wallet_state_manager is not None
         # Check if we need all removals
@@ -1012,7 +1012,7 @@ class WalletNode:
 
 
 async def wallet_next_block_check(
-    peer: WSJokerConnection, potential_peek: uint32, blockchain: BlockchainInterface
+        peer: WSJokerConnection, potential_peek: uint32, blockchain: BlockchainInterface
 ) -> bool:
     block_response = await peer.request_header_blocks(
         wallet_protocol.RequestHeaderBlocks(potential_peek, potential_peek)

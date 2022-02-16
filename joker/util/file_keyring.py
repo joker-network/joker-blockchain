@@ -17,7 +17,6 @@ from typing import Any, Dict, Optional
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
-
 SALT_BYTES = 16  # PBKDF2 param
 NONCE_BYTES = 12  # ChaCha20Poly1305 nonce is 12-bytes
 HASH_ITERS = 100000  # PBKDF2 param
@@ -386,7 +385,7 @@ class FileKeyring(FileSystemEventHandler):
         decrypted_data = self.decrypt_data(encrypted_payload, key, nonce)
         if not self.have_valid_checkbytes(decrypted_data):
             raise ValueError("decryption failure (checkbytes)")
-        inner_payload = decrypted_data[len(CHECKBYTES_VALUE) :]
+        inner_payload = decrypted_data[len(CHECKBYTES_VALUE):]
 
         self.payload_cache = dict(yaml.safe_load(inner_payload))
 

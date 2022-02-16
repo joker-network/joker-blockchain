@@ -70,7 +70,7 @@ class WalletInterestedStore:
         return row[0]
 
     async def add_interested_puzzle_hash(
-        self, puzzle_hash: bytes32, wallet_id: int, in_transaction: bool = False
+            self, puzzle_hash: bytes32, wallet_id: int, in_transaction: bool = False
     ) -> None:
 
         if not in_transaction:

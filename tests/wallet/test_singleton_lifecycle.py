@@ -18,7 +18,6 @@ from joker.wallet.puzzles.load_clvm import load_clvm
 
 from tests.core.full_node.test_conditions import bt, check_spend_bundle_validity, initial_blocks
 
-
 SINGLETON_MOD = load_clvm("singleton_top_layer.clvm")
 LAUNCHER_PUZZLE = load_clvm("singleton_launcher.clvm")
 P2_SINGLETON_MOD = load_clvm("p2_singleton.clvm")
@@ -44,11 +43,11 @@ def adaptor_for_singleton_inner_puzzle(puzzle: Program) -> Program:
 
 
 def launcher_conditions_and_spend_bundle(
-    parent_coin_id: bytes32,
-    launcher_amount: uint64,
-    initial_singleton_inner_puzzle: Program,
-    metadata: List[Tuple[str, str]],
-    launcher_puzzle: Program = LAUNCHER_PUZZLE,
+        parent_coin_id: bytes32,
+        launcher_amount: uint64,
+        initial_singleton_inner_puzzle: Program,
+        metadata: List[Tuple[str, str]],
+        launcher_puzzle: Program = LAUNCHER_PUZZLE,
 ) -> Tuple[Program, bytes32, List[Program], SpendBundle]:
     launcher_puzzle_hash = launcher_puzzle.get_tree_hash()
     launcher_coin = Coin(parent_coin_id, launcher_puzzle_hash, launcher_amount)

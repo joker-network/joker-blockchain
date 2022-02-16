@@ -6,7 +6,7 @@ from joker.server.ws_connection import WSJokerConnection
 
 
 async def send_all_first_reply(
-    func: str, arg: Any, peers: List[WSJokerConnection], timeout=15
+        func: str, arg: Any, peers: List[WSJokerConnection], timeout=15
 ) -> Optional[Tuple[Any, WSJokerConnection]]:
     """performs an API request to peers and returns the result of the first response and the peer that sent it."""
 
@@ -37,7 +37,8 @@ async def send_all_first_reply(
         return None
 
 
-async def send_to_random(func: str, arg: Any, peers: List[WSJokerConnection]) -> Optional[Tuple[Any, WSJokerConnection]]:
+async def send_to_random(func: str, arg: Any, peers: List[WSJokerConnection]) -> Optional[
+    Tuple[Any, WSJokerConnection]]:
     """performs an API request to peers and returns the result of the first response and the peer that sent it."""
 
     async def do_func(peer_x: WSJokerConnection, func_x: str, arg_x: Any):

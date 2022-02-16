@@ -327,13 +327,13 @@ class PoolWallet:
 
     @staticmethod
     async def create(
-        wallet_state_manager: Any,
-        wallet: Wallet,
-        launcher_coin_id: bytes32,
-        block_spends: List[CoinSpend],
-        block_height: uint32,
-        in_transaction: bool,
-        name: str = None,
+            wallet_state_manager: Any,
+            wallet: Wallet,
+            launcher_coin_id: bytes32,
+            block_spends: List[CoinSpend],
+            block_height: uint32,
+            in_transaction: bool,
+            name: str = None,
     ):
         """
         This creates a new PoolWallet with only one spend: the launcher spend. The DB MUST be committed after calling
@@ -369,10 +369,10 @@ class PoolWallet:
 
     @staticmethod
     async def create_from_db(
-        wallet_state_manager: Any,
-        wallet: Wallet,
-        wallet_info: WalletInfo,
-        name: str = None,
+            wallet_state_manager: Any,
+            wallet: Wallet,
+            wallet_info: WalletInfo,
+            name: str = None,
     ):
         """
         This creates a PoolWallet from DB. However, all data is already handled by WalletPoolStore, so we don't need
@@ -390,12 +390,12 @@ class PoolWallet:
 
     @staticmethod
     async def create_new_pool_wallet_transaction(
-        wallet_state_manager: Any,
-        main_wallet: Wallet,
-        initial_target_state: PoolState,
-        fee: uint64 = uint64(0),
-        p2_singleton_delay_time: Optional[uint64] = None,
-        p2_singleton_delayed_ph: Optional[bytes32] = None,
+            wallet_state_manager: Any,
+            main_wallet: Wallet,
+            initial_target_state: PoolState,
+            fee: uint64 = uint64(0),
+            p2_singleton_delay_time: Optional[uint64] = None,
+            p2_singleton_delayed_ph: Optional[bytes32] = None,
     ) -> Tuple[TransactionRecord, bytes32, bytes32]:
         """
         A "plot NFT", or pool wallet, represents the idea of a set of plots that all pay to
@@ -571,12 +571,12 @@ class PoolWallet:
 
     @staticmethod
     async def generate_launcher_spend(
-        standard_wallet: Wallet,
-        amount: uint64,
-        initial_target_state: PoolState,
-        genesis_challenge: bytes32,
-        delay_time: uint64,
-        delay_ph: bytes32,
+            standard_wallet: Wallet,
+            amount: uint64,
+            initial_target_state: PoolState,
+            genesis_challenge: bytes32,
+            delay_time: uint64,
+            delay_ph: bytes32,
     ) -> Tuple[SpendBundle, bytes32, bytes32]:
         """
         Creates the initial singleton, which includes spending an origin coin, the launcher, and creating a singleton
@@ -811,8 +811,8 @@ class PoolWallet:
             raise ValueError("Internal error")
 
         if (
-            self.target_state.state in [FARMING_TO_POOL, SELF_POOLING]
-            and pool_wallet_info.current.state == LEAVING_POOL
+                self.target_state.state in [FARMING_TO_POOL, SELF_POOLING]
+                and pool_wallet_info.current.state == LEAVING_POOL
         ):
             leave_height = tip_height + pool_wallet_info.current.relative_lock_height
 

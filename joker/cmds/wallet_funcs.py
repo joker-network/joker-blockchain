@@ -127,7 +127,7 @@ def wallet_coin_unit(typ: WalletType, address_prefix: str) -> Tuple[str, int]:
 
 
 def print_balance(amount: int, scale: int, address_prefix: str) -> str:
-    ret = f"{amount/scale} {address_prefix} "
+    ret = f"{amount / scale} {address_prefix} "
     if scale > 1:
         ret += f"({amount} mojo)"
     return ret
@@ -169,7 +169,7 @@ async def get_wallet(wallet_client: WalletRpcClient, fingerprint: int = None) ->
     else:
         print("Choose wallet key:")
         for i, fp in enumerate(fingerprints):
-            print(f"{i+1}) {fp}")
+            print(f"{i + 1}) {fp}")
         val = None
         while val is None:
             val = input("Enter a number to pick or q to quit: ")
@@ -227,7 +227,7 @@ async def get_wallet(wallet_client: WalletRpcClient, fingerprint: int = None) ->
 
 
 async def execute_with_wallet(
-    wallet_rpc_port: Optional[int], fingerprint: int, extra_params: Dict, function: Callable
+        wallet_rpc_port: Optional[int], fingerprint: int, extra_params: Dict, function: Callable
 ) -> None:
     try:
         config = load_config(DEFAULT_ROOT_PATH, "config.yaml")

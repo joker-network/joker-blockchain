@@ -42,12 +42,12 @@ class DIDWallet:
 
     @staticmethod
     async def create_new_did_wallet(
-        wallet_state_manager: Any,
-        wallet: Wallet,
-        amount: uint64,
-        backups_ids: List = [],
-        num_of_backup_ids_needed: uint64 = None,
-        name: str = None,
+            wallet_state_manager: Any,
+            wallet: Wallet,
+            amount: uint64,
+            backups_ids: List = [],
+            num_of_backup_ids_needed: uint64 = None,
+            name: str = None,
     ):
         """
         This must be called under the wallet state manager lock
@@ -137,10 +137,10 @@ class DIDWallet:
 
     @staticmethod
     async def create_new_did_wallet_from_recovery(
-        wallet_state_manager: Any,
-        wallet: Wallet,
-        filename: str,
-        name: str = None,
+            wallet_state_manager: Any,
+            wallet: Wallet,
+            filename: str,
+            name: str = None,
     ):
         self = DIDWallet()
         self.base_puzzle_program = None
@@ -164,10 +164,10 @@ class DIDWallet:
 
     @staticmethod
     async def create(
-        wallet_state_manager: Any,
-        wallet: Wallet,
-        wallet_info: WalletInfo,
-        name: str = None,
+            wallet_state_manager: Any,
+            wallet: Wallet,
+            wallet_info: WalletInfo,
+            name: str = None,
     ):
         self = DIDWallet()
         self.log = logging.getLogger(name if name else __name__)
@@ -310,7 +310,7 @@ class DIDWallet:
                 output_str = output_str + did.hex() + ","
             output_str = output_str[:-1]
             output_str = (
-                output_str + f":{bytes(self.did_info.current_inner).hex()}:{self.did_info.num_of_backup_ids_needed}"
+                    output_str + f":{bytes(self.did_info.current_inner).hex()}:{self.did_info.num_of_backup_ids_needed}"
             )
             f.write(output_str)
             f.close()
@@ -478,9 +478,9 @@ class DIDWallet:
         list_of_solutions = [CoinSpend(coin, full_puzzle, fullsol)]
         # sign for AGG_SIG_ME
         message = (
-            Program.to([new_puzhash, coin.amount, []]).get_tree_hash()
-            + coin.name()
-            + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
+                Program.to([new_puzhash, coin.amount, []]).get_tree_hash()
+                + coin.name()
+                + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
         )
         pubkey = did_wallet_puzzles.get_pubkey_from_innerpuz(innerpuz)
         index = await self.wallet_state_manager.puzzle_store.index_for_pubkey(pubkey)
@@ -546,9 +546,9 @@ class DIDWallet:
         # sign for AGG_SIG_ME
         # new_inner_puzhash amount message
         message = (
-            Program.to([new_innerpuzhash, coin.amount, messages]).get_tree_hash()
-            + coin.name()
-            + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
+                Program.to([new_innerpuzhash, coin.amount, messages]).get_tree_hash()
+                + coin.name()
+                + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
         )
         pubkey = did_wallet_puzzles.get_pubkey_from_innerpuz(innerpuz)
         index = await self.wallet_state_manager.puzzle_store.index_for_pubkey(pubkey)
@@ -612,9 +612,9 @@ class DIDWallet:
         list_of_solutions = [CoinSpend(coin, full_puzzle, fullsol)]
         # sign for AGG_SIG_ME
         message = (
-            Program.to([amount, puzhash]).get_tree_hash()
-            + coin.name()
-            + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
+                Program.to([amount, puzhash]).get_tree_hash()
+                + coin.name()
+                + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
         )
         pubkey = did_wallet_puzzles.get_pubkey_from_innerpuz(innerpuz)
         index = await self.wallet_state_manager.puzzle_store.index_for_pubkey(pubkey)
@@ -648,7 +648,7 @@ class DIDWallet:
     # Pushes the a SpendBundle to create a message coin on the blockchain
     # Returns a SpendBundle for the recoverer to spend the message coin
     async def create_attestment(
-        self, recovering_coin_name: bytes32, newpuz: bytes32, pubkey: G1Element, filename=None
+            self, recovering_coin_name: bytes32, newpuz: bytes32, pubkey: G1Element, filename=None
     ) -> SpendBundle:
         assert self.did_info.current_inner is not None
         assert self.did_info.origin_coin is not None
@@ -775,12 +775,12 @@ class DIDWallet:
             raise
 
     async def recovery_spend(
-        self,
-        coin: Coin,
-        puzhash: bytes32,
-        parent_innerpuzhash_amounts_for_recovery_ids: List[Tuple[bytes, bytes, int]],
-        pubkey: G1Element,
-        spend_bundle: SpendBundle,
+            self,
+            coin: Coin,
+            puzhash: bytes32,
+            parent_innerpuzhash_amounts_for_recovery_ids: List[Tuple[bytes, bytes, int]],
+            pubkey: G1Element,
+            spend_bundle: SpendBundle,
     ) -> SpendBundle:
         assert self.did_info.origin_coin is not None
 
@@ -986,9 +986,9 @@ class DIDWallet:
         list_of_solutions = [CoinSpend(coin, full_puzzle, fullsol)]
         # sign for AGG_SIG_ME
         message = (
-            Program.to([innerpuz.get_tree_hash(), coin.amount, []]).get_tree_hash()
-            + coin.name()
-            + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
+                Program.to([innerpuz.get_tree_hash(), coin.amount, []]).get_tree_hash()
+                + coin.name()
+                + self.wallet_state_manager.constants.AGG_SIG_ME_ADDITIONAL_DATA
         )
         pubkey = did_wallet_puzzles.get_pubkey_from_innerpuz(innerpuz)
         index = await self.wallet_state_manager.puzzle_store.index_for_pubkey(pubkey)

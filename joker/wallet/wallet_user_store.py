@@ -54,7 +54,7 @@ class WalletUserStore:
         await self.db_connection.commit()
 
     async def create_wallet(
-        self, name: str, wallet_type: int, data: str, id: Optional[int] = None, in_transaction=False
+            self, name: str, wallet_type: int, data: str, id: Optional[int] = None, in_transaction=False
     ) -> Optional[WalletInfo]:
 
         if not in_transaction:

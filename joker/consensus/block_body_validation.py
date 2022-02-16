@@ -6,7 +6,8 @@ from chiabip158 import PyBIP158
 from clvm.casts import int_from_bytes
 
 from joker.consensus.block_record import BlockRecord
-from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward,calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, \
+    calculate_pool_reward
 from joker.consensus.block_root_validation import validate_block_merkle_roots
 from joker.full_node.mempool_check_conditions import mempool_check_conditions_dict
 from joker.consensus.blockchain_interface import BlockchainInterface
@@ -40,16 +41,16 @@ log = logging.getLogger(__name__)
 
 
 async def validate_block_body(
-    constants: ConsensusConstants,
-    blocks: BlockchainInterface,
-    block_store: BlockStore,
-    coin_store: CoinStore,
-    peak: Optional[BlockRecord],
-    block: Union[FullBlock, UnfinishedBlock],
-    height: uint32,
-    npc_result: Optional[NPCResult],
-    fork_point_with_peak: Optional[uint32],
-    get_block_generator: Callable,
+        constants: ConsensusConstants,
+        blocks: BlockchainInterface,
+        block_store: BlockStore,
+        coin_store: CoinStore,
+        peak: Optional[BlockRecord],
+        block: Union[FullBlock, UnfinishedBlock],
+        height: uint32,
+        npc_result: Optional[NPCResult],
+        fork_point_with_peak: Optional[uint32],
+        get_block_generator: Callable,
 ) -> Tuple[Optional[Err], Optional[NPCResult]]:
     """
     This assumes the header block has been completely validated.
@@ -68,9 +69,9 @@ async def validate_block_body(
     # None
     if block.foliage.foliage_transaction_block_hash is None:
         if (
-            block.foliage_transaction_block is not None
-            or block.transactions_info is not None
-            or block.transactions_generator is not None
+                block.foliage_transaction_block is not None
+                or block.transactions_info is not None
+                or block.transactions_generator is not None
         ):
             return Err.NOT_BLOCK_BUT_HAS_DATA, None
 
@@ -478,7 +479,7 @@ async def validate_block_body(
     # finished blocks later.
     force_cache: bool = isinstance(block, UnfinishedBlock)
     if not cached_bls.aggregate_verify(
-        pairs_pks, pairs_msgs, block.transactions_info.aggregated_signature, force_cache
+            pairs_pks, pairs_msgs, block.transactions_info.aggregated_signature, force_cache
     ):
         return Err.BAD_AGGREGATE_SIGNATURE, None
 

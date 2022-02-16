@@ -6,7 +6,8 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 from blspy import PrivateKey, G1Element
 
-from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, \
+    calculate_pool_reward
 from joker.pools.pool_wallet import PoolWallet
 from joker.pools.pool_wallet_info import create_pool_state, FARMING_TO_POOL, PoolWalletInfo, PoolState
 from joker.protocols.protocol_message_types import ProtocolMessageTypes
@@ -296,7 +297,7 @@ class WalletRpcApi:
         return {}
 
     async def _check_key_used_for_rewards(
-        self, new_root: Path, sk: PrivateKey, max_ph_to_search: int
+            self, new_root: Path, sk: PrivateKey, max_ph_to_search: int
     ) -> Tuple[bool, bool]:
         """Checks if the given key is used for either the farmer rewards or pool rewards
         returns a tuple of two booleans

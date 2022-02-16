@@ -27,17 +27,17 @@ class DumpKeyring(FileKeyring):  # lgtm [py/missing-call-to-init]
 
 def get_passphrase_prompt(keyring_file: str) -> str:
     prompt = (
-        colorama.Fore.YELLOW
-        + colorama.Style.BRIGHT
-        + "(Unlock Keyring: "
-        + colorama.Fore.MAGENTA
-        + keyring_file
-        + colorama.Style.RESET_ALL
-        + colorama.Fore.YELLOW
-        + colorama.Style.BRIGHT
-        + ")"
-        + colorama.Style.RESET_ALL
-        + " Passphrase: "
+            colorama.Fore.YELLOW
+            + colorama.Style.BRIGHT
+            + "(Unlock Keyring: "
+            + colorama.Fore.MAGENTA
+            + keyring_file
+            + colorama.Style.RESET_ALL
+            + colorama.Fore.YELLOW
+            + colorama.Style.BRIGHT
+            + ")"
+            + colorama.Style.RESET_ALL
+            + " Passphrase: "
     )  # noqa: E501
     return prompt
 
@@ -87,7 +87,7 @@ def dump(keyring_file, full_payload: bool, passphrase_file: Optional[TextIOWrapp
 
 
 def dump_to_string(
-    keyring_file, full_payload: bool, passphrase_file: Optional[TextIOWrapper], pretty_print: bool
+        keyring_file, full_payload: bool, passphrase_file: Optional[TextIOWrapper], pretty_print: bool
 ) -> str:
     saved_passphrase: Optional[str] = KeyringWrapper.get_shared_instance().get_master_passphrase_from_credential_store()
     passphrase: str = saved_passphrase or DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE

@@ -42,7 +42,7 @@ class TestDaemon:
     @pytest.fixture(scope="function")
     async def simulation(self):
         async for _ in setup_full_system(
-            b_tools_1.constants, b_tools=b_tools, b_tools_1=b_tools_1, connect_to_daemon=True
+                b_tools_1.constants, b_tools=b_tools, b_tools_1=b_tools_1, connect_to_daemon=True
         ):
             yield _
 
@@ -183,12 +183,12 @@ class TestDaemon:
 
         async with aiohttp.ClientSession() as session:
             async with session.ws_connect(
-                "wss://127.0.0.1:55401",
-                autoclose=True,
-                autoping=True,
-                heartbeat=60,
-                ssl=local_b_tools.get_daemon_ssl_context(),
-                max_msg_size=52428800,
+                    "wss://127.0.0.1:55401",
+                    autoclose=True,
+                    autoping=True,
+                    heartbeat=60,
+                    ssl=local_b_tools.get_daemon_ssl_context(),
+                    max_msg_size=52428800,
             ) as ws:
                 # When: using the correct passphrase
                 await ws.send_str(

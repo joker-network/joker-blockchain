@@ -37,13 +37,13 @@ SINGLETON_MOD_HASH_HASH = Program.to(SINGLETON_MOD_HASH).get_tree_hash()
 
 
 def create_waiting_room_inner_puzzle(
-    target_puzzle_hash: bytes32,
-    relative_lock_height: uint32,
-    owner_pubkey: G1Element,
-    launcher_id: bytes32,
-    genesis_challenge: bytes32,
-    delay_time: uint64,
-    delay_ph: bytes32,
+        target_puzzle_hash: bytes32,
+        relative_lock_height: uint32,
+        owner_pubkey: G1Element,
+        launcher_id: bytes32,
+        genesis_challenge: bytes32,
+        delay_time: uint64,
+        delay_ph: bytes32,
 ) -> Program:
     pool_reward_prefix = bytes32(genesis_challenge[:16] + b"\x00" * 16)
     p2_singleton_puzzle_hash: bytes32 = launcher_id_to_p2_puzzle_hash(launcher_id, delay_time, delay_ph)
@@ -53,13 +53,13 @@ def create_waiting_room_inner_puzzle(
 
 
 def create_pooling_inner_puzzle(
-    target_puzzle_hash: bytes,
-    pool_waiting_room_inner_hash: bytes32,
-    owner_pubkey: G1Element,
-    launcher_id: bytes32,
-    genesis_challenge: bytes32,
-    delay_time: uint64,
-    delay_ph: bytes32,
+        target_puzzle_hash: bytes,
+        pool_waiting_room_inner_hash: bytes32,
+        owner_pubkey: G1Element,
+        launcher_id: bytes32,
+        genesis_challenge: bytes32,
+        delay_time: uint64,
+        delay_ph: bytes32,
 ) -> Program:
     pool_reward_prefix = bytes32(genesis_challenge[:16] + b"\x00" * 16)
     p2_singleton_puzzle_hash: bytes32 = launcher_id_to_p2_puzzle_hash(launcher_id, delay_time, delay_ph)
@@ -77,10 +77,10 @@ def create_full_puzzle(inner_puzzle: Program, launcher_id: bytes32) -> Program:
 
 
 def create_p2_singleton_puzzle(
-    singleton_mod_hash: bytes,
-    launcher_id: bytes32,
-    seconds_delay: uint64,
-    delayed_puzzle_hash: bytes32,
+        singleton_mod_hash: bytes,
+        launcher_id: bytes32,
+        seconds_delay: uint64,
+        delayed_puzzle_hash: bytes32,
 ) -> Program:
     # curry params are SINGLETON_MOD_HASH LAUNCHER_ID LAUNCHER_PUZZLE_HASH SECONDS_DELAY DELAYED_PUZZLE_HASH
     return P2_SINGLETON_MOD.curry(
@@ -151,13 +151,13 @@ def is_pool_member_inner_puzzle(inner_puzzle: Program) -> bool:
 # If you are currently a waiting inner puzzle, then it will look at your target_state to determine the next
 # inner puzzle hash to go to. The member inner puzzle is already committed to its next puzzle hash.
 def create_travel_spend(
-    last_coin_spend: CoinSpend,
-    launcher_coin: Coin,
-    current: PoolState,
-    target: PoolState,
-    genesis_challenge: bytes32,
-    delay_time: uint64,
-    delay_ph: bytes32,
+        last_coin_spend: CoinSpend,
+        launcher_coin: Coin,
+        current: PoolState,
+        target: PoolState,
+        genesis_challenge: bytes32,
+        delay_time: uint64,
+        delay_ph: bytes32,
 ) -> Tuple[CoinSpend, Program]:
     inner_puzzle: Program = pool_state_to_inner_puzzle(
         current,
@@ -217,13 +217,13 @@ def create_travel_spend(
 
 
 def create_absorb_spend(
-    last_coin_spend: CoinSpend,
-    current_state: PoolState,
-    launcher_coin: Coin,
-    height: uint32,
-    genesis_challenge: bytes32,
-    delay_time: uint64,
-    delay_ph: bytes32,
+        last_coin_spend: CoinSpend,
+        current_state: PoolState,
+        launcher_coin: Coin,
+        height: uint32,
+        genesis_challenge: bytes32,
+        delay_time: uint64,
+        delay_ph: bytes32,
 ) -> List[CoinSpend]:
     inner_puzzle: Program = pool_state_to_inner_puzzle(
         current_state, launcher_coin.name(), genesis_challenge, delay_time, delay_ph
@@ -405,7 +405,7 @@ def solution_to_pool_state(full_spend: CoinSpend) -> Optional[PoolState]:
 
 
 def pool_state_to_inner_puzzle(
-    pool_state: PoolState, launcher_id: bytes32, genesis_challenge: bytes32, delay_time: uint64, delay_ph: bytes32
+        pool_state: PoolState, launcher_id: bytes32, genesis_challenge: bytes32, delay_time: uint64, delay_ph: bytes32
 ) -> Program:
     escaping_inner_puzzle: Program = create_waiting_room_inner_puzzle(
         pool_state.target_puzzle_hash,

@@ -17,7 +17,6 @@ from joker.types.blockchain_format.sized_bytes import bytes32
 from joker.types.blockchain_format.coin import Coin
 from joker.util.ints import uint64, uint32
 
-
 NUM_ITERS = 200
 
 # farmer puzzle hash
@@ -78,7 +77,6 @@ def rewards(height: uint32) -> Tuple[Coin, Coin]:
 
 
 async def run_new_block_benchmark():
-
     verbose: bool = "--verbose" in sys.argv
     sql_logging: bool = "--sql-logging" in sys.argv
     db_wrapper: DBWrapper = await setup_db(sql_logging)
@@ -342,7 +340,7 @@ async def run_new_block_benchmark():
         if verbose:
             print("")
         print(
-            f"{total_time:0.4f}s, GET COINS REMOVED AT HEIGHT {block_height-1} blocks, "
+            f"{total_time:0.4f}s, GET COINS REMOVED AT HEIGHT {block_height - 1} blocks, "
             f"found {found_coins} coins in total"
         )
         all_test_time += total_time

@@ -71,12 +71,12 @@ class CoinStore:
         return self
 
     async def new_block(
-        self,
-        height: uint32,
-        timestamp: uint64,
-        included_reward_coins: Set[Coin],
-        tx_additions: List[Coin],
-        tx_removals: List[bytes32],
+            self,
+            height: uint32,
+            timestamp: uint64,
+            included_reward_coins: Set[Coin],
+            tx_additions: List[Coin],
+            tx_removals: List[bytes32],
     ) -> List[CoinRecord]:
         """
         Only called for blocks which are blocks (and thus have rewards and transactions)
@@ -170,11 +170,11 @@ class CoinStore:
 
     # Checks DB and DiffStores for CoinRecords with puzzle_hash and returns them
     async def get_coin_records_by_puzzle_hash(
-        self,
-        include_spent_coins: bool,
-        puzzle_hash: bytes32,
-        start_height: uint32 = uint32(0),
-        end_height: uint32 = uint32((2 ** 32) - 1),
+            self,
+            include_spent_coins: bool,
+            puzzle_hash: bytes32,
+            start_height: uint32 = uint32(0),
+            end_height: uint32 = uint32((2 ** 32) - 1),
     ) -> List[CoinRecord]:
 
         coins = set()
@@ -193,11 +193,11 @@ class CoinStore:
         return list(coins)
 
     async def get_coin_records_by_puzzle_hashes(
-        self,
-        include_spent_coins: bool,
-        puzzle_hashes: List[bytes32],
-        start_height: uint32 = uint32(0),
-        end_height: uint32 = uint32((2 ** 32) - 1),
+            self,
+            include_spent_coins: bool,
+            puzzle_hashes: List[bytes32],
+            start_height: uint32 = uint32(0),
+            end_height: uint32 = uint32((2 ** 32) - 1),
     ) -> List[CoinRecord]:
         if len(puzzle_hashes) == 0:
             return []
@@ -221,11 +221,11 @@ class CoinStore:
         return list(coins)
 
     async def get_coin_records_by_names(
-        self,
-        include_spent_coins: bool,
-        names: List[bytes32],
-        start_height: uint32 = uint32(0),
-        end_height: uint32 = uint32((2 ** 32) - 1),
+            self,
+            include_spent_coins: bool,
+            names: List[bytes32],
+            start_height: uint32 = uint32(0),
+            end_height: uint32 = uint32((2 ** 32) - 1),
     ) -> List[CoinRecord]:
         if len(names) == 0:
             return []
@@ -258,11 +258,11 @@ class CoinStore:
         return CoinState(coin, spent_h, row[1])
 
     async def get_coin_states_by_puzzle_hashes(
-        self,
-        include_spent_coins: bool,
-        puzzle_hashes: List[bytes32],
-        start_height: uint32 = uint32(0),
-        end_height: uint32 = uint32((2 ** 32) - 1),
+            self,
+            include_spent_coins: bool,
+            puzzle_hashes: List[bytes32],
+            start_height: uint32 = uint32(0),
+            end_height: uint32 = uint32((2 ** 32) - 1),
     ) -> List[CoinState]:
         if len(puzzle_hashes) == 0:
             return []
@@ -285,11 +285,11 @@ class CoinStore:
         return list(coins)
 
     async def get_coin_records_by_parent_ids(
-        self,
-        include_spent_coins: bool,
-        parent_ids: List[bytes32],
-        start_height: uint32 = uint32(0),
-        end_height: uint32 = uint32((2 ** 32) - 1),
+            self,
+            include_spent_coins: bool,
+            parent_ids: List[bytes32],
+            start_height: uint32 = uint32(0),
+            end_height: uint32 = uint32((2 ** 32) - 1),
     ) -> List[CoinRecord]:
         if len(parent_ids) == 0:
             return []
@@ -312,11 +312,11 @@ class CoinStore:
         return list(coins)
 
     async def get_coin_state_by_ids(
-        self,
-        include_spent_coins: bool,
-        coin_ids: List[bytes32],
-        start_height: uint32 = uint32(0),
-        end_height: uint32 = uint32((2 ** 32) - 1),
+            self,
+            include_spent_coins: bool,
+            coin_ids: List[bytes32],
+            start_height: uint32 = uint32(0),
+            end_height: uint32 = uint32((2 ** 32) - 1),
     ) -> List[CoinState]:
         if len(coin_ids) == 0:
             return []

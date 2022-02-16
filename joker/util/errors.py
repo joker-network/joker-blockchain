@@ -155,6 +155,7 @@ class Err(Enum):
     INVALID_SPEND_BUNDLE = 126
     INVALID_COMMUNITY = 127
 
+
 class ValidationError(Exception):
     def __init__(self, code: Err, error_msg: str = ""):
         self.code = code

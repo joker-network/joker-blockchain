@@ -45,7 +45,6 @@ if not supports_keyring_passphrase():
     # TODO: Remove once keyring passphrase management is rolled out to all platforms
     remove_passphrase_options_from_cmd(init_cmd)
 
-
 if __name__ == "__main__":
     from .init_funcs import joker_init
     from joker.util.default_root import DEFAULT_ROOT_PATH

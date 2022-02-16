@@ -3,7 +3,8 @@ import asyncio
 from blspy import G2Element
 from clvm_tools import binutils
 
-from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, \
+    calculate_pool_reward
 from joker.rpc.full_node_rpc_client import FullNodeRpcClient
 from joker.types.blockchain_format.program import Program
 from joker.types.coin_spend import CoinSpend

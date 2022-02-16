@@ -327,7 +327,7 @@ class TestBlockchainTransactions:
 
         coin_2 = None
         for coin in run_and_get_removals_and_additions(
-            new_blocks[-1], test_constants.MAX_BLOCK_COST_CLVM, test_constants.COST_PER_BYTE
+                new_blocks[-1], test_constants.MAX_BLOCK_COST_CLVM, test_constants.COST_PER_BYTE
         )[1]:
             if coin.puzzle_hash == receiver_1_puzzlehash:
                 coin_2 = coin
@@ -348,7 +348,7 @@ class TestBlockchainTransactions:
 
         coin_3 = None
         for coin in run_and_get_removals_and_additions(
-            new_blocks[-1], test_constants.MAX_BLOCK_COST_CLVM, test_constants.COST_PER_BYTE
+                new_blocks[-1], test_constants.MAX_BLOCK_COST_CLVM, test_constants.COST_PER_BYTE
         )[1]:
             if coin.puzzle_hash == receiver_2_puzzlehash:
                 coin_3 = coin

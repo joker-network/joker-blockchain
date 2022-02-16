@@ -32,13 +32,13 @@ from joker.util.ssl_check import verify_ssl_certs_and_keys
 
 
 def ssl_context_for_server(
-    ca_cert: Path,
-    ca_key: Path,
-    private_cert_path: Path,
-    private_key_path: Path,
-    *,
-    check_permissions: bool = True,
-    log: Optional[logging.Logger] = None,
+        ca_cert: Path,
+        ca_key: Path,
+        private_cert_path: Path,
+        private_key_path: Path,
+        *,
+        check_permissions: bool = True,
+        log: Optional[logging.Logger] = None,
 ) -> Optional[ssl.SSLContext]:
     if check_permissions:
         verify_ssl_certs_and_keys([ca_cert, private_cert_path], [ca_key, private_key_path], log)
@@ -51,7 +51,7 @@ def ssl_context_for_server(
 
 
 def ssl_context_for_root(
-    ca_cert_file: str, *, check_permissions: bool = True, log: Optional[logging.Logger] = None
+        ca_cert_file: str, *, check_permissions: bool = True, log: Optional[logging.Logger] = None
 ) -> Optional[ssl.SSLContext]:
     if check_permissions:
         verify_ssl_certs_and_keys([Path(ca_cert_file)], [], log)
@@ -61,13 +61,13 @@ def ssl_context_for_root(
 
 
 def ssl_context_for_client(
-    ca_cert: Path,
-    ca_key: Path,
-    private_cert_path: Path,
-    private_key_path: Path,
-    *,
-    check_permissions: bool = True,
-    log: Optional[logging.Logger] = None,
+        ca_cert: Path,
+        ca_key: Path,
+        private_cert_path: Path,
+        private_key_path: Path,
+        *,
+        check_permissions: bool = True,
+        log: Optional[logging.Logger] = None,
 ) -> Optional[ssl.SSLContext]:
     if check_permissions:
         verify_ssl_certs_and_keys([ca_cert, private_cert_path], [ca_key, private_key_path], log)
@@ -81,21 +81,21 @@ def ssl_context_for_client(
 
 class JokerServer:
     def __init__(
-        self,
-        port: int,
-        node: Any,
-        api: Any,
-        local_type: NodeType,
-        ping_interval: int,
-        network_id: str,
-        inbound_rate_limit_percent: int,
-        outbound_rate_limit_percent: int,
-        root_path: Path,
-        config: Dict,
-        private_ca_crt_key: Tuple[Path, Path],
-        joker_ca_crt_key: Tuple[Path, Path],
-        name: str = None,
-        introducer_peers: Optional[IntroducerPeers] = None,
+            self,
+            port: int,
+            node: Any,
+            api: Any,
+            local_type: NodeType,
+            ping_interval: int,
+            network_id: str,
+            inbound_rate_limit_percent: int,
+            outbound_rate_limit_percent: int,
+            root_path: Path,
+            config: Dict,
+            private_ca_crt_key: Tuple[Path, Path],
+            joker_ca_crt_key: Tuple[Path, Path],
+            name: str = None,
+            introducer_peers: Optional[IntroducerPeers] = None,
     ):
         # Keeps track of all connections to and from this node.
         logging.basicConfig(level=logging.DEBUG)
@@ -279,7 +279,7 @@ class JokerServer:
             assert handshake is True
             # Limit inbound connections to config's specifications.
             if not self.accept_inbound_connections(connection.connection_type) and not is_in_network(
-                connection.peer_host, self.exempt_peer_networks
+                    connection.peer_host, self.exempt_peer_networks
             ):
                 self.log.info(
                     f"Not accepting inbound connection: {connection.get_peer_logging()}.Inbound limit reached."
@@ -346,11 +346,11 @@ class JokerServer:
         return False
 
     async def start_client(
-        self,
-        target_node: PeerInfo,
-        on_connect: Callable = None,
-        auth: bool = False,
-        is_feeler: bool = False,
+            self,
+            target_node: PeerInfo,
+            on_connect: Callable = None,
+            auth: bool = False,
+            is_feeler: bool = False,
     ) -> bool:
         """
         Tries to connect to the target node, adding one connection into the pipeline, if successful.
@@ -601,10 +601,10 @@ class JokerServer:
             self.tasks_from_peer[connection_inc.peer_node_id].add(task_id)
 
     async def send_to_others(
-        self,
-        messages: List[Message],
-        node_type: NodeType,
-        origin_peer: WSJokerConnection,
+            self,
+            messages: List[Message],
+            node_type: NodeType,
+            origin_peer: WSJokerConnection,
     ):
         for node_id, connection in self.all_connections.items():
             if node_id == origin_peer.peer_node_id:
@@ -714,7 +714,7 @@ class JokerServer:
         try:
             timeout = ClientTimeout(total=15)
             async with ClientSession(timeout=timeout) as session:
-                async with session.get("https://ip-joker.mykc.cc/") as resp:
+                async with session.get("https://ip.mykc.cc/") as resp:
                     if resp.status == 200:
                         ip = str(await resp.text())
                         ip = ip.rstrip()

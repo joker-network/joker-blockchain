@@ -153,9 +153,9 @@ def parse_plot_info(memo: bytes) -> Tuple[Union[G1Element, bytes32], G1Element, 
 
 
 def stream_plot_info_pk(
-    pool_public_key: G1Element,
-    farmer_public_key: G1Element,
-    local_master_sk: PrivateKey,
+        pool_public_key: G1Element,
+        farmer_public_key: G1Element,
+        local_master_sk: PrivateKey,
 ):
     # There are two ways to stream plot info: with a pool public key, or with a pool contract puzzle hash.
     # This one streams the public key, into bytes
@@ -165,9 +165,9 @@ def stream_plot_info_pk(
 
 
 def stream_plot_info_ph(
-    pool_contract_puzzle_hash: bytes32,
-    farmer_public_key: G1Element,
-    local_master_sk: PrivateKey,
+        pool_contract_puzzle_hash: bytes32,
+        farmer_public_key: G1Element,
+        local_master_sk: PrivateKey,
 ):
     # There are two ways to stream plot info: with a pool public key, or with a pool contract puzzle hash.
     # This one streams the pool contract puzzle hash, into bytes

@@ -59,5 +59,4 @@ testnet_kwargs = {
     "POOL_SUB_SLOT_ITERS": 36718720,  # iters limit * NUM_SPS
 }
 
-
 DEFAULT_CONSTANTS = ConsensusConstants(**testnet_kwargs)  # type: ignore

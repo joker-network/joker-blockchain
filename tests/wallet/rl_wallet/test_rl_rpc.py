@@ -29,8 +29,8 @@ async def is_transaction_in_mempool(user_wallet_id, api, tx_id: bytes32) -> bool
         return False
     for _, mis, _ in val["transaction"].sent_to:
         if (
-            MempoolInclusionStatus(mis) == MempoolInclusionStatus.SUCCESS
-            or MempoolInclusionStatus(mis) == MempoolInclusionStatus.PENDING
+                MempoolInclusionStatus(mis) == MempoolInclusionStatus.SUCCESS
+                or MempoolInclusionStatus(mis) == MempoolInclusionStatus.PENDING
         ):
             return True
     return False
@@ -127,8 +127,8 @@ class TestRLWallet:
         )
 
         assert (await api_user.get_wallet_balance({"wallet_id": user_wallet_id}))["wallet_balance"][
-            "confirmed_wallet_balance"
-        ] == 0
+                   "confirmed_wallet_balance"
+               ] == 0
         for i in range(0, 2 * num_blocks):
             await full_node_api.farm_new_transaction_block(FarmNewBlockProtocol(32 * b"\0"))
         await time_out_assert(15, wallet_height_at_least, True, wallet_node, 14)

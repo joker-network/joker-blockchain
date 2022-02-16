@@ -27,7 +27,6 @@ from joker.wallet.util.wallet_types import WalletType
 from tests.setup_nodes import self_hostname, setup_simulators_and_wallets, bt
 from tests.time_out_assert import time_out_assert
 
-
 log = logging.getLogger(__name__)
 
 
@@ -192,8 +191,8 @@ class TestPoolWalletRpc:
         assert len(pool_list) == 1
         pool_config = pool_list[0]
         assert (
-            pool_config["authentication_public_key"]
-            == "0xb3c4b513600729c6b2cf776d8786d620b6acc88f86f9d6f489fa0a0aff81d634262d5348fb7ba304db55185bb4c5c8a4"
+                pool_config["authentication_public_key"]
+                == "0xb3c4b513600729c6b2cf776d8786d620b6acc88f86f9d6f489fa0a0aff81d634262d5348fb7ba304db55185bb4c5c8a4"
         )
         # It can be one of multiple launcher IDs, due to selecting a different coin
         assert pool_config["launcher_id"] in {
@@ -250,8 +249,8 @@ class TestPoolWalletRpc:
         assert len(pool_list) == 1
         pool_config = pool_list[0]
         assert (
-            pool_config["authentication_public_key"]
-            == "0xb3c4b513600729c6b2cf776d8786d620b6acc88f86f9d6f489fa0a0aff81d634262d5348fb7ba304db55185bb4c5c8a4"
+                pool_config["authentication_public_key"]
+                == "0xb3c4b513600729c6b2cf776d8786d620b6acc88f86f9d6f489fa0a0aff81d634262d5348fb7ba304db55185bb4c5c8a4"
         )
         # It can be one of multiple launcher IDs, due to selecting a different coin
         assert pool_config["launcher_id"] in {
@@ -313,15 +312,15 @@ class TestPoolWalletRpc:
         p2_singleton_ph_2: bytes32 = status_2.p2_singleton_puzzle_hash
         p2_singleton_ph_3: bytes32 = status_3.p2_singleton_puzzle_hash
         assert (
-            await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
-                p2_singleton_ph_2
-            )
-        ) is not None
+                   await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
+                       p2_singleton_ph_2
+                   )
+               ) is not None
         assert (
-            await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
-                p2_singleton_ph_3
-            )
-        ) is not None
+                   await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
+                       p2_singleton_ph_3
+                   )
+               ) is not None
         assert len(await wallet_node_0.wallet_state_manager.tx_store.get_unconfirmed_for_wallet(2)) == 0
         assert len(await wallet_node_0.wallet_state_manager.tx_store.get_unconfirmed_for_wallet(3)) == 0
         # Doing a reorg reverts and removes the pool wallets
@@ -336,15 +335,15 @@ class TestPoolWalletRpc:
             await client.pw_status(3)
         # It also removed interested PH, so we can recreated the pool wallet with another wallet_id later
         assert (
-            await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
-                p2_singleton_ph_2
-            )
-        ) is None
+                   await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
+                       p2_singleton_ph_2
+                   )
+               ) is None
         assert (
-            await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
-                p2_singleton_ph_3
-            )
-        ) is None
+                   await wallet_node_0.wallet_state_manager.interested_store.get_interested_puzzle_hash_wallet_id(
+                       p2_singleton_ph_3
+                   )
+               ) is None
 
     @pytest.mark.asyncio
     async def test_absorb_self(self, one_wallet_node_and_rpc):
@@ -523,7 +522,7 @@ class TestPoolWalletRpc:
         await bt.delete_plot(plot_id)
         assert len(await wallet_node_0.wallet_state_manager.tx_store.get_unconfirmed_for_wallet(2)) == 0
         assert (
-            wallet_node_0.wallet_state_manager.get_peak().height == full_node_api.full_node.blockchain.get_peak().height
+                wallet_node_0.wallet_state_manager.get_peak().height == full_node_api.full_node.blockchain.get_peak().height
         )
         # Balance stars at 6 XCH and 5 more blocks are farmed, total 22 XCH
         assert (await wallet_0.get_confirmed_balance()) == 21999999999999
@@ -694,7 +693,8 @@ class TestPoolWalletRpc:
 
             assert status.current.state == PoolSingletonState.SELF_POOLING.value
             assert status.current.to_json_dict() == {
-                "owner_pubkey": "0xb286bbf7a10fa058d2a2a758921377ef00bb7f8143e1bd40dd195ae918dbef42cfc481140f01b9eae13b430a0c8fe304",  # noqa: E501
+                "owner_pubkey": "0xb286bbf7a10fa058d2a2a758921377ef00bb7f8143e1bd40dd195ae918dbef42cfc481140f01b9eae13b430a0c8fe304",
+                # noqa: E501
                 "pool_url": None,
                 "relative_lock_height": 0,
                 "state": 1,
@@ -702,7 +702,8 @@ class TestPoolWalletRpc:
                 "version": 1,
             }
             assert status.target.to_json_dict() == {
-                "owner_pubkey": "0xb286bbf7a10fa058d2a2a758921377ef00bb7f8143e1bd40dd195ae918dbef42cfc481140f01b9eae13b430a0c8fe304",  # noqa: E501
+                "owner_pubkey": "0xb286bbf7a10fa058d2a2a758921377ef00bb7f8143e1bd40dd195ae918dbef42cfc481140f01b9eae13b430a0c8fe304",
+                # noqa: E501
                 "pool_url": "https://pool.example.com",
                 "relative_lock_height": 5,
                 "state": 3,

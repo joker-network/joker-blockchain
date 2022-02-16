@@ -87,12 +87,12 @@ class HarvesterCacheEntry:
 
 class Farmer:
     def __init__(
-        self,
-        root_path: Path,
-        farmer_config: Dict,
-        pool_config: Dict,
-        consensus_constants: ConsensusConstants,
-        local_keychain: Optional[Keychain] = None,
+            self,
+            root_path: Path,
+            farmer_config: Dict,
+            pool_config: Dict,
+            consensus_constants: ConsensusConstants,
+            local_keychain: Optional[Keychain] = None,
     ):
         self.keychain_proxy: Optional[KeychainProxy] = None
         self.local_keychain = local_keychain
@@ -231,7 +231,8 @@ class Farmer:
         try:
             async with aiohttp.ClientSession(trust_env=True) as session:
                 async with session.get(
-                    f"{pool_config.pool_url}/pool_info", ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log)
+                        f"{pool_config.pool_url}/pool_info",
+                        ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log)
                 ) as resp:
                     if resp.ok:
                         response: Dict = json.loads(await resp.text())
@@ -251,7 +252,7 @@ class Farmer:
         return None
 
     async def _pool_get_farmer(
-        self, pool_config: PoolWalletConfig, authentication_token_timeout: uint8, authentication_sk: PrivateKey
+            self, pool_config: PoolWalletConfig, authentication_token_timeout: uint8, authentication_sk: PrivateKey
     ) -> Optional[Dict]:
         assert authentication_sk.get_g1() == pool_config.authentication_public_key
         authentication_token = get_current_authentication_token(authentication_token_timeout)
@@ -269,9 +270,9 @@ class Farmer:
         try:
             async with aiohttp.ClientSession(trust_env=True) as session:
                 async with session.get(
-                    f"{pool_config.pool_url}/farmer",
-                    params=get_farmer_params,
-                    ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log),
+                        f"{pool_config.pool_url}/farmer",
+                        params=get_farmer_params,
+                        ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log),
                 ) as resp:
                     if resp.ok:
                         response: Dict = json.loads(await resp.text())
@@ -291,7 +292,7 @@ class Farmer:
         return None
 
     async def _pool_post_farmer(
-        self, pool_config: PoolWalletConfig, authentication_token_timeout: uint8, owner_sk: PrivateKey
+            self, pool_config: PoolWalletConfig, authentication_token_timeout: uint8, owner_sk: PrivateKey
     ) -> Optional[Dict]:
         post_farmer_payload: PostFarmerPayload = PostFarmerPayload(
             pool_config.launcher_id,
@@ -307,9 +308,9 @@ class Farmer:
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.post(
-                    f"{pool_config.pool_url}/farmer",
-                    json=post_farmer_request.to_json_dict(),
-                    ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log),
+                        f"{pool_config.pool_url}/farmer",
+                        json=post_farmer_request.to_json_dict(),
+                        ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log),
                 ) as resp:
                     if resp.ok:
                         response: Dict = json.loads(await resp.text())
@@ -329,7 +330,7 @@ class Farmer:
         return None
 
     async def _pool_put_farmer(
-        self, pool_config: PoolWalletConfig, authentication_token_timeout: uint8, owner_sk: PrivateKey
+            self, pool_config: PoolWalletConfig, authentication_token_timeout: uint8, owner_sk: PrivateKey
     ) -> Optional[Dict]:
         put_farmer_payload: PutFarmerPayload = PutFarmerPayload(
             pool_config.launcher_id,
@@ -345,9 +346,9 @@ class Farmer:
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.put(
-                    f"{pool_config.pool_url}/farmer",
-                    json=put_farmer_request.to_json_dict(),
-                    ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log),
+                        f"{pool_config.pool_url}/farmer",
+                        json=put_farmer_request.to_json_dict(),
+                        ssl=ssl_context_for_root(get_mozilla_ca_crt(), log=self.log),
                 ) as resp:
                     if resp.ok:
                         response: Dict = json.loads(await resp.text())
@@ -463,8 +464,8 @@ class Farmer:
 
                         # Update the payout instructions on the pool if required
                         if (
-                            farmer_info is not None
-                            and pool_config.payout_instructions.lower() != farmer_info.payout_instructions.lower()
+                                farmer_info is not None
+                                and pool_config.payout_instructions.lower() != farmer_info.payout_instructions.lower()
                         ):
                             owner_sk = await find_owner_sk(self.all_root_sks, pool_config.owner_public_key)
                             put_farmer_response_dict = await self._pool_put_farmer(
@@ -581,9 +582,9 @@ class Farmer:
                 )
                 signature: G2Element = AugSchemeMPL.sign(authentication_sk, message)
                 return (
-                    pool_config.pool_url
-                    + f"/login?launcher_id={launcher_id.hex()}&authentication_token={authentication_token}"
-                    f"&signature={bytes(signature).hex()}"
+                        pool_config.pool_url
+                        + f"/login?launcher_id={launcher_id.hex()}&authentication_token={authentication_token}"
+                          f"&signature={bytes(signature).hex()}"
                 )
 
         return None

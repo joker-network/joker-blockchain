@@ -39,7 +39,8 @@ LOCAL_CACHE: LRUCache = LRUCache(50000)
 
 
 def aggregate_verify(
-    pks: List[G1Element], msgs: List[bytes], sig: G2Element, force_cache: bool = False, cache: LRUCache = LOCAL_CACHE
+        pks: List[G1Element], msgs: List[bytes], sig: G2Element, force_cache: bool = False,
+        cache: LRUCache = LOCAL_CACHE
 ):
     pairings: List[GTElement] = get_pairings(cache, pks, msgs, force_cache)
     if len(pairings) == 0:

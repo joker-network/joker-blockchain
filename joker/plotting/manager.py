@@ -135,13 +135,13 @@ class PlotManager:
     _refresh_callback: Callable
 
     def __init__(
-        self,
-        root_path: Path,
-        refresh_callback: Callable,
-        match_str: Optional[str] = None,
-        show_memo: bool = False,
-        open_no_key_filenames: bool = False,
-        refresh_parameter: PlotsRefreshParameter = PlotsRefreshParameter(),
+            self,
+            root_path: Path,
+            refresh_callback: Callable,
+            match_str: Optional[str] = None,
+            show_memo: bool = False,
+            open_no_key_filenames: bool = False,
+            refresh_parameter: PlotsRefreshParameter = PlotsRefreshParameter(),
     ):
         self.root_path = root_path
         self.plots = {}
@@ -297,9 +297,9 @@ class PlotManager:
             if not file_path.exists():
                 return None
             if (
-                file_path in self.failed_to_open_filenames
-                and (time.time() - self.failed_to_open_filenames[file_path])
-                < self.refresh_parameter.retry_invalid_seconds
+                    file_path in self.failed_to_open_filenames
+                    and (time.time() - self.failed_to_open_filenames[file_path])
+                    < self.refresh_parameter.retry_invalid_seconds
             ):
                 # Try once every `refresh_parameter.retry_invalid_seconds` seconds to open the file
                 return None
@@ -326,7 +326,7 @@ class PlotManager:
 
                 if prover.get_size() >= 30 and stat_info.st_size < 0.98 * expected_size:
                     log.warning(
-                        f"Not farming plot {file_path}. Size is {stat_info.st_size / (1024**3)} GiB, but expected"
+                        f"Not farming plot {file_path}. Size is {stat_info.st_size / (1024 ** 3)} GiB, but expected"
                         f" at least: {expected_size / (1024 ** 3)} GiB. We assume the file is being copied."
                     )
                     return None

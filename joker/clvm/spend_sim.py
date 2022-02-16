@@ -52,7 +52,6 @@ class SimBlockRecord:
 
 
 class SpendSim:
-
     connection: aiosqlite.Connection
     mempool_manager: MempoolManager
     block_records: List[SimBlockRecord]
@@ -215,11 +214,11 @@ class SimClient:
         return await self.service.mempool_manager.coin_store.get_coin_record(name)
 
     async def get_coin_records_by_puzzle_hash(
-        self,
-        puzzle_hash: bytes32,
-        include_spent_coins: bool = True,
-        start_height: Optional[int] = None,
-        end_height: Optional[int] = None,
+            self,
+            puzzle_hash: bytes32,
+            include_spent_coins: bool = True,
+            start_height: Optional[int] = None,
+            end_height: Optional[int] = None,
     ) -> List[CoinRecord]:
         kwargs: Dict[str, Any] = {"include_spent_coins": include_spent_coins, "puzzle_hash": puzzle_hash}
         if start_height is not None:
@@ -229,11 +228,11 @@ class SimClient:
         return await self.service.mempool_manager.coin_store.get_coin_records_by_puzzle_hash(**kwargs)
 
     async def get_coin_records_by_puzzle_hashes(
-        self,
-        puzzle_hashes: List[bytes32],
-        include_spent_coins: bool = True,
-        start_height: Optional[int] = None,
-        end_height: Optional[int] = None,
+            self,
+            puzzle_hashes: List[bytes32],
+            include_spent_coins: bool = True,
+            start_height: Optional[int] = None,
+            end_height: Optional[int] = None,
     ) -> List[CoinRecord]:
         kwargs: Dict[str, Any] = {"include_spent_coins": include_spent_coins, "puzzle_hashes": puzzle_hashes}
         if start_height is not None:

@@ -49,13 +49,13 @@ class KeychainProxy(DaemonProxy):
     """
 
     def __init__(
-        self,
-        log: logging.Logger,
-        uri: str = None,
-        ssl_context: Optional[ssl.SSLContext] = None,
-        local_keychain: Optional[Keychain] = None,
-        user: str = None,
-        service: str = None,
+            self,
+            log: logging.Logger,
+            uri: str = None,
+            ssl_context: Optional[ssl.SSLContext] = None,
+            local_keychain: Optional[Keychain] = None,
+            user: str = None,
+            service: str = None,
     ):
         self.log = log
         if local_keychain:
@@ -299,12 +299,12 @@ def wrap_local_keychain(keychain: Keychain, log: logging.Logger) -> KeychainProx
 
 
 async def connect_to_keychain(
-    self_hostname: str,
-    daemon_port: int,
-    ssl_context: Optional[ssl.SSLContext],
-    log: logging.Logger,
-    user: str = None,
-    service: str = None,
+        self_hostname: str,
+        daemon_port: int,
+        ssl_context: Optional[ssl.SSLContext],
+        log: logging.Logger,
+        user: str = None,
+        service: str = None,
 ) -> KeychainProxy:
     """
     Connect to the local daemon.
@@ -320,11 +320,11 @@ async def connect_to_keychain(
 
 
 async def connect_to_keychain_and_validate(
-    root_path: Path,
-    log: logging.Logger,
-    *,
-    user: str = None,
-    service: str = None,
+        root_path: Path,
+        log: logging.Logger,
+        *,
+        user: str = None,
+        service: str = None,
 ) -> Optional[KeychainProxy]:
     """
     Connect to the local daemon and do a ping to ensure that something is really
