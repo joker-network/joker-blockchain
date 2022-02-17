@@ -33,9 +33,9 @@ async def main() -> None:
         assert farmer_amounts == farmer_prefarm.amount // 2
         assert pool_amounts == pool_prefarm.amount // 2
         assert community_amounts == community_prefarm.amount // 2
-        address1 = "xcc1rdatypul5c642jkeh4yp933zu3hw8vv8tfup8ta6zfampnyhjnusxdgns6"  # why can gen xcc address?
-        address2 = "xcc1duvy5ur5eyj7lp5geetfg84cj2d7xgpxt7pya3lr2y6ke3696w9qvda66e"  # Key 2
-        address3 = "xcc1duvy5ur5eyj7lp5geetfg84cj2d7xgpxt7pya3lr2y6ke3696w9qvda66e"  # Key 3
+        address1 = "xjk1jkuc2hvks3kv7484ffjfwlzpxh5umldj6v0nqhgyfdu3qm3380jsjdv4at"  # Key 1
+        address2 = "xjk1uquskcy68qspm7yctj2chpxcnlxmlzrsxm0tssckpd364cufhqnq223dl5"  # Key 2
+        address3 = "xjk1uquskcy68qspm7yctj2chpxcnlxmlzrsxm0tssckpd364cufhqnq223dl5"  # Key 3
 
         ph1 = decode_puzzle_hash(address1)
         ph2 = decode_puzzle_hash(address2)

@@ -92,7 +92,7 @@ def check_keys(new_root: Path, keychain: Optional[Keychain] = None) -> None:
     updated_target: bool = False
     if "xjk_target_address" not in config["farmer"]:
         print(
-            f"Setting the xch destination for the farmer reward (1/8 plus fees, solo and pooling) to {all_targets[0]}"
+            f"Setting the xjk destination for the farmer reward (1/8 plus fees, solo and pooling) to {all_targets[0]}"
         )
         config["farmer"]["xjk_target_address"] = all_targets[0]
         updated_target = True
@@ -106,7 +106,7 @@ def check_keys(new_root: Path, keychain: Optional[Keychain] = None) -> None:
     if "pool" not in config:
         config["pool"] = {}
     if "xjk_target_address" not in config["pool"]:
-        print(f"Setting the xch destination address for pool reward (7/8 for solo only) to {all_targets[0]}")
+        print(f"Setting the xjk destination address for pool reward (7/8 for solo only) to {all_targets[0]}")
         config["pool"]["xjk_target_address"] = all_targets[0]
         updated_target = True
     elif config["pool"]["xjk_target_address"] not in all_targets:
