@@ -14,7 +14,7 @@ network_overrides: &network_overrides
   constants:
     mainnet:
       NETWORK_TYPE: 0
-      GENESIS_CHALLENGE: 9e60c04ed621118823f47c752240361a220967c27fb244132eb12ff4cc00465e
+      GENESIS_CHALLENGE: 4d499b3ef42bbeb29e1897550b5d02b746a6868e44de25733f5c7d519f4b7cda
       GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "75ee4cd3b465641e7bb7813efa9c10ef6e8a4bdb5cb5e0a94a99a29f286a7b5e"
       GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "6f482f5c32dbc617acb66ea53bf009c4a02410e7f2ec3d789d5ab855e5f2f9db"
       GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "7e59b048482cc6217b04682161e4155f2510135a9b6dbfe8240b89d69ccee754"
@@ -111,7 +111,7 @@ network_overrides: &network_overrides
 
 selected_network: &selected_network "mainnet"
 ALERTS_URL: https://download.mykc.cc/notify/mainnet_alert.txt
-CHIA_ALERTS_PUBKEY: 89b7fd87cb56e926ecefb879a29aae308be01f31980569f6a75a69d2a9a69daefd71fb778d865f7c50d6c967e3025937
+Joker_ALERTS_PUBKEY: 89b7fd87cb56e926ecefb879a29aae308be01f31980569f6a75a69d2a9a69daefd71fb778d865f7c50d6c967e3025937
 
 # public ssl ca is included in source code
 # Private ssl ca is used for trusted connections between machines user owns
