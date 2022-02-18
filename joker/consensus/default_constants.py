@@ -30,15 +30,15 @@ testnet_kwargs = {
     # Default used for tests is std_hash(b'')
     "GENESIS_CHALLENGE": bytes.fromhex("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
     # Forks of joker should change this value to provide replay attack protection. This is set to mainnet genesis chall
-    "AGG_SIG_ME_ADDITIONAL_DATA": bytes.fromhex("9e60c04ed621118823f47c752240361a220967c27fb244132eb12ff4cc00465e"),
+    "AGG_SIG_ME_ADDITIONAL_DATA": bytes.fromhex("578970cefe909be47a2700c1a0223147efcaf1dba5314624d6bb32b4b3033825"),
     "GENESIS_PRE_FARM_POOL_PUZZLE_HASH": bytes.fromhex(
-        "75ee4cd3b465641e7bb7813efa9c10ef6e8a4bdb5cb5e0a94a99a29f286a7b5e"
+        "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
     ),
     "GENESIS_PRE_FARM_FARMER_PUZZLE_HASH": bytes.fromhex(
-        "6f482f5c32dbc617acb66ea53bf009c4a02410e7f2ec3d789d5ab855e5f2f9db"
+        "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
     ),
     "GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH": bytes.fromhex(
-        "7e59b048482cc6217b04682161e4155f2510135a9b6dbfe8240b89d69ccee754"
+        "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
     ),
     "MAX_VDF_WITNESS_SIZE": 64,
     # Size of mempool = 50x the size of block

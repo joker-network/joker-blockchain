@@ -34,7 +34,7 @@ async def main() -> None:
         assert pool_amounts == pool_prefarm.amount // 2
         assert community_amounts == community_prefarm.amount // 2
         address1 = "xjk1jkuc2hvks3kv7484ffjfwlzpxh5umldj6v0nqhgyfdu3qm3380jsjdv4at"  # Key 1
-        address2 = "xjk1uquskcy68qspm7yctj2chpxcnlxmlzrsxm0tssckpd364cufhqnq223dl5"  # Key 2
+        address2 = "xjk17c6u844ez78p7sn8872ujvjt9gynusa2a6zz4h4z45prr2n077hs05xw7t"  # Key 2
         address3 = "xjk1uquskcy68qspm7yctj2chpxcnlxmlzrsxm0tssckpd364cufhqnq223dl5"  # Key 3
 
         ph1 = decode_puzzle_hash(address1)
