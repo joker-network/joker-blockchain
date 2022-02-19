@@ -1,5 +1,5 @@
 #
-# THIS FILE IS GENERATED. SEE https://github.com/Chia-Network/chia-blockchain/tree/main/tests#readme
+# THIS FILE IS GENERATED. SEE https://github.com/joker-Network/joker-blockchain/tree/main/tests#readme
 #
 name: MacOS generator Tests
 
@@ -44,10 +44,10 @@ jobs:
 
       - name: Create keychain for CI use
         run: |
-          security create-keychain -p foo chiachain
-          security default-keychain -s chiachain
-          security unlock-keychain -p foo chiachain
-          security set-keychain-settings -t 7200 -u chiachain
+          security create-keychain -p foo jokerchain
+          security default-keychain -s jokerchain
+          security unlock-keychain -p foo jokerchain
+          security set-keychain-settings -t 7200 -u jokerchain
 
       - name: Get pip cache dir
         id: pip-cache
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout test blocks and plots
         uses: actions/checkout@v2
         with:
-          repository: 'Chia-Network/test-cache'
+          repository: 'joker-Network/test-cache'
           path: '.joker'
           ref: '0.27.0'
           fetch-depth: 1
@@ -74,9 +74,9 @@ jobs:
       - name: Link home directory
         run: |
           cd $HOME
-          ln -s $GITHUB_WORKSPACE/.chia
-          echo "$HOME/.chia"
-          ls -al $HOME/.chia
+          ln -s $GITHUB_WORKSPACE/.joker
+          echo "$HOME/.joker"
+          ls -al $HOME/.joker
 
       - name: Run install script
         env:
@@ -102,5 +102,5 @@ jobs:
           . ./activate
           ./venv/bin/py.test tests/generator/test_compression.py tests/generator/test_generator_types.py tests/generator/test_rom.py tests/generator/test_scan.py -s -v --durations 0
 #
-# THIS FILE IS GENERATED. SEE https://github.com/Chia-Network/chia-blockchain/tree/main/tests#readme
+# THIS FILE IS GENERATED. SEE https://github.com/joker-Network/joker-blockchain/tree/main/tests#readme
 #

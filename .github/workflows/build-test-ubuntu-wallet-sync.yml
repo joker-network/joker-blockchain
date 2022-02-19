@@ -1,5 +1,5 @@
 #
-# THIS FILE IS GENERATED. SEE https://github.com/Chia-Network/chia-blockchain/tree/main/tests#readme
+# THIS FILE IS GENERATED. SEE https://github.com/joker-Network/joker-blockchain/tree/main/tests#readme
 #
 name: Ubuntu wallet-sync Test
 
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout test blocks and plots
         uses: actions/checkout@v2
         with:
-          repository: 'Chia-Network/test-cache'
+          repository: 'joker-Network/test-cache'
           path: '.joker'
           ref: '0.27.0'
           fetch-depth: 1
@@ -74,9 +74,9 @@ jobs:
       - name: Link home directory
         run: |
           cd $HOME
-          ln -s $GITHUB_WORKSPACE/.chia
-          echo "$HOME/.chia"
-          ls -al $HOME/.chia
+          ln -s $GITHUB_WORKSPACE/.joker
+          echo "$HOME/.joker"
+          ls -al $HOME/.joker
 
       - name: Install ubuntu dependencies
         run: |
@@ -109,5 +109,5 @@ jobs:
 
 
 #
-# THIS FILE IS GENERATED. SEE https://github.com/Chia-Network/chia-blockchain/tree/main/tests#readme
+# THIS FILE IS GENERATED. SEE https://github.com/joker-Network/joker-blockchain/tree/main/tests#readme
 #
