@@ -82,11 +82,11 @@ def initial_pool_state_from_dict(state_dict: Dict, owner_pubkey: G1Element, owne
 
 
 def create_pool_state(
-        state: PoolSingletonState,
-        target_puzzle_hash: bytes32,
-        owner_pubkey: G1Element,
-        pool_url: Optional[str],
-        relative_lock_height: uint32,
+    state: PoolSingletonState,
+    target_puzzle_hash: bytes32,
+    owner_pubkey: G1Element,
+    pool_url: Optional[str],
+    relative_lock_height: uint32,
 ) -> PoolState:
     if state not in set(s.value for s in PoolSingletonState):
         raise AssertionError("state {state} is not a valid PoolSingletonState,")

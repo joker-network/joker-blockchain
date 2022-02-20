@@ -16,12 +16,12 @@ from typing import Optional, Tuple
 PASSPHRASE_CLI_OPTION_NAMES = ["keys_root_path", "set_passphrase", "passphrase_file", "current_passphrase_file"]
 
 SAVE_MASTER_PASSPHRASE_WARNING = (
-        colorama.Fore.YELLOW
-        + colorama.Style.BRIGHT
-        + "\n!!! SECURITY WARNING !!!\n"
-        + colorama.Style.RESET_ALL
-        + "Other processes may be able to access your saved passphrase, possibly exposing your private keys.\n"
-        + "You should not save your passphrase unless you fully trust your environment.\n"
+    colorama.Fore.YELLOW
+    + colorama.Style.BRIGHT
+    + "\n!!! SECURITY WARNING !!!\n"
+    + colorama.Style.RESET_ALL
+    + "Other processes may be able to access your saved passphrase, possibly exposing your private keys.\n"
+    + "You should not save your passphrase unless you fully trust your environment.\n"
 )
 
 
@@ -37,7 +37,7 @@ def remove_passphrase_options_from_cmd(cmd) -> None:
 
 
 def verify_passphrase_meets_requirements(
-        new_passphrase: str, confirmation_passphrase: str
+    new_passphrase: str, confirmation_passphrase: str
 ) -> Tuple[bool, Optional[str]]:
     match = new_passphrase == confirmation_passphrase
     min_length = Keychain.minimum_passphrase_length()

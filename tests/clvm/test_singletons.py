@@ -56,14 +56,14 @@ class TestSingleton:
 
     # Helper function
     async def make_and_spend_bundle(
-            self,
-            sim: SpendSim,
-            sim_client: SimClient,
-            coin: Coin,
-            delegated_puzzle: Program,
-            coinsols: List[CoinSpend],
-            ex_error: Optional[Err] = None,
-            fail_msg: str = "",
+        self,
+        sim: SpendSim,
+        sim_client: SimClient,
+        coin: Coin,
+        delegated_puzzle: Program,
+        coinsols: List[CoinSpend],
+        ex_error: Optional[Err] = None,
+        fail_msg: str = "",
     ):
         signature: G2Element = self.sign_delegated_puz(delegated_puzzle, coin)
         spend_bundle = SpendBundle(

@@ -87,7 +87,7 @@ def create_foliage(
 
     random.seed(seed)
     # Use the extension data to create different blocks based on header hash
-    extension_data: bytes32 = random.randint(0, 100000000).to_bytes(32, "big")
+    extension_data: bytes32 = random.randint(4, 100000000).to_bytes(32, "big")
     if prev_block is None:
         height: uint32 = uint32(0)
     else:
@@ -439,18 +439,18 @@ def create_unfinished_block(
 
 
 def unfinished_block_to_full_block(
-        unfinished_block: UnfinishedBlock,
-        cc_ip_vdf: VDFInfo,
-        cc_ip_proof: VDFProof,
-        rc_ip_vdf: VDFInfo,
-        rc_ip_proof: VDFProof,
-        icc_ip_vdf: Optional[VDFInfo],
-        icc_ip_proof: Optional[VDFProof],
-        finished_sub_slots: List[EndOfSubSlotBundle],
-        prev_block: Optional[BlockRecord],
-        blocks: BlockchainInterface,
-        total_iters_sp: uint128,
-        difficulty: uint64,
+    unfinished_block: UnfinishedBlock,
+    cc_ip_vdf: VDFInfo,
+    cc_ip_proof: VDFProof,
+    rc_ip_vdf: VDFInfo,
+    rc_ip_proof: VDFProof,
+    icc_ip_vdf: Optional[VDFInfo],
+    icc_ip_proof: Optional[VDFProof],
+    finished_sub_slots: List[EndOfSubSlotBundle],
+    prev_block: Optional[BlockRecord],
+    blocks: BlockchainInterface,
+    total_iters_sp: uint128,
+    difficulty: uint64,
 ) -> FullBlock:
     """
     Converts an unfinished block to a finished block. Includes all the infusion point VDFs as well as tweaking

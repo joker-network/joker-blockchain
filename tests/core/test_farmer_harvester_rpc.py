@@ -233,13 +233,13 @@ class TestRpc:
                 assert expected_result_matched
 
             async def test_case(
-                    trigger,
-                    expect_loaded,
-                    expect_duplicates,
-                    expect_removed,
-                    expect_processed,
-                    expected_directories,
-                    expect_total_plots,
+                trigger,
+                expect_loaded,
+                expect_duplicates,
+                expect_removed,
+                expect_processed,
+                expected_directories,
+                expect_total_plots,
             ):
                 nonlocal expected_result_matched
                 expected_result.loaded = expect_loaded
@@ -460,7 +460,7 @@ class TestRpc:
                 master_sk_to_wallet_sk(bt.pool_master_sk, uint32(472)).get_g1()
             )
 
-            await client.set_reward_targets(encode_puzzle_hash(new_ph, "xch"), encode_puzzle_hash(new_ph_2, "xch"))
+            await client.set_reward_targets(encode_puzzle_hash(new_ph, "xfx"), encode_puzzle_hash(new_ph_2, "xfx"))
             targets_3 = await client.get_reward_targets(True)
             assert decode_puzzle_hash(targets_3["farmer_target"]) == new_ph
             assert decode_puzzle_hash(targets_3["pool_target"]) == new_ph_2
@@ -469,7 +469,7 @@ class TestRpc:
             new_ph_3: bytes32 = create_puzzlehash_for_pk(
                 master_sk_to_wallet_sk(bt.pool_master_sk, uint32(1888)).get_g1()
             )
-            await client.set_reward_targets(None, encode_puzzle_hash(new_ph_3, "xch"))
+            await client.set_reward_targets(None, encode_puzzle_hash(new_ph_3, "xfx"))
             targets_4 = await client.get_reward_targets(True)
             assert decode_puzzle_hash(targets_4["farmer_target"]) == new_ph
             assert decode_puzzle_hash(targets_4["pool_target"]) == new_ph_3
@@ -477,10 +477,10 @@ class TestRpc:
 
             root_path = farmer_api.farmer._root_path
             config = load_config(root_path, "config.yaml")
-            assert config["farmer"]["xjk_target_address"] == encode_puzzle_hash(new_ph, "xch")
-            assert config["pool"]["xjk_target_address"] == encode_puzzle_hash(new_ph_3, "xch")
+            assert config["farmer"]["xjk_target_address"] == encode_puzzle_hash(new_ph, "xfx")
+            assert config["pool"]["xjk_target_address"] == encode_puzzle_hash(new_ph_3, "xfx")
 
-            new_ph_3_encoded = encode_puzzle_hash(new_ph_3, "xch")
+            new_ph_3_encoded = encode_puzzle_hash(new_ph_3, "xfx")
             added_char = new_ph_3_encoded + "a"
             with pytest.raises(ValueError):
                 await client.set_reward_targets(None, added_char)
@@ -496,8 +496,7 @@ class TestRpc:
                 {
                     "launcher_id": "ae4ef3b9bfe68949691281a015a9c16630fc8f66d48c19ca548fb80768791afa",
                     "authentication_public_key": bytes(auth_sk.get_g1()).hex(),
-                    "owner_public_key": "84c3fcf9d5581c1ddc702cb0f3b4a06043303b334dd993ab42b2c320ebfa98e5ce558448615b3f69638ba92cf7f43da5",
-                    # noqa
+                    "owner_public_key": "84c3fcf9d5581c1ddc702cb0f3b4a06043303b334dd993ab42b2c320ebfa98e5ce558448615b3f69638ba92cf7f43da5",  # noqa
                     "payout_instructions": "c2b08e41d766da4116e388357ed957d04ad754623a915f3fd65188a8746cf3e8",
                     "pool_url": "localhost",
                     "p2_singleton_puzzle_hash": "16e4bac26558d315cded63d4c5860e98deb447cc59146dd4de06ce7394b14f17",
@@ -511,8 +510,8 @@ class TestRpc:
             pool_state = (await client.get_pool_state())["pool_state"]
             assert len(pool_state) == 1
             assert (
-                    pool_state[0]["pool_config"]["payout_instructions"]
-                    == "c2b08e41d766da4116e388357ed957d04ad754623a915f3fd65188a8746cf3e8"
+                pool_state[0]["pool_config"]["payout_instructions"]
+                == "c2b08e41d766da4116e388357ed957d04ad754623a915f3fd65188a8746cf3e8"
             )
             await client.set_payout_instructions(hexstr_to_bytes(pool_state[0]["pool_config"]["launcher_id"]), "1234vy")
             await farmer_api.farmer.update_pool_state()

@@ -15,101 +15,24 @@ network_overrides: &network_overrides
   constants:
     mainnet:
       NETWORK_TYPE: 0
-      GENESIS_CHALLENGE: 578970cefe909be47a2700c1a0223147efcaf1dba5314624d6bb32b4b3033825
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
-      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
+      GENESIS_CHALLENGE: 9e60c04ed621118823f47c752240361a220967c27fb244132eb12ff4cc00465e
+      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "75ee4cd3b465641e7bb7813efa9c10ef6e8a4bdb5cb5e0a94a99a29f286a7b5e"
+      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "6f482f5c32dbc617acb66ea53bf009c4a02410e7f2ec3d789d5ab855e5f2f9db"
+      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "7e59b048482cc6217b04682161e4155f2510135a9b6dbfe8240b89d69ccee754"
     testnet0:
-      MIN_PLOT_SIZE: 18
-      GENESIS_CHALLENGE: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      GENESIS_CHALLENGE: 28a206a22e7e2060230c88ad149d81cc8e74bcf5e8e74aafcce8b8efe6181dbb
       NETWORK_TYPE: 1
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
-      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
-    testnet2:
-      MIN_PLOT_SIZE: 18
-      GENESIS_CHALLENGE: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
-      NETWORK_TYPE: 1
-      INITIAL_FREEZE_PERIOD: 100
-      DIFFICULTY_CONSTANT_FACTOR: 10052721566054
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
-      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
-    testnet3:
-      DIFFICULTY_CONSTANT_FACTOR: 10052721566054
-      GENESIS_CHALLENGE: ca7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015af
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: 95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af
-      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
-      MIN_PLOT_SIZE: 18
-      NETWORK_TYPE: 1
-      MEMPOOL_BLOCK_BUFFER: 10
-    testnet4:
-      DIFFICULTY_CONSTANT_FACTOR: 10052721566054
-      GENESIS_CHALLENGE: dd7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015af
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: 95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af
-      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
-      MIN_PLOT_SIZE: 18
-      NETWORK_TYPE: 1
-      MEMPOOL_BLOCK_BUFFER: 10
-      EPOCH_BLOCKS: 768
-      DIFFICULTY_STARTING: 1
-    testnet5:
-      DIFFICULTY_CONSTANT_FACTOR: 10052721566054
-      GENESIS_CHALLENGE: ee7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015af
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: 5b848b19bd465b2edf93428e553bfeafcee17699cce5fbc3587fc281c2ac17d4
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: 1a86fab63fc8f4fcfe1708b85c56e0ef9d70ca17278e6c15f9713b148ecf920a
-      MIN_PLOT_SIZE: 18
-      NETWORK_TYPE: 1
-      MEMPOOL_BLOCK_BUFFER: 10
-      EPOCH_BLOCKS: 768
-      DIFFICULTY_STARTING: 1
-    testnet7:
-      DIFFICULTY_CONSTANT_FACTOR: 10052721566054
-      GENESIS_CHALLENGE: 117816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015af
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: 5b848b19bd465b2edf93428e553bfeafcee17699cce5fbc3587fc281c2ac17d4
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: 1a86fab63fc8f4fcfe1708b85c56e0ef9d70ca17278e6c15f9713b148ecf920a
-      MIN_PLOT_SIZE: 18
-      NETWORK_TYPE: 1
-      MEMPOOL_BLOCK_BUFFER: 10
-      EPOCH_BLOCKS: 768
-      DIFFICULTY_STARTING: 1
-    testnet10:
-      AGG_SIG_ME_ADDITIONAL_DATA: ae83525ba8d1dd3f09b277de18ca3e43fc0af20d20c4b3e92ef2a48bd291ccb2
-      DIFFICULTY_CONSTANT_FACTOR: 10052721566054
-      DIFFICULTY_STARTING: 1
-      EPOCH_BLOCKS: 768
-      GENESIS_CHALLENGE: ae83525ba8d1dd3f09b277de18ca3e43fc0af20d20c4b3e92ef2a48bd291ccb2
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: 3d8765d3a597ec1d99663f6c9816d915b9f68613ac94009884c4addaefcce6af
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: d23da14695a188ae5708dd152263c4db883eb27edeb936178d4d988b8f3ce5fc
-      MEMPOOL_BLOCK_BUFFER: 10
-      MIN_PLOT_SIZE: 18
-      NETWORK_TYPE: 1
+      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "e8e245e2e6536e17fd7cbc2e3bd90de06f55362ee3c84cea5a68391e5bad7ef6"
+      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "e8e245e2e6536e17fd7cbc2e3bd90de06f55362ee3c84cea5a68391e5bad7ef6"
   config:
     mainnet:
       address_prefix: "xjk"
-      default_full_node_port: 18444
     testnet0:
       address_prefix: "txjk"
-    testnet1:
-      address_prefix: "txjk"
-    testnet2:
-      address_prefix: "txjk"
-    testnet3:
-      address_prefix: "txjk"
-    testnet4:
-      address_prefix: "txjk"
-    testnet7:
-      address_prefix: "txjk"
-      default_full_node_port: 58444
-    testnet10:
-      address_prefix: "txjk"
-      default_full_node_port: 58444
 
 selected_network: &selected_network "mainnet"
 ALERTS_URL: https://download.mykc.cc/notify/mainnet_alert.txt
-Joker_ALERTS_PUBKEY: 89b7fd87cb56e926ecefb879a29aae308be01f31980569f6a75a69d2a9a69daefd71fb778d865f7c50d6c967e3025937
+Joker_ALERTS_PUBKEY: d0e7d54a470e85df2725b4fdba9ccd35d889e5cf7aa5873ce2c879f34aa0328d890554a17fd4631402e7dc68f69d1ea6
 
 # public ssl ca is included in source code
 # Private ssl ca is used for trusted connections between machines user owns
@@ -163,11 +86,11 @@ harvester:
   selected_network: *selected_network
 
   # Plots are searched for in the following directories
-  plot_directories: [ ]
+  plot_directories: []
 
   ssl:
-    private_crt: "config/ssl/harvester/private_harvester.crt"
-    private_key: "config/ssl/harvester/private_harvester.key"
+    private_crt:  "config/ssl/harvester/private_harvester.crt"
+    private_key:  "config/ssl/harvester/private_harvester.key"
 
   private_ssl_ca:
     crt: "config/ssl/ca/private_ca.crt"
@@ -179,6 +102,7 @@ harvester:
 
 pool:
   # Replace this with a real puzzle hash
+  # xjk_target_address: txjk102gkhhzs60grx7cfnpng5n6rjecr89r86l5s8xux2za8k820cxsq64ssdg
   logging: *logging
   network_overrides: *network_overrides
   selected_network: *selected_network
@@ -195,7 +119,10 @@ farmer:
     host: *self_hostname
     port: 18448
 
-  pool_public_keys: [ ]
+  pool_public_keys: []
+
+  # Replace this with a real puzzle hash
+  # xjk_target_address: txjk102gkhhzs60grx7cfnpng5n6rjecr89r86l5s8xux2za8k820cxsq64ssdg
 
   # If True, starts an RPC server at the following port
   start_rpc_server: True
@@ -208,10 +135,10 @@ farmer:
   selected_network: *selected_network
 
   ssl:
-    private_crt: "config/ssl/farmer/private_farmer.crt"
-    private_key: "config/ssl/farmer/private_farmer.key"
-    public_crt: "config/ssl/farmer/public_farmer.crt"
-    public_key: "config/ssl/farmer/public_farmer.key"
+    private_crt:  "config/ssl/farmer/private_farmer.crt"
+    private_key:  "config/ssl/farmer/private_farmer.key"
+    public_crt:  "config/ssl/farmer/public_farmer.crt"
+    public_key:  "config/ssl/farmer/public_farmer.key"
 
 # Don't run this unless you want to run VDF clients on the local machine.
 timelord_launcher:
@@ -236,8 +163,8 @@ timelord:
     ips_estimate:
       - 150000
   full_node_peer:
-    host: *self_hostname
-    port: 18444
+      host: *self_hostname
+      port: 18444
   # Maximum number of seconds allowed for a client to reconnect to the server.
   max_connection_time: 60
   # The ip and port where the TCP clients will connect.
@@ -265,10 +192,10 @@ timelord:
   sanitizer_mode: False
 
   ssl:
-    private_crt: "config/ssl/timelord/private_timelord.crt"
-    private_key: "config/ssl/timelord/private_timelord.key"
-    public_crt: "config/ssl/timelord/public_timelord.crt"
-    public_key: "config/ssl/timelord/public_timelord.key"
+    private_crt:  "config/ssl/timelord/private_timelord.crt"
+    private_key:  "config/ssl/timelord/private_timelord.key"
+    public_crt:  "config/ssl/timelord/public_timelord.crt"
+    public_key:  "config/ssl/timelord/public_timelord.key"
 
 full_node:
   # The full node server (if run) will run on this port
@@ -315,7 +242,7 @@ full_node:
   target_outbound_peer_count: 30
   # IPv4/IPv6 network addresses and CIDR blocks allowed to connect even when target_peer_count has been hit.
   # exempt_peer_networks: ["192.168.0.3", "192.168.1.0/24", "fe80::/10", "2606:4700:4700::64/128"]
-  exempt_peer_networks: [ ]
+  exempt_peer_networks: []
   # Accept at most # of inbound connections for different node types.
   max_inbound_wallet: 200
   max_inbound_farmer: 100
@@ -323,7 +250,7 @@ full_node:
   # Only connect to peers who we have heard about in the last recent_peer_threshold seconds
   recent_peer_threshold: 6000
 
-  # Send to a Bluebox (sanatizing timelord) uncompact blocks once every
+  # Send to a Bluebox (sanitizing timelord) uncompact blocks once every
   # 'send_uncompact_interval' seconds. Set to 0 if you don't use this feature.
   send_uncompact_interval: 0
   # At every 'send_uncompact_interval' seconds, send blueboxes 'target_uncompact_proofs' proofs to be normalized.
@@ -347,14 +274,14 @@ full_node:
   dns_servers:
     - "dns-introducer.mykc.cc"
   farmer_peer:
-    host: *self_hostname
-    port: 18447
+      host: *self_hostname
+      port: 18447
   timelord_peer:
-    host: *self_hostname
-    port: 18446
+      host: *self_hostname
+      port: 18446
   introducer_peer:
-    host: introducer.mykc.cc  # Joker AWS introducer IPv4/IPv6
-    port: 18444
+      host: introducer.mykc.cc  # Flax AWS introducer IPv4/IPv6
+      port: 18444
   wallet_peer:
     host: *self_hostname
     port: 18449
@@ -363,14 +290,14 @@ full_node:
   selected_network: *selected_network
 
   ssl:
-    private_crt: "config/ssl/full_node/private_full_node.crt"
-    private_key: "config/ssl/full_node/private_full_node.key"
-    public_crt: "config/ssl/full_node/public_full_node.crt"
-    public_key: "config/ssl/full_node/public_full_node.key"
+    private_crt:  "config/ssl/full_node/private_full_node.crt"
+    private_key:  "config/ssl/full_node/private_full_node.key"
+    public_crt:  "config/ssl/full_node/public_full_node.crt"
+    public_key:  "config/ssl/full_node/public_full_node.key"
 
 ui:
-  # The ui node server (if run) will run on this port
-  port: 8222
+   # The ui node server (if run) will run on this port
+  port: 18222
 
   # Which port to use to communicate with the full node
   rpc_port: 18555
@@ -401,8 +328,8 @@ introducer:
   selected_network: *selected_network
 
   ssl:
-    public_crt: "config/ssl/full_node/public_full_node.crt"
-    public_key: "config/ssl/full_node/public_full_node.key"
+    public_crt:  "config/ssl/full_node/public_full_node.crt"
+    public_key:  "config/ssl/full_node/public_full_node.key"
 
 wallet:
   port: 18449
@@ -440,14 +367,14 @@ wallet:
   recent_peer_threshold: 6000
 
   introducer_peer:
-    host: introducer.mykc.cc # Joker AWS introducer IPv4/IPv6
+    host: introducer.mykc.cc # Flax AWS introducer IPv4/IPv6
     port: 18444
 
   ssl:
-    private_crt: "config/ssl/wallet/private_wallet.crt"
-    private_key: "config/ssl/wallet/private_wallet.key"
-    public_crt: "config/ssl/wallet/public_wallet.crt"
-    public_key: "config/ssl/wallet/public_wallet.key"
+    private_crt:  "config/ssl/wallet/private_wallet.crt"
+    private_key:  "config/ssl/wallet/private_wallet.key"
+    public_crt:  "config/ssl/wallet/public_wallet.crt"
+    public_key:  "config/ssl/wallet/public_wallet.key"
 
   trusted_peers:
     trusted_node_1: "config/ssl/full_node/public_full_node.crt"

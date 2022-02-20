@@ -33,10 +33,10 @@ def adapt_inner_to_singleton(inner_puzzle: Program) -> Program:
 
 # Take standard coin and amount -> launch conditions & launcher coin solution
 def launch_conditions_and_coinsol(
-        coin: Coin,
-        inner_puzzle: Program,
-        comment: List[Tuple[str, str]],
-        amount: uint64,
+    coin: Coin,
+    inner_puzzle: Program,
+    comment: List[Tuple[str, str]],
+    amount: uint64,
 ) -> Tuple[List[Program], CoinSpend]:
     if (amount % 2) == 0:
         raise ValueError("Coin amount cannot be even. Subtract one mojo.")
@@ -111,9 +111,9 @@ def puzzle_for_singleton(launcher_id: bytes32, inner_puz: Program) -> Program:
 
 # Return a solution to spend a singleton
 def solution_for_singleton(
-        lineage_proof: LineageProof,
-        amount: uint64,
-        inner_solution: Program,
+    lineage_proof: LineageProof,
+    amount: uint64,
+    inner_solution: Program,
 ) -> Program:
     if lineage_proof.inner_puzzle_hash is None:
         parent_info = [
@@ -158,11 +158,11 @@ def solution_for_p2_delayed_puzzle(output_amount: uint64) -> Program:
 
 # Get announcement conditions for singleton solution and full CoinSpend for the claimed coin
 def claim_p2_singleton(
-        p2_singleton_coin: Coin,
-        singleton_inner_puzhash: bytes32,
-        launcher_id: bytes32,
-        delay_time: Optional[uint64] = None,
-        delay_ph: Optional[bytes32] = None,
+    p2_singleton_coin: Coin,
+    singleton_inner_puzhash: bytes32,
+    launcher_id: bytes32,
+    delay_time: Optional[uint64] = None,
+    delay_ph: Optional[bytes32] = None,
 ) -> Tuple[Program, Program, CoinSpend]:
     assertion = Program.to([ConditionOpcode.ASSERT_COIN_ANNOUNCEMENT, std_hash(p2_singleton_coin.name() + b"$")])
     announcement = Program.to([ConditionOpcode.CREATE_PUZZLE_ANNOUNCEMENT, p2_singleton_coin.name()])
@@ -184,11 +184,11 @@ def claim_p2_singleton(
 
 # Get the CoinSpend for spending to a delayed puzzle
 def spend_to_delayed_puzzle(
-        p2_singleton_coin: Coin,
-        output_amount: uint64,
-        launcher_id: bytes32,
-        delay_time: uint64,
-        delay_ph: bytes32,
+    p2_singleton_coin: Coin,
+    output_amount: uint64,
+    launcher_id: bytes32,
+    delay_time: uint64,
+    delay_ph: bytes32,
 ) -> CoinSpend:
     claim_coinsol = CoinSpend(
         p2_singleton_coin,

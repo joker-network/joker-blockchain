@@ -17,14 +17,20 @@ Write-Output "Running 'git submodule update --init --recursive'."
 Write-Output ""
 git submodule update --init --recursive
 
-Set-Location joker-blockchain-gui
-$ErrorActionPreference = "SilentlyContinue"
-npm install --loglevel=error
-npm audit fix
-npm run build
-py ..\installhelper.py
+Push-Location
+try {
+    Set-Location Joker-blockchain-gui
 
-Write-Output ""
-Write-Output "joker blockchain Install-gui.ps1 completed."
-Write-Output ""
-Write-Output "Type 'cd Joker-blockchain-gui' and then 'npm run electron' to start the GUI."
+    $ErrorActionPreference = "SilentlyContinue"
+    npm install --loglevel=error
+    npm audit fix
+    npm run build
+    py ..\installhelper.py
+
+    Write-Output ""
+    Write-Output "Joker blockchain Install-gui.ps1 completed."
+    Write-Output ""
+    Write-Output "Type 'cd joker-blockchain-gui' and then 'npm run electron' to start the GUI."
+} finally {
+    Pop-Location
+}

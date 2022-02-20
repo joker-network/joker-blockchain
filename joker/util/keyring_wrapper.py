@@ -13,6 +13,7 @@ from pathlib import Path
 from sys import exit, platform
 from typing import Any, List, Optional, Tuple, Type, Union
 
+
 # We want to protect the keyring, even if a user-specified master passphrase isn't provided
 #
 # WARNING: Changing the default passphrase will prevent passphrase-less users from accessing
@@ -22,6 +23,7 @@ DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE = "$ joker passphrase set # all the c
 
 MASTER_PASSPHRASE_SERVICE_NAME = "Joker Passphrase"
 MASTER_PASSPHRASE_USER_NAME = "Joker Passphrase"
+
 
 LegacyKeyring = Union[MacKeyring, WinKeyring, CryptFileKeyring]
 OSPassphraseStore = Union[MacKeyring, WinKeyring]
@@ -230,14 +232,14 @@ class KeyringWrapper:
         return self.keyring.check_passphrase(passphrase, force_reload=force_reload)
 
     def set_master_passphrase(
-            self,
-            current_passphrase: Optional[str],
-            new_passphrase: str,
-            *,
-            write_to_keyring: bool = True,
-            allow_migration: bool = True,
-            passphrase_hint: Optional[str] = None,
-            save_passphrase: bool = False,
+        self,
+        current_passphrase: Optional[str],
+        new_passphrase: str,
+        *,
+        write_to_keyring: bool = True,
+        allow_migration: bool = True,
+        passphrase_hint: Optional[str] = None,
+        save_passphrase: bool = False,
     ) -> None:
         """
         Sets a new master passphrase for the keyring
@@ -251,9 +253,9 @@ class KeyringWrapper:
 
         # Require a valid current_passphrase
         if (
-                self.has_master_passphrase()
-                and current_passphrase is not None
-                and not self.master_passphrase_is_valid(current_passphrase)
+            self.has_master_passphrase()
+            and current_passphrase is not None
+            and not self.master_passphrase_is_valid(current_passphrase)
         ):
             raise KeyringCurrentPassphraseIsInvalid("invalid current passphrase")
 
@@ -304,8 +306,8 @@ class KeyringWrapper:
                 passphrase_store.delete_password(MASTER_PASSPHRASE_SERVICE_NAME, MASTER_PASSPHRASE_USER_NAME)
             except PasswordDeleteError as e:
                 if (
-                        passphrase_store.get_credential(MASTER_PASSPHRASE_SERVICE_NAME, MASTER_PASSPHRASE_USER_NAME)
-                        is not None
+                    passphrase_store.get_credential(MASTER_PASSPHRASE_SERVICE_NAME, MASTER_PASSPHRASE_USER_NAME)
+                    is not None
                 ):
                     raise e
             except KeyringError as e:
@@ -332,11 +334,11 @@ class KeyringWrapper:
 
     class MigrationResults:
         def __init__(
-                self,
-                original_private_keys: List[Tuple[PrivateKey, bytes]],
-                legacy_keyring: LegacyKeyring,
-                keychain_service: str,
-                keychain_users: List[str],
+            self,
+            original_private_keys: List[Tuple[PrivateKey, bytes]],
+            legacy_keyring: LegacyKeyring,
+            keychain_service: str,
+            keychain_users: List[str],
         ):
             self.original_private_keys = original_private_keys
             self.legacy_keyring = legacy_keyring

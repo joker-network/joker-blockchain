@@ -1,4 +1,5 @@
 from collections import Counter
+from decimal import Decimal
 
 import aiohttp
 import asyncio
@@ -9,6 +10,7 @@ import time
 from pprint import pprint
 from typing import List, Dict, Optional, Callable
 
+from joker.cmds.units import units
 from joker.cmds.wallet_funcs import print_balance, wallet_coin_unit
 from joker.pools.pool_wallet_info import PoolWalletInfo, PoolSingletonState
 from joker.protocols.pool_protocol import POOL_PROTOCOL_VERSION
@@ -21,7 +23,7 @@ from joker.util.bech32m import encode_puzzle_hash
 from joker.util.byte_types import hexstr_to_bytes
 from joker.util.config import load_config
 from joker.util.default_root import DEFAULT_ROOT_PATH
-from joker.util.ints import uint16, uint32
+from joker.util.ints import uint16, uint32, uint64
 from joker.wallet.transaction_record import TransactionRecord
 from joker.wallet.util.wallet_types import WalletType
 
@@ -52,6 +54,8 @@ async def create_pool_args(pool_url: str) -> Dict:
 async def create(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> None:
     state = args["state"]
     prompt = not args.get("yes", False)
+    fee = Decimal(args.get("fee", 0))
+    fee_mojos = uint64(int(fee * units["joker"]))
 
     # Could use initial_pool_state_from_dict to simplify
     if state == "SELF_POOLING":
@@ -87,6 +91,7 @@ async def create(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -
                 "localhost:5000",
                 "new",
                 state,
+                fee_mojos,
             )
             start = time.time()
             while time.time() - start < 10:
@@ -103,12 +108,12 @@ async def create(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -
 
 
 async def pprint_pool_wallet_state(
-        wallet_client: WalletRpcClient,
-        wallet_id: int,
-        pool_wallet_info: PoolWalletInfo,
-        address_prefix: str,
-        pool_state_dict: Dict,
-        plot_counts: Counter,
+    wallet_client: WalletRpcClient,
+    wallet_id: int,
+    pool_wallet_info: PoolWalletInfo,
+    address_prefix: str,
+    pool_state_dict: Dict,
+    plot_counts: Counter,
 ):
     if pool_wallet_info.current.state == PoolSingletonState.LEAVING_POOL and pool_wallet_info.target is None:
         expected_leave_height = pool_wallet_info.singleton_block_height + pool_wallet_info.current.relative_lock_height
@@ -167,6 +172,7 @@ async def pprint_pool_wallet_state(
 
 
 async def show(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> None:
+
     config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
     self_hostname = config["self_hostname"]
     farmer_rpc_port = config["farmer"]["rpc_port"]
@@ -261,7 +267,7 @@ async def get_login_link(launcher_id_str: str) -> None:
 
 
 async def submit_tx_with_confirmation(
-        message: str, prompt: bool, func: Callable, wallet_client: WalletRpcClient, fingerprint: int, wallet_id: int
+    message: str, prompt: bool, func: Callable, wallet_client: WalletRpcClient, fingerprint: int, wallet_id: int
 ):
     print(message)
     if prompt:
@@ -290,6 +296,9 @@ async def join_pool(args: dict, wallet_client: WalletRpcClient, fingerprint: int
     config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
     enforce_https = config["full_node"]["selected_network"] == "mainnet"
     pool_url: str = args["pool_url"]
+    fee = Decimal(args.get("fee", 0))
+    fee_mojos = uint64(int(fee * units["joker"]))
+
     if enforce_https and not pool_url.startswith("https://"):
         print(f"Pool URLs must be HTTPS on mainnet {pool_url}. Aborting.")
         return
@@ -322,6 +331,7 @@ async def join_pool(args: dict, wallet_client: WalletRpcClient, fingerprint: int
         hexstr_to_bytes(json_dict["target_puzzle_hash"]),
         pool_url,
         json_dict["relative_lock_height"],
+        fee_mojos,
     )
 
     await submit_tx_with_confirmation(msg, prompt, func, wallet_client, fingerprint, wallet_id)
@@ -330,9 +340,11 @@ async def join_pool(args: dict, wallet_client: WalletRpcClient, fingerprint: int
 async def self_pool(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> None:
     wallet_id = args.get("id", None)
     prompt = not args.get("yes", False)
+    fee = Decimal(args.get("fee", 0))
+    fee_mojos = uint64(int(fee * units["joker"]))
 
     msg = f"Will start self-farming with Plot NFT on wallet id {wallet_id} fingerprint {fingerprint}."
-    func = functools.partial(wallet_client.pw_self_pool, wallet_id)
+    func = functools.partial(wallet_client.pw_self_pool, wallet_id, fee_mojos)
     await submit_tx_with_confirmation(msg, prompt, func, wallet_client, fingerprint, wallet_id)
 
 
@@ -351,9 +363,12 @@ async def inspect_cmd(args: dict, wallet_client: WalletRpcClient, fingerprint: i
 
 async def claim_cmd(args: dict, wallet_client: WalletRpcClient, fingerprint: int) -> None:
     wallet_id = args.get("id", None)
+    fee = Decimal(args.get("fee", 0))
+    fee_mojos = uint64(int(fee * units["joker"]))
     msg = f"\nWill claim rewards for wallet ID: {wallet_id}."
     func = functools.partial(
         wallet_client.pw_absorb_rewards,
         wallet_id,
+        fee_mojos,
     )
     await submit_tx_with_confirmation(msg, False, func, wallet_client, fingerprint, wallet_id)

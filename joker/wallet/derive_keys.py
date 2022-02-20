@@ -4,11 +4,10 @@ from blspy import AugSchemeMPL, PrivateKey, G1Element
 
 from joker.util.ints import uint32
 
-
 # EIP 2334 bls key derivation
 # https://eips.ethereum.org/EIPS/eip-2334
 # 12381 = bls spec number
-# 18444 = Joker blockchain number and port number
+# 18444 = Joker blockchain number and port number for compatibility
 # 0, 1, 2, 3, 4, 5, 6 farmer, pool, wallet, local, backup key, singleton, pooling authentication key numbers
 
 

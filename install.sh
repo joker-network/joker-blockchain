@@ -19,6 +19,8 @@ if [ "$(uname -m)" = "armv7l" ]; then
   echo ""
 	echo "WARNING:"
 	echo "The Joker Blockchain requires a 64 bit OS and this is 32 bit armv7l"
+	echo "For more information, see"
+	echo "https://github.com/Joker-Network/joker-blockchain/wiki/Raspberry-Pi"
 	echo "Exiting."
 	exit 1
 fi

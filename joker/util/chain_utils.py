@@ -13,7 +13,7 @@ from joker.util.condition_tools import (
 
 
 def additions_for_solution(
-        coin_name: bytes32, puzzle_reveal: SerializedProgram, solution: SerializedProgram, max_cost: int
+    coin_name: bytes32, puzzle_reveal: SerializedProgram, solution: SerializedProgram, max_cost: int
 ) -> List[Coin]:
     """
     Checks the conditions created by CoinSpend and returns the list of all coins created

@@ -13,6 +13,7 @@ from joker.full_node.bundle_tools import simple_solution_generator
 from joker.util.errors import Err
 from joker.consensus.cost_calculator import NPCResult
 
+
 MAX_COST = 11000000000
 
 
@@ -33,19 +34,19 @@ class CoinStore:
         self._reward_mask = reward_mask
 
     def farm_coin(
-            self,
-            puzzle_hash: bytes32,
-            birthday: CoinTimestamp,
-            amount: int = 1024,
-            prefix=bytes32.fromhex("ccd5bb71183532bff220ba46c268991a00000000000000000000000000000000"),  # noqa
+        self,
+        puzzle_hash: bytes32,
+        birthday: CoinTimestamp,
+        amount: int = 1024,
+        prefix=bytes32.fromhex("ccd5bb71183532bff220ba46c268991a00000000000000000000000000000000"),  # noqa
     ) -> Coin:
         parent = bytes32(
             [
                 a | b
                 for a, b in zip(
-                prefix,
-                birthday.height.to_bytes(32, "big"),
-            )
+                    prefix,
+                    birthday.height.to_bytes(32, "big"),
+                )
             ],
         )
         # parent = birthday.height.to_bytes(32, "big")
@@ -54,11 +55,11 @@ class CoinStore:
         return coin
 
     def validate_spend_bundle(
-            self,
-            spend_bundle: SpendBundle,
-            now: CoinTimestamp,
-            max_cost: int,
-            cost_per_byte: int,
+        self,
+        spend_bundle: SpendBundle,
+        now: CoinTimestamp,
+        max_cost: int,
+        cost_per_byte: int,
     ) -> int:
         # this should use blockchain consensus code
 
@@ -98,11 +99,11 @@ class CoinStore:
         return 0
 
     def update_coin_store_for_spend_bundle(
-            self,
-            spend_bundle: SpendBundle,
-            now: CoinTimestamp,
-            max_cost: int,
-            cost_per_byte: int,
+        self,
+        spend_bundle: SpendBundle,
+        now: CoinTimestamp,
+        max_cost: int,
+        cost_per_byte: int,
     ):
         err = self.validate_spend_bundle(spend_bundle, now, max_cost, cost_per_byte)
         if err != 0:

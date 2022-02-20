@@ -13,7 +13,9 @@ from tests.util.keyring import TempKeyring, using_temp_file_keyring
 from time import sleep
 from typing import List
 
+
 log = logging.getLogger(__name__)
+
 
 DUMMY_SLEEP_VALUE = 2
 

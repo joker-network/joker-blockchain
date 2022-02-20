@@ -16,6 +16,7 @@ from joker.wallet.puzzles.load_clvm import load_clvm
 
 from tests.clvm.coin_store import BadSpendBundleError, CoinStore, CoinTimestamp
 
+
 SINGLETON_MOD = load_clvm("singleton_top_layer.clvm")
 LAUNCHER_PUZZLE = load_clvm("singleton_launcher.clvm")
 P2_SINGLETON_MOD = load_clvm("p2_singleton_or_delayed_puzhash.clvm")
@@ -108,7 +109,7 @@ def solve_anyone_can_spend(solver: Solver, puzzle_db: PuzzleDB, args: List[Progr
 
 
 def solve_anyone_can_spend_with_padding(
-        solver: Solver, puzzle_db: PuzzleDB, args: List[Program], kwargs: Dict
+    solver: Solver, puzzle_db: PuzzleDB, args: List[Program], kwargs: Dict
 ) -> Program:
     """This is the puzzle `(a (q . 1) 3)`. It's only for testing."""
     conditions = from_kwargs(kwargs, "conditions", List[Program])
@@ -259,12 +260,12 @@ def adaptor_for_singleton_inner_puzzle(puzzle: Program) -> Program:
 
 
 def launcher_conditions_and_spend_bundle(
-        puzzle_db: PuzzleDB,
-        parent_coin_id: bytes32,
-        launcher_amount: uint64,
-        initial_singleton_inner_puzzle: Program,
-        metadata: List[Tuple[str, str]],
-        launcher_puzzle: Program,
+    puzzle_db: PuzzleDB,
+    parent_coin_id: bytes32,
+    launcher_amount: uint64,
+    initial_singleton_inner_puzzle: Program,
+    metadata: List[Tuple[str, str]],
+    launcher_puzzle: Program,
 ) -> Tuple[bytes32, List[Program], SpendBundle]:
     puzzle_db.add_puzzle(launcher_puzzle)
     launcher_puzzle_hash = launcher_puzzle.get_tree_hash()
@@ -310,11 +311,11 @@ def solution_for_singleton_puzzle(lineage_proof: Program, my_amount: int, inner_
 
 
 def p2_singleton_puzzle_for_launcher(
-        puzzle_db: PuzzleDB,
-        launcher_id: Program,
-        launcher_puzzle_hash: bytes32,
-        seconds_delay: int,
-        delayed_puzzle_hash: bytes32,
+    puzzle_db: PuzzleDB,
+    launcher_id: Program,
+    launcher_puzzle_hash: bytes32,
+    seconds_delay: int,
+    delayed_puzzle_hash: bytes32,
 ) -> Program:
     puzzle = P2_SINGLETON_MOD.curry(
         SINGLETON_MOD_HASH, launcher_id, launcher_puzzle_hash, seconds_delay, delayed_puzzle_hash
@@ -324,11 +325,11 @@ def p2_singleton_puzzle_for_launcher(
 
 
 def p2_singleton_puzzle_hash_for_launcher(
-        puzzle_db: PuzzleDB,
-        launcher_id: Program,
-        launcher_puzzle_hash: bytes32,
-        seconds_delay: int,
-        delayed_puzzle_hash: bytes32,
+    puzzle_db: PuzzleDB,
+    launcher_id: Program,
+    launcher_puzzle_hash: bytes32,
+    seconds_delay: int,
+    delayed_puzzle_hash: bytes32,
 ) -> bytes32:
     return p2_singleton_puzzle_for_launcher(
         puzzle_db, launcher_id, launcher_puzzle_hash, seconds_delay, delayed_puzzle_hash
@@ -336,7 +337,7 @@ def p2_singleton_puzzle_hash_for_launcher(
 
 
 def claim_p2_singleton(
-        puzzle_db: PuzzleDB, singleton_wallet: SingletonWallet, p2_singleton_coin: Coin
+    puzzle_db: PuzzleDB, singleton_wallet: SingletonWallet, p2_singleton_coin: Coin
 ) -> Tuple[CoinSpend, List[Program]]:
     inner_puzzle = singleton_wallet.inner_puzzle(puzzle_db)
     assert inner_puzzle
@@ -394,8 +395,9 @@ def assert_coin_spent(coin_store: CoinStore, coin: Coin, is_spent=True):
 
 
 def spend_coin_to_singleton(
-        puzzle_db: PuzzleDB, launcher_puzzle: Program, coin_store: CoinStore, now: CoinTimestamp
+    puzzle_db: PuzzleDB, launcher_puzzle: Program, coin_store: CoinStore, now: CoinTimestamp
 ) -> Tuple[List[Coin], List[CoinSpend]]:
+
     farmed_coin_amount = 100000
     metadata = [("foo", "bar")]
 
@@ -468,6 +470,7 @@ def filter_p2_singleton(puzzle_db: PuzzleDB, singleton_wallet: SingletonWallet, 
 
 
 def test_lifecycle_with_coinstore_as_wallet():
+
     PUZZLE_DB = PuzzleDB()
 
     interested_singletons = []

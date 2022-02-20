@@ -5,6 +5,7 @@ from blspy import G2Element
 
 from joker.types.spend_bundle import SpendBundle
 
+
 BLANK_SPEND_BUNDLE = SpendBundle(coin_spends=[], aggregated_signature=G2Element())
 NULL_SIGNATURE = "0xc" + "0" * 191
 
@@ -12,13 +13,13 @@ NULL_SIGNATURE = "0xc" + "0" * 191
 class TestStructStream(unittest.TestCase):
     def test_from_json_legacy(self):
         JSON = (
-                """
-            {
-              "coin_solutions": [],
-              "aggregated_signature": "%s"
-            }
             """
-                % NULL_SIGNATURE
+        {
+          "coin_solutions": [],
+          "aggregated_signature": "%s"
+        }
+        """
+            % NULL_SIGNATURE
         )
         spend_bundle = SpendBundle.from_json_dict(json.loads(JSON))
         json_1 = json.loads(JSON)
@@ -27,13 +28,13 @@ class TestStructStream(unittest.TestCase):
 
     def test_from_json_new(self):
         JSON = (
-                """
-            {
-              "coin_spends": [],
-              "aggregated_signature": "%s"
-            }
             """
-                % NULL_SIGNATURE
+        {
+          "coin_spends": [],
+          "aggregated_signature": "%s"
+        }
+        """
+            % NULL_SIGNATURE
         )
         spend_bundle = SpendBundle.from_json_dict(json.loads(JSON))
         json_1 = json.loads(JSON)

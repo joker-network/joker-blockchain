@@ -111,6 +111,6 @@ else
 fi
 
 echo ""
-echo "joker blockchain install-gui.sh completed."
+echo "Joker blockchain install-gui.sh completed."
 echo ""
 echo "Type 'cd joker-blockchain-gui' and then 'npm run electron &' to start the GUI."

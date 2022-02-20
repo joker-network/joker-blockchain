@@ -120,13 +120,13 @@ class WalletStateManager:
 
     @staticmethod
     async def create(
-            private_key: PrivateKey,
-            config: Dict,
-            db_path: Path,
-            constants: ConsensusConstants,
-            server: JokerServer,
-            root_path: Path,
-            name: str = None,
+        private_key: PrivateKey,
+        config: Dict,
+        db_path: Path,
+        constants: ConsensusConstants,
+        server: JokerServer,
+        root_path: Path,
+        name: str = None,
     ):
         self = WalletStateManager()
         self.new_wallet = False
@@ -140,9 +140,10 @@ class WalletStateManager:
         self.db_connection = await aiosqlite.connect(db_path)
         await self.db_connection.execute("pragma journal_mode=wal")
 
-        await self.db_connection.execute(
-            "pragma synchronous={}".format(db_synchronous_on(self.config.get("db_sync", "auto"), db_path))
-        )
+        # Never use pragma synchronous=OFF in Flax.
+        # await self.db_connection.execute(
+        #     "pragma synchronous={}".format(db_synchronous_on(self.config.get("db_sync", "auto"), db_path))
+        # )
 
         self.db_wrapper = DBWrapper(self.db_connection)
         self.coin_store = await WalletCoinStore.create(self.db_wrapper)
@@ -522,9 +523,9 @@ class WalletStateManager:
         return get_balance_from_coin_records(unspent_coin_records)
 
     async def get_confirmed_balance_for_wallet(
-            self,
-            wallet_id: int,
-            unspent_coin_records: Optional[Set[WalletCoinRecord]] = None,
+        self,
+        wallet_id: int,
+        unspent_coin_records: Optional[Set[WalletCoinRecord]] = None,
     ) -> uint128:
         """
         Returns the confirmed balance, including coinbase rewards that are not spendable.
@@ -544,7 +545,7 @@ class WalletStateManager:
             return await self.coin_store.get_unspent_coins_for_wallet(wallet_id)
 
     async def get_unconfirmed_balance(
-            self, wallet_id, unspent_coin_records: Optional[Set[WalletCoinRecord]] = None
+        self, wallet_id, unspent_coin_records: Optional[Set[WalletCoinRecord]] = None
     ) -> uint128:
         """
         Returns the balance, including coinbase rewards that are not spendable, and unconfirmed
@@ -601,11 +602,11 @@ class WalletStateManager:
         return removals
 
     async def new_transaction_block_callback(
-            self,
-            removals: List[Coin],
-            additions: List[Coin],
-            block: BlockRecord,
-            additional_coin_spends: List[CoinSpend],
+        self,
+        removals: List[Coin],
+        additions: List[Coin],
+        block: BlockRecord,
+        additional_coin_spends: List[CoinSpend],
     ):
         height: uint32 = block.height
         for coin in additions:
@@ -623,8 +624,8 @@ class WalletStateManager:
                     pool_state = None
                     for wallet_id, wallet in self.wallets.items():
                         if (
-                                wallet.type() == WalletType.POOLING_WALLET
-                                and (await wallet.get_current_state()).launcher_id == cs.coin.name()
+                            wallet.type() == WalletType.POOLING_WALLET
+                            and (await wallet.get_current_state()).launcher_id == cs.coin.name()
                         ):
                             self.log.warning("Already have, not recreating")
                             already_have = True
@@ -663,7 +664,7 @@ class WalletStateManager:
         self.tx_pending_changed()
 
     async def coins_of_interest_added(
-            self, coins: List[Coin], block: BlockRecord
+        self, coins: List[Coin], block: BlockRecord
     ) -> Tuple[List[Coin], List[WalletCoinRecord]]:
         (
             trade_removals,
@@ -762,7 +763,7 @@ class WalletStateManager:
         return trade_adds, added
 
     async def coins_of_interest_removed(
-            self, coins: List[Coin], height: uint32
+        self, coins: List[Coin], height: uint32
     ) -> Tuple[List[Coin], List[WalletCoinRecord]]:
         # This gets called when coins of our interest are spent on chain
         if len(coins) > 0:
@@ -795,14 +796,14 @@ class WalletStateManager:
         return trade_coin_removed, removed
 
     async def coin_added(
-            self,
-            coin: Coin,
-            coinbase: bool,
-            fee_reward: bool,
-            wallet_id: uint32,
-            wallet_type: WalletType,
-            height: uint32,
-            all_outgoing_transaction_records: List[TransactionRecord],
+        self,
+        coin: Coin,
+        coinbase: bool,
+        fee_reward: bool,
+        wallet_id: uint32,
+        wallet_type: WalletType,
+        height: uint32,
+        all_outgoing_transaction_records: List[TransactionRecord],
     ) -> WalletCoinRecord:
         """
         Adding coin to DB
@@ -896,11 +897,11 @@ class WalletStateManager:
         self.state_changed("pending_transaction", tx_record.wallet_id)
 
     async def remove_from_queue(
-            self,
-            spendbundle_id: bytes32,
-            name: str,
-            send_status: MempoolInclusionStatus,
-            error: Optional[Err],
+        self,
+        spendbundle_id: bytes32,
+        name: str,
+        send_status: MempoolInclusionStatus,
+        error: Optional[Err],
     ):
         """
         Full node received our transaction, no need to keep it in queue anymore
@@ -922,7 +923,7 @@ class WalletStateManager:
         return await self.tx_store.get_transaction_record(tx_id)
 
     async def get_filter_additions_removals(
-            self, new_block: HeaderBlock, transactions_filter: bytes, fork_point_with_peak: Optional[uint32]
+        self, new_block: HeaderBlock, transactions_filter: bytes, fork_point_with_peak: Optional[uint32]
     ) -> Tuple[List[bytes32], List[bytes32]]:
         """Returns a list of our coin ids, and a list of puzzle_hashes that positively match with provided filter."""
         # assert new_block.prev_header_hash in self.blockchain.blocks
@@ -975,7 +976,7 @@ class WalletStateManager:
                     record = await self.puzzle_store.get_derivation_record_for_puzzle_hash(removal.puzzle_hash)
                     if record is None:
                         continue
-                    unspent_coin_names.remove(removal)
+                    unspent_coin_names.remove(removal.name())
 
         my_puzzle_hashes = self.puzzle_store.all_puzzle_hashes
 
@@ -1206,8 +1207,7 @@ class WalletStateManager:
         return filtered
 
     async def create_action(
-            self, name: str, wallet_id: int, wallet_type: int, callback: str, done: bool, data: str,
-            in_transaction: bool
+        self, name: str, wallet_id: int, wallet_type: int, callback: str, done: bool, data: str, in_transaction: bool
     ):
         await self.action_store.create_action(name, wallet_id, wallet_type, callback, done, data, in_transaction)
         self.tx_pending_changed()

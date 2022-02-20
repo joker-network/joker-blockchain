@@ -15,10 +15,10 @@ for ln in sys.stdin:
     if "test_duplicate_coin_announces" in line[0]:
         limit = 2200
     elif (
-            "test_duplicate_large_integer_substr" in line[0]
-            or "test_duplicate_reserve_fee" in line[0]
-            or "test_duplicate_large_integer_negative" in line[0]
-            or "test_duplicate_large_integer" in line[0]
+        "test_duplicate_large_integer_substr" in line[0]
+        or "test_duplicate_reserve_fee" in line[0]
+        or "test_duplicate_large_integer_negative" in line[0]
+        or "test_duplicate_large_integer" in line[0]
     ):
         limit = 1100
 

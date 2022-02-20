@@ -27,7 +27,8 @@ MAX_TOTAL_PEERS_RECEIVED = 3000
 MAX_CONCURRENT_OUTBOUND_CONNECTIONS = 70
 NETWORK_ID_DEFAULT_PORTS = {
     "mainnet": 18444,
-    "testnet7": 58888,
+    "testnet7": 58444,
+    "testnet8": 58445,
 }
 
 
@@ -35,17 +36,17 @@ class FullNodeDiscovery:
     resolver: Optional[dns.asyncresolver.Resolver]
 
     def __init__(
-            self,
-            server: JokerServer,
-            root_path: Path,
-            target_outbound_count: int,
-            peer_db_path: str,
-            introducer_info: Optional[Dict],
-            dns_servers: List[str],
-            peer_connect_interval: int,
-            selected_network: str,
-            default_port: Optional[int],
-            log,
+        self,
+        server: JokerServer,
+        root_path: Path,
+        target_outbound_count: int,
+        peer_db_path: str,
+        introducer_info: Optional[Dict],
+        dns_servers: List[str],
+        peer_connect_interval: int,
+        selected_network: str,
+        default_port: Optional[int],
+        log,
     ):
         self.server: JokerServer = server
         self.message_queue: asyncio.Queue = asyncio.Queue()
@@ -92,7 +93,7 @@ class FullNodeDiscovery:
         mkdir(self.peer_db_path.parent)
         self.connection = await aiosqlite.connect(self.peer_db_path)
         await self.connection.execute("pragma journal_mode=wal")
-        await self.connection.execute("pragma synchronous=OFF")
+        pass  # await self.connection.execute("pragma synchronous=OFF")  # Prevent DB corruption by avoiding ill-advised synchronous optimization.
         self.address_manager_store = await AddressManagerStore.create(self.connection)
         if not await self.address_manager_store.is_empty():
             self.address_manager = await self.address_manager_store.deserialize()
@@ -130,11 +131,11 @@ class FullNodeDiscovery:
 
     async def on_connect(self, peer: ws.WSJokerConnection):
         if (
-                peer.is_outbound is False
-                and peer.peer_server_port is not None
-                and peer.connection_type is NodeType.FULL_NODE
-                and self.server._local_type is NodeType.FULL_NODE
-                and self.address_manager is not None
+            peer.is_outbound is False
+            and peer.peer_server_port is not None
+            and peer.connection_type is NodeType.FULL_NODE
+            and self.server._local_type is NodeType.FULL_NODE
+            and self.address_manager is not None
         ):
             timestamped_peer_info = TimestampedPeerInfo(
                 peer.peer_host,
@@ -145,11 +146,11 @@ class FullNodeDiscovery:
             if self.relay_queue is not None:
                 self.relay_queue.put_nowait((timestamped_peer_info, 1))
         if (
-                peer.is_outbound
-                and peer.peer_server_port is not None
-                and peer.connection_type is NodeType.FULL_NODE
-                and (self.server._local_type is NodeType.FULL_NODE or self.server._local_type is NodeType.WALLET)
-                and self.address_manager is not None
+            peer.is_outbound
+            and peer.peer_server_port is not None
+            and peer.connection_type is NodeType.FULL_NODE
+            and (self.server._local_type is NodeType.FULL_NODE or self.server._local_type is NodeType.WALLET)
+            and self.address_manager is not None
         ):
             msg = make_msg(ProtocolMessageTypes.request_peers, full_node_protocol.RequestPeers())
             await peer.send_message(msg)
@@ -157,11 +158,11 @@ class FullNodeDiscovery:
     # Updates timestamps each time we receive a message for outbound connections.
     async def update_peer_timestamp_on_message(self, peer: ws.WSJokerConnection):
         if (
-                peer.is_outbound
-                and peer.peer_server_port is not None
-                and peer.connection_type is NodeType.FULL_NODE
-                and self.server._local_type is NodeType.FULL_NODE
-                and self.address_manager is not None
+            peer.is_outbound
+            and peer.peer_server_port is not None
+            and peer.connection_type is NodeType.FULL_NODE
+            and self.server._local_type is NodeType.FULL_NODE
+            and self.address_manager is not None
         ):
             peer_info = peer.get_peer_info()
             if peer_info is None:
@@ -185,9 +186,8 @@ class FullNodeDiscovery:
 
     def _poisson_next_send(self, now, avg_interval_seconds, random):
         return now + (
-                math.log(
-                    random.randrange(1 << 48) * -0.0000000000000035527136788 + 1) * avg_interval_seconds * -1000000.0
-                + 0.5
+            math.log(random.randrange(1 << 48) * -0.0000000000000035527136788 + 1) * avg_interval_seconds * -1000000.0
+            + 0.5
         )
 
     async def _introducer_client(self):
@@ -496,18 +496,18 @@ class FullNodePeers(FullNodeDiscovery):
     address_relay_task: Optional[asyncio.Task] = None
 
     def __init__(
-            self,
-            server,
-            root_path,
-            max_inbound_count,
-            target_outbound_count,
-            peer_db_path,
-            introducer_info,
-            dns_servers,
-            peer_connect_interval,
-            selected_network,
-            default_port,
-            log,
+        self,
+        server,
+        root_path,
+        max_inbound_count,
+        target_outbound_count,
+        peer_db_path,
+        introducer_info,
+        dns_servers,
+        peer_connect_interval,
+        selected_network,
+        default_port,
+        log,
     ):
         super().__init__(
             server,
@@ -670,17 +670,17 @@ class FullNodePeers(FullNodeDiscovery):
 
 class WalletPeers(FullNodeDiscovery):
     def __init__(
-            self,
-            server,
-            root_path,
-            target_outbound_count,
-            peer_db_path,
-            introducer_info,
-            dns_servers,
-            peer_connect_interval,
-            selected_network,
-            default_port,
-            log,
+        self,
+        server,
+        root_path,
+        target_outbound_count,
+        peer_db_path,
+        introducer_info,
+        dns_servers,
+        peer_connect_interval,
+        selected_network,
+        default_port,
+        log,
     ) -> None:
         super().__init__(
             server,

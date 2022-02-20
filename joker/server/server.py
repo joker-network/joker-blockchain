@@ -3,10 +3,12 @@ import logging
 import ssl
 import time
 import traceback
+from collections import Counter
 from ipaddress import IPv6Address, ip_address, ip_network, IPv4Network, IPv6Network
 from pathlib import Path
 from secrets import token_bytes
 from typing import Any, Callable, Dict, List, Optional, Union, Set, Tuple
+from typing import Counter as typing_Counter
 
 from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError, WSCloseCode, client_exceptions, web
 from aiohttp.web_app import Application
@@ -32,13 +34,13 @@ from joker.util.ssl_check import verify_ssl_certs_and_keys
 
 
 def ssl_context_for_server(
-        ca_cert: Path,
-        ca_key: Path,
-        private_cert_path: Path,
-        private_key_path: Path,
-        *,
-        check_permissions: bool = True,
-        log: Optional[logging.Logger] = None,
+    ca_cert: Path,
+    ca_key: Path,
+    private_cert_path: Path,
+    private_key_path: Path,
+    *,
+    check_permissions: bool = True,
+    log: Optional[logging.Logger] = None,
 ) -> Optional[ssl.SSLContext]:
     if check_permissions:
         verify_ssl_certs_and_keys([ca_cert, private_cert_path], [ca_key, private_key_path], log)
@@ -51,7 +53,7 @@ def ssl_context_for_server(
 
 
 def ssl_context_for_root(
-        ca_cert_file: str, *, check_permissions: bool = True, log: Optional[logging.Logger] = None
+    ca_cert_file: str, *, check_permissions: bool = True, log: Optional[logging.Logger] = None
 ) -> Optional[ssl.SSLContext]:
     if check_permissions:
         verify_ssl_certs_and_keys([Path(ca_cert_file)], [], log)
@@ -61,13 +63,13 @@ def ssl_context_for_root(
 
 
 def ssl_context_for_client(
-        ca_cert: Path,
-        ca_key: Path,
-        private_cert_path: Path,
-        private_key_path: Path,
-        *,
-        check_permissions: bool = True,
-        log: Optional[logging.Logger] = None,
+    ca_cert: Path,
+    ca_key: Path,
+    private_cert_path: Path,
+    private_key_path: Path,
+    *,
+    check_permissions: bool = True,
+    log: Optional[logging.Logger] = None,
 ) -> Optional[ssl.SSLContext]:
     if check_permissions:
         verify_ssl_certs_and_keys([ca_cert, private_cert_path], [ca_key, private_key_path], log)
@@ -81,21 +83,21 @@ def ssl_context_for_client(
 
 class JokerServer:
     def __init__(
-            self,
-            port: int,
-            node: Any,
-            api: Any,
-            local_type: NodeType,
-            ping_interval: int,
-            network_id: str,
-            inbound_rate_limit_percent: int,
-            outbound_rate_limit_percent: int,
-            root_path: Path,
-            config: Dict,
-            private_ca_crt_key: Tuple[Path, Path],
-            joker_ca_crt_key: Tuple[Path, Path],
-            name: str = None,
-            introducer_peers: Optional[IntroducerPeers] = None,
+        self,
+        port: int,
+        node: Any,
+        api: Any,
+        local_type: NodeType,
+        ping_interval: int,
+        network_id: str,
+        inbound_rate_limit_percent: int,
+        outbound_rate_limit_percent: int,
+        root_path: Path,
+        config: Dict,
+        private_ca_crt_key: Tuple[Path, Path],
+        joker_ca_crt_key: Tuple[Path, Path],
+        name: str = None,
+        introducer_peers: Optional[IntroducerPeers] = None,
     ):
         # Keeps track of all connections to and from this node.
         logging.basicConfig(level=logging.DEBUG)
@@ -279,7 +281,7 @@ class JokerServer:
             assert handshake is True
             # Limit inbound connections to config's specifications.
             if not self.accept_inbound_connections(connection.connection_type) and not is_in_network(
-                    connection.peer_host, self.exempt_peer_networks
+                connection.peer_host, self.exempt_peer_networks
             ):
                 self.log.info(
                     f"Not accepting inbound connection: {connection.get_peer_logging()}.Inbound limit reached."
@@ -346,11 +348,11 @@ class JokerServer:
         return False
 
     async def start_client(
-            self,
-            target_node: PeerInfo,
-            on_connect: Callable = None,
-            auth: bool = False,
-            is_feeler: bool = False,
+        self,
+        target_node: PeerInfo,
+        on_connect: Callable = None,
+        auth: bool = False,
+        is_feeler: bool = False,
     ) -> bool:
         """
         Tries to connect to the target node, adding one connection into the pipeline, if successful.
@@ -493,11 +495,10 @@ class JokerServer:
                 f"Invalid connection type for connection {connection.peer_host},"
                 f" while closing. Handshake never finished."
             )
+        self.cancel_tasks_from_peer(connection.peer_node_id)
         on_disconnect = getattr(self.node, "on_disconnect", None)
         if on_disconnect is not None:
             on_disconnect(connection)
-
-        self.cancel_tasks_from_peer(connection.peer_node_id)
 
     def cancel_tasks_from_peer(self, peer_id: bytes32):
         if peer_id not in self.tasks_from_peer:
@@ -512,13 +513,16 @@ class JokerServer:
 
     async def incoming_api_task(self) -> None:
         self.tasks = set()
+        message_types: typing_Counter[str] = Counter()  # Used for debugging information.
         while True:
             payload_inc, connection_inc = await self.incoming_messages.get()
             if payload_inc is None or connection_inc is None:
                 continue
 
             async def api_call(full_message: Message, connection: WSJokerConnection, task_id):
+                nonlocal message_types
                 start_time = time.time()
+                message_type = ""
                 try:
                     if self.received_message_callback is not None:
                         await self.received_message_callback(connection)
@@ -526,9 +530,12 @@ class JokerServer:
                         f"<- {ProtocolMessageTypes(full_message.type).name} from peer "
                         f"{connection.peer_node_id} {connection.peer_host}"
                     )
-                    message_type: str = ProtocolMessageTypes(full_message.type).name
+                    message_type = ProtocolMessageTypes(full_message.type).name
+                    message_types[message_type] += 1
 
                     f = getattr(self.api, message_type, None)
+                    if len(message_types) % 100 == 0:
+                        self.log.debug(f"Message types: {[(m, n) for m, n in sorted(message_types.items()) if n != 0]}")
 
                     if f is None:
                         self.log.error(f"Non existing function: {message_type}")
@@ -575,6 +582,8 @@ class JokerServer:
                     if response is not None:
                         response_message = Message(response.type, full_message.id, response.data)
                         await connection.reply_to_request(response_message)
+                except TimeoutError:
+                    connection.log.error(f"Timeout error for: {message_type}")
                 except Exception as e:
                     if self.connection_close_task is None:
                         tb = traceback.format_exc()
@@ -586,6 +595,7 @@ class JokerServer:
                     # TODO: actually throw one of the errors from errors.py and pass this to close
                     await connection.close(self.api_exception_ban_seconds, WSCloseCode.PROTOCOL_ERROR, Err.UNKNOWN)
                 finally:
+                    message_types[message_type] -= 1
                     if task_id in self.api_tasks:
                         self.api_tasks.pop(task_id)
                     if task_id in self.tasks_from_peer[connection.peer_node_id]:
@@ -601,10 +611,10 @@ class JokerServer:
             self.tasks_from_peer[connection_inc.peer_node_id].add(task_id)
 
     async def send_to_others(
-            self,
-            messages: List[Message],
-            node_type: NodeType,
-            origin_peer: WSJokerConnection,
+        self,
+        messages: List[Message],
+        node_type: NodeType,
+        origin_peer: WSJokerConnection,
     ):
         for node_id, connection in self.all_connections.items():
             if node_id == origin_peer.peer_node_id:

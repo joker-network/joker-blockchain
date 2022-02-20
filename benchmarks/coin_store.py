@@ -2,7 +2,6 @@ import asyncio
 import random
 import secrets
 from time import time
-from datetime import datetime
 from pathlib import Path
 from joker.full_node.coin_store import CoinStore
 from typing import List, Tuple
@@ -17,37 +16,22 @@ from joker.types.blockchain_format.sized_bytes import bytes32
 from joker.types.blockchain_format.coin import Coin
 from joker.util.ints import uint64, uint32
 
+
 NUM_ITERS = 200
 
 # farmer puzzle hash
 ph = bytes32(b"a" * 32)
 
-# we need seeded random, to have reproducible benchmark runs
-random.seed(123456789)
 
-
-async def setup_db(sql_logging: bool) -> DBWrapper:
+async def setup_db() -> DBWrapper:
     db_filename = Path("coin-store-benchmark.db")
     try:
         os.unlink(db_filename)
     except FileNotFoundError:
         pass
     connection = await aiosqlite.connect(db_filename)
-
-    def sql_trace_callback(req: str):
-        sql_log_path = "sql.log"
-        timestamp = datetime.now().strftime("%H:%M:%S.%f")
-        log = open(sql_log_path, "a")
-        log.write(timestamp + " " + req + "\n")
-        log.close()
-
-    if sql_logging:
-        await connection.set_trace_callback(sql_trace_callback)
-
     await connection.execute("pragma journal_mode=wal")
-    await connection.execute("pragma synchronous=full")
-    await connection.execute("pragma temp_store=memory")
-
+    await connection.execute("pragma synchronous=FULL")
     return DBWrapper(connection)
 
 
@@ -77,13 +61,10 @@ def rewards(height: uint32) -> Tuple[Coin, Coin]:
 
 
 async def run_new_block_benchmark():
+
+    db_wrapper: DBWrapper = await setup_db()
+
     verbose: bool = "--verbose" in sys.argv
-    sql_logging: bool = "--sql-logging" in sys.argv
-    db_wrapper: DBWrapper = await setup_db(sql_logging)
-
-    # keep track of benchmark total time
-    all_test_time = 0
-
     try:
         coin_store = await CoinStore.create(db_wrapper)
 
@@ -175,7 +156,6 @@ async def run_new_block_benchmark():
         if verbose:
             print("")
         print(f"{total_time:0.4f}s, MOSTLY ADDITIONS additions: {total_add} removals: {total_remove}")
-        all_test_time += total_time
 
         if verbose:
             print("Profiling mostly removals ", end="")
@@ -227,7 +207,6 @@ async def run_new_block_benchmark():
         if verbose:
             print("")
         print(f"{total_time:0.4f}s, MOSTLY REMOVALS additions: {total_add} removals: {total_remove}")
-        all_test_time += total_time
 
         if verbose:
             print("Profiling full block transactions", end="")
@@ -276,7 +255,6 @@ async def run_new_block_benchmark():
         if verbose:
             print("")
         print(f"{total_time:0.4f}s, FULLBLOCKS additions: {total_add} removals: {total_remove}")
-        all_test_time += total_time
 
         if verbose:
             print("profiling get_coin_records_by_names, include_spent ", end="")
@@ -299,7 +277,6 @@ async def run_new_block_benchmark():
             f"{total_time:0.4f}s, GET RECORDS BY NAMES with spent {NUM_ITERS} "
             f"lookups found {found_coins} coins in total"
         )
-        all_test_time += total_time
 
         if verbose:
             print("profiling get_coin_records_by_names, without spent coins ", end="")
@@ -322,7 +299,6 @@ async def run_new_block_benchmark():
             f"{total_time:0.4f}s, GET RECORDS BY NAMES without spent {NUM_ITERS} "
             f"lookups found {found_coins} coins in total"
         )
-        all_test_time += total_time
 
         if verbose:
             print("profiling get_coin_removed_at_height ", end="")
@@ -340,11 +316,9 @@ async def run_new_block_benchmark():
         if verbose:
             print("")
         print(
-            f"{total_time:0.4f}s, GET COINS REMOVED AT HEIGHT {block_height - 1} blocks, "
+            f"{total_time:0.4f}s, GET COINS REMOVED AT HEIGHT {block_height-1} blocks, "
             f"found {found_coins} coins in total"
         )
-        all_test_time += total_time
-        print(f"all tests completed in {all_test_time:0.4f}s")
 
     finally:
         await db_wrapper.db.close()

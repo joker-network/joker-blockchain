@@ -19,11 +19,12 @@ from joker.wallet.puzzles.rom_bootstrap_generator import get_generator
 
 GENERATOR_MOD = get_generator()
 
+
 log = logging.getLogger(__name__)
 
 
 def mempool_assert_absolute_block_height_exceeds(
-        condition: ConditionWithArgs, prev_transaction_block_height: uint32
+    condition: ConditionWithArgs, prev_transaction_block_height: uint32
 ) -> Optional[Err]:
     """
     Checks if the next block index exceeds the block index from the condition
@@ -38,7 +39,7 @@ def mempool_assert_absolute_block_height_exceeds(
 
 
 def mempool_assert_relative_block_height_exceeds(
-        condition: ConditionWithArgs, unspent: CoinRecord, prev_transaction_block_height: uint32
+    condition: ConditionWithArgs, unspent: CoinRecord, prev_transaction_block_height: uint32
 ) -> Optional[Err]:
     """
     Checks if the coin age exceeds the age from the condition
@@ -70,7 +71,7 @@ def mempool_assert_absolute_time_exceeds(condition: ConditionWithArgs, timestamp
 
 
 def mempool_assert_relative_time_exceeds(
-        condition: ConditionWithArgs, unspent: CoinRecord, timestamp: uint64
+    condition: ConditionWithArgs, unspent: CoinRecord, timestamp: uint64
 ) -> Optional[Err]:
     """
     Check if the current time in seconds exceeds the time specified by condition
@@ -88,7 +89,7 @@ def mempool_assert_relative_time_exceeds(
 
 
 def get_name_puzzle_conditions(
-        generator: BlockGenerator, max_cost: int, *, cost_per_byte: int, safe_mode: bool
+    generator: BlockGenerator, max_cost: int, *, cost_per_byte: int, safe_mode: bool
 ) -> NPCResult:
     block_program, block_program_args = setup_generator_args(generator)
     max_cost -= len(bytes(generator.program)) * cost_per_byte
@@ -135,10 +136,10 @@ def get_puzzle_and_solution_for_coin(generator: BlockGenerator, coin_name: bytes
 
 
 def mempool_check_conditions_dict(
-        unspent: CoinRecord,
-        conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
-        prev_transaction_block_height: uint32,
-        timestamp: uint64,
+    unspent: CoinRecord,
+    conditions_dict: Dict[ConditionOpcode, List[ConditionWithArgs]],
+    prev_transaction_block_height: uint32,
+    timestamp: uint64,
 ) -> Optional[Err]:
     """
     Check all conditions against current state.

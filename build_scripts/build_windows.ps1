@@ -34,16 +34,30 @@ pip install pyinstaller==4.5
 pip install setuptools_scm
 
 Write-Output "   ---"
-Write-Output "Get JOKER_INSTALLER_VERSION"
-# The environment variable JOKER_INSTALLER_VERSION needs to be defined
-$env:JOKER_INSTALLER_VERSION = python .\build_scripts\installer-version.py -win
+Write-Output "Get FLAX_INSTALLER_VERSION"
+# The environment variable FLAX_INSTALLER_VERSION needs to be defined
+$env:FLAX_INSTALLER_VERSION = python .\build_scripts\installer-version.py -win
 
-if (-not (Test-Path env:JOKER_INSTALLER_VERSION)) {
-  $env:JOKER_INSTALLER_VERSION = '0.0.0'
-  Write-Output "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0"
+if (-not (Test-Path env:FLAX_INSTALLER_VERSION)) {
+  $env:FLAX_INSTALLER_VERSION = '0.0.0'
+  Write-Output "WARNING: No environment variable FLAX_INSTALLER_VERSION set. Using 0.0.0"
   }
-Write-Output "Joker Version is: $env:JOKER_INSTALLER_VERSION"
+Write-Output "Flax Version is: $env:FLAX_INSTALLER_VERSION"
 Write-Output "   ---"
+
+Write-Output "Checking if madmax exists"
+Write-Output "   ---"
+if (Test-Path -Path .\madmax\) {
+    Write-Output "   madmax exists, moving to expected directory"
+    mv .\madmax\ .\venv\lib\site-packages\
+}
+
+Write-Output "Checking if bladebit exists"
+Write-Output "   ---"
+if (Test-Path -Path .\bladebit\) {
+    Write-Output "   bladebit exists, moving to expected directory"
+    mv .\bladebit\ .\venv\lib\site-packages\
+}
 
 Write-Output "   ---"
 Write-Output "Build joker-blockchain wheels"
@@ -61,7 +75,7 @@ pip install --no-index --find-links=.\win_build\ miniupnpc
 # pip install setproctitle==1.2.2
 
 Write-Output "pip install joker-blockchain"
-pip install --no-index --find-links=.\win_build\ joker-blockchain
+pip install --no-index --find-links=.\win_build\ flax-blockchain
 
 Write-Output "   ---"
 Write-Output "Use pyinstaller to create joker .exe's"
@@ -72,8 +86,8 @@ pyinstaller --log-level INFO $SPEC_FILE
 Write-Output "   ---"
 Write-Output "Copy joker executables to joker-blockchain-gui\"
 Write-Output "   ---"
-Copy-Item "dist\daemon" -Destination "..\joker-blockchain-gui\" -Recurse
-Set-Location -Path "..\joker-blockchain-gui" -PassThru
+Copy-Item "dist\daemon" -Destination "..\flax-blockchain-gui\" -Recurse
+Set-Location -Path "..\flax-blockchain-gui" -PassThru
 
 git status
 
@@ -99,11 +113,11 @@ If ($LastExitCode -gt 0){
 Write-Output "   ---"
 Write-Output "Increase the stack for joker command for (joker plots create) chiapos limitations"
 # editbin.exe needs to be in the path
-editbin.exe /STACK:8000000 daemon\joker.exe
+editbin.exe /STACK:8000000 daemon\flax.exe
 Write-Output "   ---"
 
-$packageVersion = "$env:JOKER_INSTALLER_VERSION"
-$packageName = "Joker-$packageVersion"
+$packageVersion = "$env:FLAX_INSTALLER_VERSION"
+$packageName = "Flax-$packageVersion"
 
 Write-Output "packageName is $packageName"
 
@@ -111,14 +125,14 @@ Write-Output "   ---"
 Write-Output "fix version in package.json"
 choco install jq
 cp package.json package.json.orig
-jq --arg VER "$env:JOKER_INSTALLER_VERSION" '.version=$VER' package.json > temp.json
+jq --arg VER "$env:FLAX_INSTALLER_VERSION" '.version=$VER' package.json > temp.json
 rm package.json
 mv temp.json package.json
 Write-Output "   ---"
 
 Write-Output "   ---"
 Write-Output "electron-packager"
-electron-packager . Joker --asar.unpack="**\daemon\**" --overwrite --icon=.\src\assets\img\joker.ico --app-version=$packageVersion
+electron-packager . Flax --asar.unpack="**\daemon\**" --overwrite --icon=.\src\assets\img\flax.ico --app-version=$packageVersion
 Write-Output "   ---"
 
 Write-Output "   ---"
@@ -132,8 +146,8 @@ If ($env:HAS_SECRET) {
    Write-Output "   ---"
    Write-Output "Add timestamp and verify signature"
    Write-Output "   ---"
-   signtool.exe timestamp /v /t http://timestamp.comodoca.com/ .\release-builds\windows-installer\JokerSetup-$packageVersion.exe
-   signtool.exe verify /v /pa .\release-builds\windows-installer\JokerSetup-$packageVersion.exe
+   signtool.exe timestamp /v /t http://timestamp.comodoca.com/ .\release-builds\windows-installer\FlaxSetup-$packageVersion.exe
+   signtool.exe verify /v /pa .\release-builds\windows-installer\FlaxSetup-$packageVersion.exe
    }   Else    {
    Write-Output "Skipping timestamp and verify signatures - no authorization to install certificates"
 }

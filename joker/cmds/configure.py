@@ -8,17 +8,17 @@ from joker.util.default_root import DEFAULT_ROOT_PATH
 
 
 def configure(
-        root_path: Path,
-        set_farmer_peer: str,
-        set_node_introducer: str,
-        set_fullnode_port: str,
-        set_harvester_port: str,
-        set_log_level: str,
-        enable_upnp: str,
-        set_outbound_peer_count: str,
-        set_peer_count: str,
-        testnet: str,
-        peer_connect_timeout: str,
+    root_path: Path,
+    set_farmer_peer: str,
+    set_node_introducer: str,
+    set_fullnode_port: str,
+    set_harvester_port: str,
+    set_log_level: str,
+    enable_upnp: str,
+    set_outbound_peer_count: str,
+    set_peer_count: str,
+    testnet: str,
+    peer_connect_timeout: str,
 ):
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
     change_made = False
@@ -74,25 +74,25 @@ def configure(
             change_made = True
         else:
             print(f"Logging level not updated. Use one of: {levels}")
-    if enable_upnp is not None:
+    if enable_upnp:
         config["full_node"]["enable_upnp"] = str2bool(enable_upnp)
         if str2bool(enable_upnp):
             print("uPnP enabled")
         else:
             print("uPnP disabled")
         change_made = True
-    if set_outbound_peer_count is not None:
+    if set_outbound_peer_count:
         config["full_node"]["target_outbound_peer_count"] = int(set_outbound_peer_count)
         print("Target outbound peer count updated")
         change_made = True
-    if set_peer_count is not None:
+    if set_peer_count:
         config["full_node"]["target_peer_count"] = int(set_peer_count)
         print("Target peer count updated")
         change_made = True
-    if testnet is not None:
+    if testnet:
         if testnet == "true" or testnet == "t":
             print("Setting Testnet")
-            testnet_port = "58888"
+            testnet_port = "58444"
             testnet_introducer = "beta_introducer.mykc.cc"
             testnet_dns_introducer = "dns-introducer-testnet.mykc.cc"
             testnet = "testnet7"
@@ -146,7 +146,7 @@ def configure(
         else:
             print("Please choose True or False")
 
-    if peer_connect_timeout is not None:
+    if peer_connect_timeout:
         config["full_node"]["peer_connect_timeout"] = int(peer_connect_timeout)
         change_made = True
 
@@ -198,17 +198,17 @@ def configure(
 @click.option("--set-peer-connect-timeout", help="Update the peer connect timeout (default 30)", type=str)
 @click.pass_context
 def configure_cmd(
-        ctx,
-        set_farmer_peer,
-        set_node_introducer,
-        set_fullnode_port,
-        set_harvester_port,
-        set_log_level,
-        enable_upnp,
-        set_outbound_peer_count,
-        set_peer_count,
-        testnet,
-        set_peer_connect_timeout,
+    ctx,
+    set_farmer_peer,
+    set_node_introducer,
+    set_fullnode_port,
+    set_harvester_port,
+    set_log_level,
+    enable_upnp,
+    set_outbound_peer_count,
+    set_peer_count,
+    testnet,
+    set_peer_connect_timeout,
 ):
     configure(
         ctx.obj["root_path"],

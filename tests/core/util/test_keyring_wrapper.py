@@ -184,9 +184,8 @@ class TestKeyringWrapper:
         """
         # Expect: default master passphrase should validate
         assert (
-                KeyringWrapper.get_shared_instance().master_passphrase_is_valid(
-                    DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE)
-                is True
+            KeyringWrapper.get_shared_instance().master_passphrase_is_valid(DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE)
+            is True
         )
 
         # Expect: bogus passphrase should not validate
@@ -258,9 +257,8 @@ class TestKeyringWrapper:
             True,
         )
         assert (
-                KeyringWrapper.get_shared_instance().master_passphrase_is_valid(
-                    DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE)
-                is True
+            KeyringWrapper.get_shared_instance().master_passphrase_is_valid(DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE)
+            is True
         )
 
     # When: using a populated keyring
@@ -284,14 +282,12 @@ class TestKeyringWrapper:
             True,
         )
         assert (
-                KeyringWrapper.get_shared_instance().master_passphrase_is_valid(
-                    DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE)
-                is True
+            KeyringWrapper.get_shared_instance().master_passphrase_is_valid(DEFAULT_PASSPHRASE_IF_NO_MASTER_PASSPHRASE)
+            is True
         )
         assert (
-                KeyringWrapper.get_shared_instance().master_passphrase_is_valid(
-                    "It's dangerous to go alone, take this!")
-                is False
+            KeyringWrapper.get_shared_instance().master_passphrase_is_valid("It's dangerous to go alone, take this!")
+            is False
         )
 
     # When: using a new empty keyring
@@ -310,14 +306,13 @@ class TestKeyringWrapper:
 
         # Expect: passphrase lookup should succeed
         assert (
-                KeyringWrapper.get_shared_instance().get_passphrase("service-abc", "user-xyz")
-                == "super secret passphrase".encode().hex()
+            KeyringWrapper.get_shared_instance().get_passphrase("service-abc", "user-xyz")
+            == "super secret passphrase".encode().hex()
         )
 
         # Expect: non-existent passphrase lookup should fail
         assert (
-                KeyringWrapper.get_shared_instance().get_passphrase("service-123",
-                                                                    "some non-existent passphrase") is None
+            KeyringWrapper.get_shared_instance().get_passphrase("service-123", "some non-existent passphrase") is None
         )
 
     # When: using a new empty keyring
@@ -331,8 +326,8 @@ class TestKeyringWrapper:
 
         # Expect: passphrase lookup should succeed
         assert (
-                KeyringWrapper.get_shared_instance().get_passphrase("service-xyz", "user-123")
-                == "initial passphrase".encode().hex()
+            KeyringWrapper.get_shared_instance().get_passphrase("service-xyz", "user-123")
+            == "initial passphrase".encode().hex()
         )
 
         # When: updating the same passphrase
@@ -340,8 +335,8 @@ class TestKeyringWrapper:
 
         # Expect: the updated passphrase should be retrieved
         assert (
-                KeyringWrapper.get_shared_instance().get_passphrase("service-xyz", "user-123")
-                == "updated passphrase".encode().hex()
+            KeyringWrapper.get_shared_instance().get_passphrase("service-xyz", "user-123")
+            == "updated passphrase".encode().hex()
         )
 
     # When: using a new empty keyring
@@ -358,8 +353,8 @@ class TestKeyringWrapper:
 
         # Expect: passphrase retrieval should succeed
         assert (
-                KeyringWrapper.get_shared_instance().get_passphrase("some service", "some user")
-                == "500p3r 53cr37".encode().hex()
+            KeyringWrapper.get_shared_instance().get_passphrase("some service", "some user")
+            == "500p3r 53cr37".encode().hex()
         )
 
         # When: deleting the passphrase
@@ -442,8 +437,8 @@ class TestKeyringWrapper:
 
         # Expect: to retrieve the passphrase hint that was just set
         assert (
-                KeyringWrapper.get_shared_instance().get_master_passphrase_hint()
-                == "President Skroob's luggage combination"
+            KeyringWrapper.get_shared_instance().get_master_passphrase_hint()
+            == "President Skroob's luggage combination"
         )
 
         # When: removing the passphrase hint
@@ -472,6 +467,6 @@ class TestKeyringWrapper:
 
         # Expect: to retrieve the passphrase hint that was just set
         assert (
-                KeyringWrapper.get_shared_instance().get_master_passphrase_hint()
-                == "Something you wouldn't expect The Shredder to say"
+            KeyringWrapper.get_shared_instance().get_master_passphrase_hint()
+            == "Something you wouldn't expect The Shredder to say"
         )

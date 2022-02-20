@@ -13,7 +13,7 @@ from joker.cmds.show import show_cmd
 from joker.cmds.start import start_cmd
 from joker.cmds.stop import stop_cmd
 from joker.cmds.wallet import wallet_cmd
-from joker.cmds.plotnft import plotnft_cmd
+from joker.cmds.plotters import plotters_cmd
 from joker.util.default_root import DEFAULT_KEYS_ROOT_PATH, DEFAULT_ROOT_PATH
 from joker.util.keychain import set_keys_root_path, supports_keyring_passphrase
 from joker.util.ssl_check import check_ssl
@@ -50,10 +50,10 @@ def monkey_patch_click() -> None:
 @click.option("--passphrase-file", type=click.File("r"), help="File or descriptor to read the keyring passphrase from")
 @click.pass_context
 def cli(
-        ctx: click.Context,
-        root_path: str,
-        keys_root_path: Optional[str] = None,
-        passphrase_file: Optional[TextIOWrapper] = None,
+    ctx: click.Context,
+    root_path: str,
+    keys_root_path: Optional[str] = None,
+    passphrase_file: Optional[TextIOWrapper] = None,
 ) -> None:
     from pathlib import Path
 
@@ -66,7 +66,7 @@ def cli(
         set_keys_root_path(Path(keys_root_path))
 
     if passphrase_file is not None:
-        from .passphrase_funcs import cache_passphrase, read_passphrase_from_file
+        from joker.cmds.passphrase_funcs import cache_passphrase, read_passphrase_from_file
 
         try:
             cache_passphrase(read_passphrase_from_file(passphrase_file))
@@ -110,7 +110,6 @@ def run_daemon_cmd(ctx: click.Context, wait_for_unlock: bool) -> None:
 cli.add_command(keys_cmd)
 cli.add_command(plots_cmd)
 cli.add_command(wallet_cmd)
-cli.add_command(plotnft_cmd)
 cli.add_command(configure_cmd)
 cli.add_command(init_cmd)
 cli.add_command(show_cmd)
@@ -118,6 +117,7 @@ cli.add_command(start_cmd)
 cli.add_command(stop_cmd)
 cli.add_command(netspace_cmd)
 cli.add_command(farm_cmd)
+cli.add_command(plotters_cmd)
 
 if supports_keyring_passphrase():
     cli.add_command(passphrase_cmd)

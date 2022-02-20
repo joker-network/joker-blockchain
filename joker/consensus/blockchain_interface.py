@@ -53,12 +53,12 @@ class BlockchainInterface:
         pass
 
     async def get_header_blocks_in_range(
-            self, start: int, stop: int, tx_filter: bool = True
+        self, start: int, stop: int, tx_filter: bool = True
     ) -> Dict[bytes32, HeaderBlock]:
         pass
 
     async def get_header_block_by_height(
-            self, height: int, header_hash: bytes32, tx_filter: bool = True
+        self, height: int, header_hash: bytes32, tx_filter: bool = True
     ) -> Optional[HeaderBlock]:
         pass
 
@@ -71,13 +71,13 @@ class BlockchainInterface:
         return None
 
     async def persist_sub_epoch_challenge_segments(
-            self, sub_epoch_summary_height: uint32, segments: List[SubEpochChallengeSegment]
+        self, sub_epoch_summary_height: uint32, segments: List[SubEpochChallengeSegment]
     ):
         pass
 
     async def get_sub_epoch_challenge_segments(
-            self,
-            sub_epoch_summary_height: uint32,
+        self,
+        sub_epoch_summary_height: uint32,
     ) -> Optional[List[SubEpochChallengeSegment]]:
         pass
 

@@ -42,9 +42,9 @@ class TradeManager:
 
     @staticmethod
     async def create(
-            wallet_state_manager: Any,
-            db_wrapper: DBWrapper,
-            name: str = None,
+        wallet_state_manager: Any,
+        db_wrapper: DBWrapper,
+        name: str = None,
     ):
         self = TradeManager()
         if name:
@@ -61,7 +61,7 @@ class TradeManager:
         return records
 
     async def get_coins_of_interest(
-            self,
+        self,
     ) -> Tuple[Dict[bytes32, Coin], Dict[bytes32, Coin]]:
         """
         Returns list of coins we want to check if they are included in filter,
@@ -228,7 +228,7 @@ class TradeManager:
         await self.trade_store.add_trade_record(trade, False)
 
     async def create_offer_for_ids(
-            self, offer: Dict[int, int], file_name: str
+        self, offer: Dict[int, int], file_name: str
     ) -> Tuple[bool, Optional[TradeRecord], Optional[str]]:
         success, trade_offer, error = await self._create_offer_for_ids(offer)
 
@@ -323,7 +323,7 @@ class TradeManager:
         return get_discrepancies_for_spend_bundle(trade_offer.spend_bundle)
 
     async def get_inner_puzzle_for_puzzle_hash(self, puzzle_hash) -> Program:
-        info = await self.wallet_state_manager.puzzle_store.get_derivation_record_for_puzzle_hash(puzzle_hash.hex())
+        info = await self.wallet_state_manager.puzzle_store.get_derivation_record_for_puzzle_hash(puzzle_hash)
         assert info is not None
         puzzle = self.wallet_state_manager.main_wallet.puzzle_for_pk(bytes(info.pubkey))
         return puzzle
@@ -409,7 +409,7 @@ class TradeManager:
 
         joker_spend_bundle: Optional[SpendBundle] = None
         if joker_discrepancy is not None:
-            joker_spend_bundle = await self.wallet_state_manager.main_wallet.create_spend_bundle_relative_chia(
+            joker_spend_bundle = await self.wallet_state_manager.main_wallet.create_spend_bundle_relative_joker(
                 joker_discrepancy, []
             )
             if joker_spend_bundle is not None:

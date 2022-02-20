@@ -23,10 +23,10 @@ log = logging.getLogger(__name__)
 
 class PlotKeys:
     def __init__(
-            self,
-            farmer_public_key: G1Element,
-            pool_public_key: Optional[G1Element],
-            pool_contract_address: Optional[str],
+        self,
+        farmer_public_key: G1Element,
+        pool_public_key: Optional[G1Element],
+        pool_contract_address: Optional[str],
     ):
         self.farmer_public_key = farmer_public_key
         self.pool_public_key = pool_public_key
@@ -41,14 +41,14 @@ class PlotKeys:
 
 class PlotKeysResolver:
     def __init__(
-            self,
-            farmer_public_key: str,
-            alt_fingerprint: int,
-            pool_public_key: str,
-            pool_contract_address: str,
-            root_path: Path,
-            log: logging.Logger,
-            connect_to_daemon=False,
+        self,
+        farmer_public_key: str,
+        alt_fingerprint: int,
+        pool_public_key: str,
+        pool_contract_address: str,
+        root_path: Path,
+        log: logging.Logger,
+        connect_to_daemon=False,
     ):
         self.farmer_public_key = farmer_public_key
         self.alt_fingerprint = alt_fingerprint
@@ -128,13 +128,13 @@ class PlotKeysResolver:
 
 
 async def resolve_plot_keys(
-        farmer_public_key: str,
-        alt_fingerprint: int,
-        pool_public_key: str,
-        pool_contract_address: str,
-        root_path: Path,
-        log: logging.Logger,
-        connect_to_daemon=False,
+    farmer_public_key: str,
+    alt_fingerprint: int,
+    pool_public_key: str,
+    pool_contract_address: str,
+    root_path: Path,
+    log: logging.Logger,
+    connect_to_daemon=False,
 ) -> PlotKeys:
     return await PlotKeysResolver(
         farmer_public_key, alt_fingerprint, pool_public_key, pool_contract_address, root_path, log, connect_to_daemon
@@ -142,8 +142,9 @@ async def resolve_plot_keys(
 
 
 async def create_plots(
-        args, keys: PlotKeys, root_path, use_datetime=True, test_private_keys: Optional[List] = None
+    args, keys: PlotKeys, root_path, use_datetime=True, test_private_keys: Optional[List] = None
 ) -> Tuple[Dict[bytes32, Path], Dict[bytes32, Path]]:
+
     config_filename = config_path_for_filename(root_path, "config.yaml")
     config = load_config(root_path, config_filename)
 

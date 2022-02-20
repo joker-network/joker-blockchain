@@ -33,8 +33,8 @@ class KeyTool(dict):
         assert conditions is not None
         conditions_dict = conditions_by_opcode(conditions)
         for public_key, message_hash in pkm_pairs_for_conditions_dict(
-                conditions_dict, coin_spend.coin.name(), additional_data
+            conditions_dict, coin_spend.coin.name(), additional_data
         ):
-            signature = self.sign(bytes(public_key), message_hash)
+            signature = self.sign(public_key, message_hash)
             signatures.append(signature)
         return AugSchemeMPL.aggregate(signatures)

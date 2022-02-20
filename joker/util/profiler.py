@@ -5,7 +5,6 @@ import pathlib
 
 from joker.util.path import mkdir, path_from_root
 
-
 # to use the profiler, enable it config file, "enable_profiler"
 # the output will be printed to your joker root path, e.g. ~/.joker/mainnet/profile/
 # to analyze the profile, run:
@@ -21,6 +20,7 @@ from joker.util.path import mkdir, path_from_root
 
 
 async def profile_task(root_path: pathlib.Path, service: str, log: logging.Logger) -> None:
+
     profile_dir = path_from_root(root_path, f"profile-{service}")
     log.info("Starting profiler. saving to %s" % profile_dir)
     mkdir(profile_dir)
@@ -47,7 +47,6 @@ if __name__ == "__main__":
 
     profile_dir = pathlib.Path(sys.argv[1])
     init(strip=False)
-
 
     def analyze_cpu_usage(profile_dir: pathlib.Path):
         counter = 0
@@ -110,7 +109,6 @@ if __name__ == "__main__":
         except Exception as e:
             print(e)
 
-
     def analyze_slot_range(profile_dir: pathlib.Path, first: int, last: int):
         if last < first:
             print("ERROR: first must be <= last when specifying slot range")
@@ -129,7 +127,6 @@ if __name__ == "__main__":
         with open(output_file + ".png", "w+") as f:
             check_call(["dot", "-T", "png", output_file + ".dot"], stdout=f)
         print("output written to: %s.png" % output_file)
-
 
     if len(sys.argv) == 2:
         # this analyzes the CPU usage at all slots saved to the profiler directory

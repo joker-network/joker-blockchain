@@ -33,21 +33,21 @@ class WSJokerConnection:
     """
 
     def __init__(
-            self,
-            local_type: NodeType,
-            ws: Any,  # Websocket
-            server_port: int,
-            log: logging.Logger,
-            is_outbound: bool,
-            is_feeler: bool,  # Special type of connection, that disconnects after the handshake.
-            peer_host,
-            incoming_queue,
-            close_callback: Callable,
-            peer_id,
-            inbound_rate_limit_percent: int,
-            outbound_rate_limit_percent: int,
-            close_event=None,
-            session=None,
+        self,
+        local_type: NodeType,
+        ws: Any,  # Websocket
+        server_port: int,
+        log: logging.Logger,
+        is_outbound: bool,
+        is_feeler: bool,  # Special type of connection, that disconnects after the handshake.
+        peer_host,
+        incoming_queue,
+        close_callback: Callable,
+        peer_id,
+        inbound_rate_limit_percent: int,
+        outbound_rate_limit_percent: int,
+        close_event=None,
+        session=None,
     ):
         # Local properties
         self.ws: Any = ws
@@ -113,7 +113,7 @@ class WSJokerConnection:
             outbound_handshake = make_msg(
                 ProtocolMessageTypes.handshake,
                 Handshake(
-                    network_id,
+                    'joker-' + network_id,
                     protocol_version,
                     joker_full_version_str(),
                     uint16(server_port),
@@ -137,7 +137,7 @@ class WSJokerConnection:
             if message_type != ProtocolMessageTypes.handshake:
                 raise ProtocolError(Err.INVALID_HANDSHAKE)
 
-            if inbound_handshake.network_id != network_id:
+            if inbound_handshake.network_id != 'joker-' + network_id:
                 raise ProtocolError(Err.INCOMPATIBLE_NETWORK_ID)
 
             self.version = inbound_handshake.software_version
@@ -164,12 +164,12 @@ class WSJokerConnection:
                 raise ProtocolError(Err.INVALID_HANDSHAKE)
 
             inbound_handshake = Handshake.from_bytes(message.data)
-            if inbound_handshake.network_id != network_id:
+            if inbound_handshake.network_id != 'joker-' + network_id:
                 raise ProtocolError(Err.INCOMPATIBLE_NETWORK_ID)
             outbound_handshake = make_msg(
                 ProtocolMessageTypes.handshake,
                 Handshake(
-                    network_id,
+                    'joker-' + network_id,
                     protocol_version,
                     joker_full_version_str(),
                     uint16(server_port),
@@ -215,9 +215,17 @@ class WSJokerConnection:
         except Exception:
             error_stack = traceback.format_exc()
             self.log.warning(f"Exception closing socket: {error_stack}")
-            self.close_callback(self, ban_time)
+            try:
+                self.close_callback(self, ban_time)
+            except Exception:
+                error_stack = traceback.format_exc()
+                self.log.error(f"Error closing1: {error_stack}")
             raise
-        self.close_callback(self, ban_time)
+        try:
+            self.close_callback(self, ban_time)
+        except Exception:
+            error_stack = traceback.format_exc()
+            self.log.error(f"Error closing2: {error_stack}")
 
     async def ban_peer_bad_protocol(self, log_err_msg: str):
         """Ban peer for protocol violation"""

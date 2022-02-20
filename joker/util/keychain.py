@@ -14,11 +14,12 @@ from secrets import token_bytes
 from time import sleep
 from typing import Any, Dict, List, Optional, Tuple
 
+
 CURRENT_KEY_VERSION = "1.8"
 DEFAULT_USER = f"user-joker-{CURRENT_KEY_VERSION}"  # e.g. user-joker-1.8
 DEFAULT_SERVICE = f"joker-{DEFAULT_USER}"  # e.g. joker-user-joker-1.8
 DEFAULT_PASSPHRASE_PROMPT = (
-        colorama.Fore.YELLOW + colorama.Style.BRIGHT + "(Unlock Keyring)" + colorama.Style.RESET_ALL + " Passphrase: "
+    colorama.Fore.YELLOW + colorama.Style.BRIGHT + "(Unlock Keyring)" + colorama.Style.RESET_ALL + " Passphrase: "
 )  # noqa: E501
 FAILED_ATTEMPT_DELAY = 0.5
 MAX_KEYS = 100
@@ -252,7 +253,7 @@ class Keychain:
         str_bytes = bytes.fromhex(read_str)
         return (
             G1Element.from_bytes(str_bytes[: G1Element.SIZE]),
-            str_bytes[G1Element.SIZE:],  # flake8: noqa
+            str_bytes[G1Element.SIZE :],  # flake8: noqa
         )
 
     def _get_free_private_key_index(self) -> int:
@@ -311,7 +312,7 @@ class Keychain:
         return None
 
     def get_private_key_by_fingerprint(
-            self, fingerprint: int, passphrases: List[str] = [""]
+        self, fingerprint: int, passphrases: List[str] = [""]
     ) -> Optional[Tuple[PrivateKey, bytes]]:
         """
         Return first private key which have the given public key fingerprint.
@@ -445,8 +446,8 @@ class Keychain:
         """
         # Unlocked: If a master passphrase isn't set, or if the cached passphrase is valid
         if not Keychain.has_master_passphrase() or (
-                Keychain.has_cached_passphrase()
-                and Keychain.master_passphrase_is_valid(Keychain.get_cached_master_passphrase())
+            Keychain.has_cached_passphrase()
+            and Keychain.master_passphrase_is_valid(Keychain.get_cached_master_passphrase())
         ):
             return False
 
@@ -472,10 +473,10 @@ class Keychain:
 
     @staticmethod
     def migrate_legacy_keyring(
-            passphrase: Optional[str] = None,
-            passphrase_hint: Optional[str] = None,
-            save_passphrase: bool = False,
-            cleanup_legacy_keyring: bool = False,
+        passphrase: Optional[str] = None,
+        passphrase_hint: Optional[str] = None,
+        save_passphrase: bool = False,
+        cleanup_legacy_keyring: bool = False,
     ) -> None:
         """
         Begins legacy keyring migration in a non-interactive manner
@@ -562,12 +563,12 @@ class Keychain:
 
     @staticmethod
     def set_master_passphrase(
-            current_passphrase: Optional[str],
-            new_passphrase: str,
-            *,
-            allow_migration: bool = True,
-            passphrase_hint: Optional[str] = None,
-            save_passphrase: bool = False,
+        current_passphrase: Optional[str],
+        new_passphrase: str,
+        *,
+        allow_migration: bool = True,
+        passphrase_hint: Optional[str] = None,
+        save_passphrase: bool = False,
     ) -> None:
         """
         Encrypts the keyring contents to new passphrase, provided that the current

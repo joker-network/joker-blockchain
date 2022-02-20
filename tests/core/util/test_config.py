@@ -4,14 +4,13 @@ import pytest
 import random
 import yaml
 
-from joker.util.config import create_default_joker_config, initial_config_file, load_config, save_config
+from joker.util.config import create_default_flax_config, initial_config_file, load_config, save_config
 from joker.util.path import mkdir
 from multiprocessing import Pool
 from pathlib import Path
 from threading import Thread
 from time import sleep
 from typing import Dict
-
 
 # Commented-out lines are preserved to aide in debugging the multiprocessing tests
 # import logging
@@ -80,7 +79,7 @@ class TestConfig:
         Returns the root path containing the config.
         """
         root_path: Path = Path(tmpdir)
-        create_default_joker_config(root_path)
+        create_default_flax_config(root_path)
         return Path(root_path)
 
     @pytest.fixture(scope="function")
@@ -94,7 +93,7 @@ class TestConfig:
 
     def test_create_config_new(self, tmpdir):
         """
-        Test create_default_joker_config() as in a first run scenario
+        Test create_default_flax_config() as in a first run scenario
         """
         # When: using a clean directory
         root_path: Path = Path(tmpdir)
@@ -102,7 +101,7 @@ class TestConfig:
         # Expect: config.yaml doesn't exist
         assert config_file_path.exists() is False
         # When: creating a new config
-        create_default_joker_config(root_path)
+        create_default_flax_config(root_path)
         # Expect: config.yaml exists
         assert config_file_path.exists() is True
 
@@ -116,7 +115,7 @@ class TestConfig:
 
     def test_create_config_overwrite(self, tmpdir):
         """
-        Test create_default_joker_config() when overwriting an existing config.yaml
+        Test create_default_flax_config() when overwriting an existing config.yaml
         """
         # When: using a clean directory
         root_path: Path = Path(tmpdir)
@@ -128,7 +127,7 @@ class TestConfig:
         # Expect: config.yaml exists
         assert config_file_path.exists() is True
         # When: creating a new config
-        create_default_joker_config(root_path)
+        create_default_flax_config(root_path)
         # Expect: config.yaml exists
         assert config_file_path.exists() is True
 
@@ -149,12 +148,12 @@ class TestConfig:
         config: Dict = load_config(root_path=root_path, filename="config.yaml")
         assert config is not None
         # Expect: config values should match the defaults (from a small sampling)
-        assert config["daemon_port"] == default_config_dict["daemon_port"] == 55400
+        assert config["daemon_port"] == default_config_dict["daemon_port"] == 56600
         assert config["self_hostname"] == default_config_dict["self_hostname"] == "localhost"
         assert (
-                config["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
-                == default_config_dict["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
-                == "ccd5bb71183532bff220ba46c268991a3ff07eb358e8255a65c30a2dce0e5fbb"
+            config["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
+            == default_config_dict["farmer"]["network_overrides"]["constants"]["mainnet"]["GENESIS_CHALLENGE"]
+            == "ccd5bb71183532bff220ba46c268991a3ff07eb358e8255a65c30a2dce0e5fbb"
         )
 
     def test_load_config_exit_on_error(self, tmpdir):

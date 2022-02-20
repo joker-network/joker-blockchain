@@ -135,13 +135,13 @@ class PlotManager:
     _refresh_callback: Callable
 
     def __init__(
-            self,
-            root_path: Path,
-            refresh_callback: Callable,
-            match_str: Optional[str] = None,
-            show_memo: bool = False,
-            open_no_key_filenames: bool = False,
-            refresh_parameter: PlotsRefreshParameter = PlotsRefreshParameter(),
+        self,
+        root_path: Path,
+        refresh_callback: Callable,
+        match_str: Optional[str] = None,
+        show_memo: bool = False,
+        open_no_key_filenames: bool = False,
+        refresh_parameter: PlotsRefreshParameter = PlotsRefreshParameter(),
     ):
         self.root_path = root_path
         self.plots = {}
@@ -231,6 +231,33 @@ class PlotManager:
 
             self._refresh_callback(PlotRefreshEvents.started, PlotRefreshResult(remaining=total_size))
 
+            # First drop all plots we have in plot_filename_paths but not longer in the filesystem or set in config
+            def plot_removed(test_path: Path):
+                return not test_path.exists() or test_path.parent not in plot_directories
+
+            filenames_to_remove: List[str] = []
+            for plot_filename, paths_entry in self.plot_filename_paths.items():
+                loaded_path, duplicated_paths = paths_entry
+                loaded_plot = Path(loaded_path) / Path(plot_filename)
+                if plot_removed(loaded_plot):
+                    filenames_to_remove.append(plot_filename)
+                    if loaded_plot in self.plots:
+                        del self.plots[loaded_plot]
+                    total_result.removed += 1
+                    # No need to check the duplicates here since we drop the whole entry
+                    continue
+
+                paths_to_remove: List[str] = []
+                for path in duplicated_paths:
+                    if plot_removed(Path(path) / Path(plot_filename)):
+                        paths_to_remove.append(path)
+                        total_result.removed += 1
+                for path in paths_to_remove:
+                    duplicated_paths.remove(path)
+
+            for filename in filenames_to_remove:
+                del self.plot_filename_paths[filename]
+
             def batches() -> Iterator[Tuple[int, List[Path]]]:
                 if total_size > 0:
                     for batch_start in range(0, total_size, self.refresh_parameter.batch_size):
@@ -247,7 +274,6 @@ class PlotManager:
                 # Set the remaining files since `refresh_batch()` doesn't know them but we want to report it
                 batch_result.remaining = remaining
                 total_result.loaded += batch_result.loaded
-                total_result.removed += batch_result.removed
                 total_result.processed += batch_result.processed
                 total_result.duration += batch_result.duration
 
@@ -294,12 +320,10 @@ class PlotManager:
             filename_str = str(file_path)
             if self.match_str is not None and self.match_str not in filename_str:
                 return None
-            if not file_path.exists():
-                return None
             if (
-                    file_path in self.failed_to_open_filenames
-                    and (time.time() - self.failed_to_open_filenames[file_path])
-                    < self.refresh_parameter.retry_invalid_seconds
+                file_path in self.failed_to_open_filenames
+                and (time.time() - self.failed_to_open_filenames[file_path])
+                < self.refresh_parameter.retry_invalid_seconds
             ):
                 # Try once every `refresh_parameter.retry_invalid_seconds` seconds to open the file
                 return None
@@ -314,6 +338,9 @@ class PlotManager:
                     log.debug(f"Skip duplicated plot {str(file_path)}")
                     return None
             try:
+                if not file_path.exists():
+                    return None
+
                 prover = DiskProver(str(file_path))
 
                 log.debug(f"process_file {str(file_path)}")
@@ -326,7 +353,7 @@ class PlotManager:
 
                 if prover.get_size() >= 30 and stat_info.st_size < 0.98 * expected_size:
                     log.warning(
-                        f"Not farming plot {file_path}. Size is {stat_info.st_size / (1024 ** 3)} GiB, but expected"
+                        f"Not farming plot {file_path}. Size is {stat_info.st_size / (1024**3)} GiB, but expected"
                         f" at least: {expected_size / (1024 ** 3)} GiB. We assume the file is being copied."
                     )
                     return None
@@ -413,35 +440,6 @@ class PlotManager:
             return new_plot_info
 
         with self, ThreadPoolExecutor() as executor:
-
-            # First drop all plots we have in plot_filename_paths but not longer in the filesystem or set in config
-            def plot_removed(test_path: Path):
-                return not test_path.exists() or test_path.parent not in plot_directories
-
-            with self.plot_filename_paths_lock:
-                filenames_to_remove: List[str] = []
-                for plot_filename, paths_entry in self.plot_filename_paths.items():
-                    loaded_path, duplicated_paths = paths_entry
-                    loaded_plot = Path(loaded_path) / Path(plot_filename)
-                    if plot_removed(loaded_plot):
-                        filenames_to_remove.append(plot_filename)
-                        if loaded_plot in self.plots:
-                            del self.plots[loaded_plot]
-                        result.removed += 1
-                        # No need to check the duplicates here since we drop the whole entry
-                        continue
-
-                    paths_to_remove: List[str] = []
-                    for path in duplicated_paths:
-                        if plot_removed(Path(path) / Path(plot_filename)):
-                            paths_to_remove.append(path)
-                            result.removed += 1
-                    for path in paths_to_remove:
-                        duplicated_paths.remove(path)
-
-                for filename in filenames_to_remove:
-                    del self.plot_filename_paths[filename]
-
             plots_refreshed: Dict[Path, PlotInfo] = {}
             for new_plot in executor.map(process_file, plot_paths):
                 if new_plot is not None:

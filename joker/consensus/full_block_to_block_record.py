@@ -17,12 +17,13 @@ from joker.util.ints import uint8, uint32, uint64
 
 
 def block_to_block_record(
-        constants: ConsensusConstants,
-        blocks: BlockchainInterface,
-        required_iters: uint64,
-        full_block: Optional[Union[FullBlock, HeaderBlock]],
-        header_block: Optional[HeaderBlock],
+    constants: ConsensusConstants,
+    blocks: BlockchainInterface,
+    required_iters: uint64,
+    full_block: Optional[Union[FullBlock, HeaderBlock]],
+    header_block: Optional[HeaderBlock],
 ) -> BlockRecord:
+
     if full_block is None:
         assert header_block is not None
         block: Union[HeaderBlock, FullBlock] = header_block
@@ -83,15 +84,16 @@ def block_to_block_record(
 
 
 def header_block_to_sub_block_record(
-        constants: ConsensusConstants,
-        required_iters: uint64,
-        block: Union[FullBlock, HeaderBlock],
-        sub_slot_iters: uint64,
-        overflow: bool,
-        deficit: uint8,
-        prev_transaction_block_height: uint32,
-        ses: Optional[SubEpochSummary],
+    constants: ConsensusConstants,
+    required_iters: uint64,
+    block: Union[FullBlock, HeaderBlock],
+    sub_slot_iters: uint64,
+    overflow: bool,
+    deficit: uint8,
+    prev_transaction_block_height: uint32,
+    ses: Optional[SubEpochSummary],
 ) -> BlockRecord:
+
     reward_claims_incorporated = (
         block.transactions_info.reward_claims_incorporated if block.transactions_info is not None else None
     )
@@ -150,7 +152,6 @@ def header_block_to_sub_block_record(
         sub_slot_iters,
         block.foliage.foliage_block_data.pool_target.puzzle_hash,
         block.foliage.foliage_block_data.farmer_reward_puzzle_hash,
-        block.foliage.foliage_block_data.community_reward_puzzle_hash,
         required_iters,
         deficit,
         overflow,

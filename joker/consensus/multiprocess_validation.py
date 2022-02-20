@@ -21,6 +21,7 @@ from joker.types.blockchain_format.sub_epoch_summary import SubEpochSummary
 from joker.types.full_block import FullBlock
 from joker.types.generator_types import BlockGenerator
 from joker.types.header_block import HeaderBlock
+from joker.types.unfinished_block import UnfinishedBlock
 from joker.util.block_cache import BlockCache
 from joker.util.errors import Err, ValidationError
 from joker.util.generator_tools import get_block_header, tx_removals_and_additions
@@ -39,15 +40,15 @@ class PreValidationResult(Streamable):
 
 
 def batch_pre_validate_blocks(
-        constants_dict: Dict,
-        blocks_pickled: Dict[bytes, bytes],
-        full_blocks_pickled: Optional[List[bytes]],
-        header_blocks_pickled: Optional[List[bytes]],
-        prev_transaction_generators: List[Optional[bytes]],
-        npc_results: Dict[uint32, bytes],
-        check_filter: bool,
-        expected_difficulty: List[uint64],
-        expected_sub_slot_iters: List[uint64],
+    constants_dict: Dict,
+    blocks_pickled: Dict[bytes, bytes],
+    full_blocks_pickled: Optional[List[bytes]],
+    header_blocks_pickled: Optional[List[bytes]],
+    prev_transaction_generators: List[Optional[bytes]],
+    npc_results: Dict[uint32, bytes],
+    check_filter: bool,
+    expected_difficulty: List[uint64],
+    expected_sub_slot_iters: List[uint64],
 ) -> List[bytes]:
     blocks = {}
     for k, v in blocks_pickled.items():
@@ -127,16 +128,16 @@ def batch_pre_validate_blocks(
 
 
 async def pre_validate_blocks_multiprocessing(
-        constants: ConsensusConstants,
-        constants_json: Dict,
-        block_records: BlockchainInterface,
-        blocks: Sequence[Union[FullBlock, HeaderBlock]],
-        pool: ProcessPoolExecutor,
-        check_filter: bool,
-        npc_results: Dict[uint32, NPCResult],
-        get_block_generator: Optional[Callable],
-        batch_size: int,
-        wp_summaries: Optional[List[SubEpochSummary]] = None,
+    constants: ConsensusConstants,
+    constants_json: Dict,
+    block_records: BlockchainInterface,
+    blocks: Sequence[Union[FullBlock, HeaderBlock]],
+    pool: ProcessPoolExecutor,
+    check_filter: bool,
+    npc_results: Dict[uint32, NPCResult],
+    get_block_generator: Optional[Callable],
+    batch_size: int,
+    wp_summaries: Optional[List[SubEpochSummary]] = None,
 ) -> Optional[List[PreValidationResult]]:
     """
     This method must be called under the blockchain lock
@@ -165,9 +166,9 @@ async def pre_validate_blocks_multiprocessing(
         curr = block_records.block_record(blocks[0].prev_header_hash)
         num_sub_slots_to_look_for = 3 if curr.overflow else 2
         while (
-                curr.sub_epoch_summary_included is None
-                or num_blocks_seen < constants.NUMBER_OF_TIMESTAMPS
-                or num_sub_slots_found < num_sub_slots_to_look_for
+            curr.sub_epoch_summary_included is None
+            or num_blocks_seen < constants.NUMBER_OF_TIMESTAMPS
+            or num_sub_slots_found < num_sub_slots_to_look_for
         ) and curr.height > 0:
             if num_blocks_seen < constants.NUMBER_OF_TIMESTAMPS or num_sub_slots_found < num_sub_slots_to_look_for:
                 recent_blocks_compressed[curr.header_hash] = curr
@@ -316,3 +317,34 @@ async def pre_validate_blocks_multiprocessing(
         for batch_result in (await asyncio.gather(*futures))
         for result in batch_result
     ]
+
+
+def _run_generator(
+    constants_dict: bytes,
+    unfinished_block_bytes: bytes,
+    block_generator_bytes: bytes,
+) -> Tuple[Optional[Err], Optional[bytes]]:
+    """
+    Runs the CLVM generator from bytes inputs. This is meant to be called under a ProcessPoolExecutor, in order to
+    validate the heavy parts of a block (clvm program) in a different process.
+    """
+    try:
+        constants: ConsensusConstants = dataclass_from_dict(ConsensusConstants, constants_dict)
+        unfinished_block: UnfinishedBlock = UnfinishedBlock.from_bytes(unfinished_block_bytes)
+        assert unfinished_block.transactions_info is not None
+        block_generator: BlockGenerator = BlockGenerator.from_bytes(block_generator_bytes)
+        assert block_generator.program == unfinished_block.transactions_generator
+        npc_result: NPCResult = get_name_puzzle_conditions(
+            block_generator,
+            min(constants.MAX_BLOCK_COST_CLVM, unfinished_block.transactions_info.cost),
+            cost_per_byte=constants.COST_PER_BYTE,
+            safe_mode=False,
+        )
+        if npc_result.error is not None:
+            return Err(npc_result.error), None
+    except ValidationError as e:
+        return e.code, None
+    except Exception:
+        return Err.UNKNOWN, None
+
+    return None, bytes(npc_result)

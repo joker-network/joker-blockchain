@@ -153,7 +153,6 @@ class Err(Enum):
     COIN_AMOUNT_NEGATIVE = 124
     INTERNAL_PROTOCOL_ERROR = 125
     INVALID_SPEND_BUNDLE = 126
-    INVALID_COMMUNITY = 127
 
 
 class ValidationError(Exception):

@@ -25,7 +25,7 @@ config/keys.yaml
 config/plots.yaml
 
 # Bundled code
-joker-blockchain.tar.gz.tar.gz
+flax-blockchain.tar.gz.tar.gz
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -66,7 +66,7 @@ activate
 .idea
 
 # Packaging
-joker-blockchain.tar.gz
+flax-blockchain.tar.gz
 
 # Timelord utilities
 vdf_bench

@@ -13,8 +13,8 @@ def farm_cmd() -> None:
     "-p",
     "--rpc-port",
     help=(
-            "Set the port where the Full Node is hosting the RPC interface. "
-            "See the rpc_port under full_node in config.yaml"
+        "Set the port where the Full Node is hosting the RPC interface. "
+        "See the rpc_port under full_node in config.yaml"
     ),
     type=int,
     default=None,
@@ -32,8 +32,8 @@ def farm_cmd() -> None:
     "-hp",
     "--harvester-rpc-port",
     help=(
-            "Set the port where the Harvester is hosting the RPC interface"
-            "See the rpc_port under harvester in config.yaml"
+        "Set the port where the Harvester is hosting the RPC interface"
+        "See the rpc_port under harvester in config.yaml"
     ),
     type=int,
     default=None,
@@ -43,17 +43,17 @@ def farm_cmd() -> None:
     "-fp",
     "--farmer-rpc-port",
     help=(
-            "Set the port where the Farmer is hosting the RPC interface. " "See the rpc_port under farmer in config.yaml"
+        "Set the port where the Farmer is hosting the RPC interface. " "See the rpc_port under farmer in config.yaml"
     ),
     type=int,
     default=None,
     show_default=True,
 )
 def summary_cmd(
-        rpc_port: Optional[int],
-        wallet_rpc_port: Optional[int],
-        harvester_rpc_port: Optional[int],
-        farmer_rpc_port: Optional[int],
+    rpc_port: Optional[int],
+    wallet_rpc_port: Optional[int],
+    harvester_rpc_port: Optional[int],
+    farmer_rpc_port: Optional[int],
 ) -> None:
     from .farm_funcs import summary
     import asyncio

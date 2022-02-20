@@ -61,7 +61,7 @@ class FullNodeRpcClient(RpcClient):
         return [FullBlock.from_json_dict(r) for r in response["blocks"]]
 
     async def get_network_space(
-            self, newer_block_header_hash: bytes32, older_block_header_hash: bytes32
+        self, newer_block_header_hash: bytes32, older_block_header_hash: bytes32
     ) -> Optional[uint64]:
         try:
             network_space_bytes_estimate = await self.fetch(
@@ -83,11 +83,11 @@ class FullNodeRpcClient(RpcClient):
         return CoinRecord.from_json_dict(response["coin_record"])
 
     async def get_coin_records_by_names(
-            self,
-            names: List[bytes32],
-            include_spent_coins: bool = True,
-            start_height: Optional[int] = None,
-            end_height: Optional[int] = None,
+        self,
+        names: List[bytes32],
+        include_spent_coins: bool = True,
+        start_height: Optional[int] = None,
+        end_height: Optional[int] = None,
     ) -> List:
         names_hex = [name.hex() for name in names]
         d = {"names": names_hex, "include_spent_coins": include_spent_coins}
@@ -101,11 +101,11 @@ class FullNodeRpcClient(RpcClient):
         ]
 
     async def get_coin_records_by_puzzle_hash(
-            self,
-            puzzle_hash: bytes32,
-            include_spent_coins: bool = True,
-            start_height: Optional[int] = None,
-            end_height: Optional[int] = None,
+        self,
+        puzzle_hash: bytes32,
+        include_spent_coins: bool = True,
+        start_height: Optional[int] = None,
+        end_height: Optional[int] = None,
     ) -> List:
         d = {"puzzle_hash": puzzle_hash.hex(), "include_spent_coins": include_spent_coins}
         if start_height is not None:
@@ -118,11 +118,11 @@ class FullNodeRpcClient(RpcClient):
         ]
 
     async def get_coin_records_by_puzzle_hashes(
-            self,
-            puzzle_hashes: List[bytes32],
-            include_spent_coins: bool = True,
-            start_height: Optional[int] = None,
-            end_height: Optional[int] = None,
+        self,
+        puzzle_hashes: List[bytes32],
+        include_spent_coins: bool = True,
+        start_height: Optional[int] = None,
+        end_height: Optional[int] = None,
     ) -> List:
         puzzle_hashes_hex = [ph.hex() for ph in puzzle_hashes]
         d = {"puzzle_hashes": puzzle_hashes_hex, "include_spent_coins": include_spent_coins}
@@ -136,11 +136,11 @@ class FullNodeRpcClient(RpcClient):
         ]
 
     async def get_coin_records_by_parent_ids(
-            self,
-            parent_ids: List[bytes32],
-            include_spent_coins: bool = True,
-            start_height: Optional[int] = None,
-            end_height: Optional[int] = None,
+        self,
+        parent_ids: List[bytes32],
+        include_spent_coins: bool = True,
+        start_height: Optional[int] = None,
+        end_height: Optional[int] = None,
     ) -> List:
         parent_ids_hex = [pid.hex() for pid in parent_ids]
         d = {"parent_ids": parent_ids_hex, "include_spent_coins": include_spent_coins}
@@ -205,7 +205,7 @@ class FullNodeRpcClient(RpcClient):
             return None
 
     async def get_recent_signage_point_or_eos(
-            self, sp_hash: Optional[bytes32], challenge_hash: Optional[bytes32]
+        self, sp_hash: Optional[bytes32], challenge_hash: Optional[bytes32]
     ) -> Optional[Any]:
         try:
             if sp_hash is not None:

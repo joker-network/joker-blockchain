@@ -41,7 +41,9 @@ keychain = temp_keyring.get_keychain()
 atexit.register(cleanup_keyring, temp_keyring)  # Attempt to cleanup the temp keychain
 bt = create_block_tools(constants=test_constants, keychain=keychain)
 
+
 log = logging.getLogger(__name__)
+
 
 # This puzzle simply returns the solution as conditions.
 # We call it the `EASY_PUZZLE` because it's pretty easy to solve.
@@ -61,10 +63,10 @@ def initial_blocks(block_count: int = 4) -> List[FullBlock]:
 
 
 async def check_spend_bundle_validity(
-        constants: ConsensusConstants,
-        blocks: List[FullBlock],
-        spend_bundle: SpendBundle,
-        expected_err: Optional[Err] = None,
+    constants: ConsensusConstants,
+    blocks: List[FullBlock],
+    spend_bundle: SpendBundle,
+    expected_err: Optional[Err] = None,
 ) -> Tuple[List[CoinRecord], List[CoinRecord]]:
     """
     This test helper create an extra block after the given blocks that contains the given
@@ -114,7 +116,7 @@ async def check_spend_bundle_validity(
 
 
 async def check_conditions(
-        condition_solution: Program, expected_err: Optional[Err] = None, spend_reward_index: int = -2
+    condition_solution: Program, expected_err: Optional[Err] = None, spend_reward_index: int = -2
 ):
     blocks = initial_blocks()
     coin = list(blocks[spend_reward_index].get_included_reward_coins())[0]

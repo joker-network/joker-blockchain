@@ -407,10 +407,10 @@ class FullNodeRpcApi:
         additional_difficulty_constant = self.service.constants.DIFFICULTY_CONSTANT_FACTOR
         eligible_plots_filter_multiplier = 2 ** self.service.constants.NUMBER_ZERO_BITS_PLOT_FILTER
         network_space_bytes_estimate = (
-                UI_ACTUAL_SPACE_CONSTANT_FACTOR
-                * weight_div_iters
-                * additional_difficulty_constant
-                * eligible_plots_filter_multiplier
+            UI_ACTUAL_SPACE_CONSTANT_FACTOR
+            * weight_div_iters
+            * additional_difficulty_constant
+            * eligible_plots_filter_multiplier
         )
         return {"space": uint128(int(network_space_bytes_estimate))}
 
@@ -572,7 +572,7 @@ class FullNodeRpcApi:
         if block is None:
             raise ValueError(f"Block {header_hash.hex()} not found")
 
-        async with self.service.blockchain.lock:
+        async with self.service._blockchain_lock_low_priority:
             if self.service.blockchain.height_to_hash(block.height) != header_hash:
                 raise ValueError(f"Block at {header_hash.hex()} is no longer in the blockchain (it's in a fork)")
             additions: List[CoinRecord] = await self.service.coin_store.get_coins_added_at_height(block.height)

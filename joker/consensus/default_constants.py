@@ -18,7 +18,7 @@ testnet_kwargs = {
     "EPOCH_BLOCKS": 4608,  # The number of blocks per epoch, mainnet 4608. Must be multiple of SUB_EPOCH_SB
     "SIGNIFICANT_BITS": 8,  # The number of bits to look at in difficulty and min iters. The rest are zeroed
     "DISCRIMINANT_SIZE_BITS": 1024,  # Max is 1024 (based on ClassGroupElement int size)
-    "NUMBER_ZERO_BITS_PLOT_FILTER": 1,  # H(plot signature of the challenge) must start with these many zeroes
+    "NUMBER_ZERO_BITS_PLOT_FILTER": 9,  # H(plot signature of the challenge) must start with these many zeroes
     "MIN_PLOT_SIZE": 30,  # 32 for mainnet
     "MAX_PLOT_SIZE": 31,
     "SUB_SLOT_TIME_TARGET": 600,  # The target number of seconds per slot, mainnet 600
@@ -56,7 +56,8 @@ testnet_kwargs = {
     "NETWORK_TYPE": 0,
     "MAX_GENERATOR_SIZE": 1000000,
     "MAX_GENERATOR_REF_LIST_SIZE": 512,  # Number of references allowed in the block generator ref list
-    "POOL_SUB_SLOT_ITERS": 36718720,  # iters limit * NUM_SPS
+    "POOL_SUB_SLOT_ITERS": 37600000000,  # iters limit * NUM_SPS
 }
+
 
 DEFAULT_CONSTANTS = ConsensusConstants(**testnet_kwargs)  # type: ignore

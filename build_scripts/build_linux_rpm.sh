@@ -6,23 +6,23 @@ if [ ! "$1" ]; then
 elif [ "$1" = "amd64" ]; then
 	#PLATFORM="$1"
 	REDHAT_PLATFORM="x86_64"
-	DIR_NAME="joker-blockchain-linux-x64"
+	DIR_NAME="flax-blockchain-linux-x64"
 else
 	#PLATFORM="$1"
-	DIR_NAME="joker-blockchain-linux-arm64"
+	DIR_NAME="flax-blockchain-linux-arm64"
 fi
 
 pip install setuptools_scm
-# The environment variable JOKER_INSTALLER_VERSION needs to be defined
+# The environment variable FLAX_INSTALLER_VERSION needs to be defined
 # If the env variable NOTARIZE and the username and password variables are
 # set, this will attempt to Notarize the signed DMG
-JOKER_INSTALLER_VERSION=$(python installer-version.py)
+FLAX_INSTALLER_VERSION=$(python installer-version.py)
 
-if [ ! "$JOKER_INSTALLER_VERSION" ]; then
-	echo "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0."
-	JOKER_INSTALLER_VERSION="0.0.0"
+if [ ! "$FLAX_INSTALLER_VERSION" ]; then
+	echo "WARNING: No environment variable FLAX_INSTALLER_VERSION set. Using 0.0.0."
+	FLAX_INSTALLER_VERSION="0.0.0"
 fi
-echo "Joker Installer Version is: $JOKER_INSTALLER_VERSION"
+echo "Flax Installer Version is: $FLAX_INSTALLER_VERSION"
 
 echo "Installing npm and electron packagers"
 npm install electron-packager -g
@@ -58,11 +58,11 @@ fi
 
 # sets the version for joker-blockchain in package.json
 cp package.json package.json.orig
-jq --arg VER "$JOKER_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
+jq --arg VER "$FLAX_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
 
 electron-packager . joker-blockchain --asar.unpack="**/daemon/**" --platform=linux \
---icon=src/assets/img/Joker.icns --overwrite --app-bundle-id=net.joker.blockchain \
---appVersion=$JOKER_INSTALLER_VERSION
+--icon=src/assets/img/Flax.icns --overwrite --app-bundle-id=net.joker.blockchain \
+--appVersion=$FLAX_INSTALLER_VERSION
 LAST_EXIT_CODE=$?
 
 # reset the package.json to the original
@@ -77,12 +77,12 @@ mv $DIR_NAME ../build_scripts/dist/
 cd ../build_scripts || exit
 
 if [ "$REDHAT_PLATFORM" = "x86_64" ]; then
-	echo "Create joker-blockchain-$JOKER_INSTALLER_VERSION.rpm"
+	echo "Create flax-blockchain-$FLAX_INSTALLER_VERSION.rpm"
 
 	# shellcheck disable=SC2046
 	NODE_ROOT="$(dirname $(dirname $(which node)))"
 
-	# Disables build links from the generated rpm so that we dont conflict with other packages.
+	# Disables build links from the generated rpm so that we dont conflict with other packages. See https://github.com/Flax-Network/flax-blockchain/issues/3846
 	# shellcheck disable=SC2086
 	sed -i '1s/^/%define _build_id_links none\n%global _enable_debug_package 0\n%global debug_package %{nil}\n%global __os_install_post \/usr\/lib\/rpm\/brp-compress %{nil}\n/' "$NODE_ROOT/lib/node_modules/electron-installer-redhat/resources/spec.ejs"
 
@@ -92,7 +92,7 @@ if [ "$REDHAT_PLATFORM" = "x86_64" ]; then
 	sed -i "s#throw new Error('Please upgrade to RPM 4.13.*#console.warn('You are using RPM < 4.13')\n      return { requires: [ 'gtk3', 'libnotify', 'nss', 'libXScrnSaver', 'libXtst', 'xdg-utils', 'at-spi2-core', 'libdrm', 'mesa-libgbm', 'libxcb' ] }#g" $NODE_ROOT/lib/node_modules/electron-installer-redhat/src/dependencies.js
 
   electron-installer-redhat --src dist/$DIR_NAME/ --dest final_installer/ \
-  --arch "$REDHAT_PLATFORM" --options.version $JOKER_INSTALLER_VERSION \
+  --arch "$REDHAT_PLATFORM" --options.version $FLAX_INSTALLER_VERSION \
   --license ../LICENSE
   LAST_EXIT_CODE=$?
   if [ "$LAST_EXIT_CODE" -ne 0 ]; then

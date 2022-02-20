@@ -36,10 +36,10 @@ class WalletPoolStore:
         await self.db_connection.commit()
 
     async def add_spend(
-            self,
-            wallet_id: int,
-            spend: CoinSpend,
-            height: uint32,
+        self,
+        wallet_id: int,
+        spend: CoinSpend,
+        height: uint32,
     ) -> None:
         """
         Appends (or replaces) entries in the DB. The new list must be at least as long as the existing list, and the

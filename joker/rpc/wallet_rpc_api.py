@@ -6,8 +6,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 from blspy import PrivateKey, G1Element
 
-from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, \
-    calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_farmer_reward, calculate_base_community_reward, calculate_pool_reward
 from joker.pools.pool_wallet import PoolWallet
 from joker.pools.pool_wallet_info import create_pool_state, FARMING_TO_POOL, PoolWalletInfo, PoolState
 from joker.protocols.protocol_message_types import ProtocolMessageTypes
@@ -297,7 +296,7 @@ class WalletRpcApi:
         return {}
 
     async def _check_key_used_for_rewards(
-            self, new_root: Path, sk: PrivateKey, max_ph_to_search: int
+        self, new_root: Path, sk: PrivateKey, max_ph_to_search: int
     ) -> Tuple[bool, bool]:
         """Checks if the given key is used for either the farmer rewards or pool rewards
         returns a tuple of two booleans
@@ -309,8 +308,8 @@ class WalletRpcApi:
             return False, False
 
         config: Dict = load_config(new_root, "config.yaml")
-        farmer_target = config["farmer"].get("xch_target_address")
-        pool_target = config["pool"].get("xch_target_address")
+        farmer_target = config["farmer"].get("xjk_target_address")
+        pool_target = config["pool"].get("xjk_target_address")
         found_farmer = False
         found_pool = False
         selected = config["selected_network"]
@@ -1139,7 +1138,10 @@ class WalletRpcApi:
                     continue
                 pool_reward_amount += record.amount
             height = record.height_farmed(self.service.constants.GENESIS_CHALLENGE)
-            if uint64(calculate_base_community_reward(height)) != uint64(record.amount):
+
+
+
+            if( uint64(calculate_base_community_reward(height)) != uint64(record.amount) ):
                 if record.type == TransactionType.FEE_REWARD:
                     fee_amount += record.amount - calculate_base_farmer_reward(height)
                     farmer_reward_amount += calculate_base_farmer_reward(height)
@@ -1200,7 +1202,10 @@ class WalletRpcApi:
     ##########################################################################################
     # Pool Wallet
     ##########################################################################################
-    async def pw_join_pool(self, request):
+    async def pw_join_pool(self, request) -> Dict:
+        if self.service.wallet_state_manager is None:
+            return {"success": False, "error": "not_initialized"}
+        fee = uint64(request.get("fee", 0))
         wallet_id = uint32(request["wallet_id"])
         wallet: PoolWallet = self.service.wallet_state_manager.wallets[wallet_id]
         pool_wallet_info: PoolWalletInfo = await wallet.get_current_state()
@@ -1216,36 +1221,42 @@ class WalletRpcApi:
             uint32(request["relative_lock_height"]),
         )
         async with self.service.wallet_state_manager.lock:
-            tx: TransactionRecord = await wallet.join_pool(new_target_state)
-            return {"transaction": tx}
+            total_fee, tx = await wallet.join_pool(new_target_state, fee)
+            return {"total_fee": total_fee, "transaction": tx}
 
-    async def pw_self_pool(self, request):
+    async def pw_self_pool(self, request) -> Dict:
+        if self.service.wallet_state_manager is None:
+            return {"success": False, "error": "not_initialized"}
         # Leaving a pool requires two state transitions.
         # First we transition to PoolSingletonState.LEAVING_POOL
         # Then we transition to FARMING_TO_POOL or SELF_POOLING
+        fee = uint64(request.get("fee", 0))
         wallet_id = uint32(request["wallet_id"])
         wallet: PoolWallet = self.service.wallet_state_manager.wallets[wallet_id]
 
         async with self.service.wallet_state_manager.lock:
-            tx: TransactionRecord = await wallet.self_pool()
-            return {"transaction": tx}
+            total_fee, tx = await wallet.self_pool(fee)  # total_fee: uint64, tx: TransactionRecord
+            return {"total_fee": total_fee, "transaction": tx}
 
-    async def pw_absorb_rewards(self, request):
+    async def pw_absorb_rewards(self, request) -> Dict:
         """Perform a sweep of the p2_singleton rewards controlled by the pool wallet singleton"""
+        if self.service.wallet_state_manager is None:
+            return {"success": False, "error": "not_initialized"}
         if await self.service.wallet_state_manager.synced() is False:
             raise ValueError("Wallet needs to be fully synced before collecting rewards")
-
+        fee = uint64(request.get("fee", 0))
         wallet_id = uint32(request["wallet_id"])
         wallet: PoolWallet = self.service.wallet_state_manager.wallets[wallet_id]
-        fee = uint64(request["fee"])
 
         async with self.service.wallet_state_manager.lock:
             transaction: TransactionRecord = await wallet.claim_pool_rewards(fee)
             state: PoolWalletInfo = await wallet.get_current_state()
         return {"state": state.to_json_dict(), "transaction": transaction}
 
-    async def pw_status(self, request):
+    async def pw_status(self, request) -> Dict:
         """Return the complete state of the Pool wallet with id `request["wallet_id"]`"""
+        if self.service.wallet_state_manager is None:
+            return {"success": False, "error": "not_initialized"}
         wallet_id = uint32(request["wallet_id"])
         wallet: PoolWallet = self.service.wallet_state_manager.wallets[wallet_id]
         if wallet.type() != WalletType.POOLING_WALLET.value:

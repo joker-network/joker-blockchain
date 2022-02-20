@@ -5,23 +5,23 @@ if [ ! "$1" ]; then
 	exit 1
 elif [ "$1" = "amd64" ]; then
 	PLATFORM="$1"
-	DIR_NAME="joker-blockchain-linux-x64"
+	DIR_NAME="flax-blockchain-linux-x64"
 else
 	PLATFORM="$1"
-	DIR_NAME="joker-blockchain-linux-arm64"
+	DIR_NAME="flax-blockchain-linux-arm64"
 fi
 
 pip install setuptools_scm
-# The environment variable JOKER_INSTALLER_VERSION needs to be defined
+# The environment variable FLAX_INSTALLER_VERSION needs to be defined
 # If the env variable NOTARIZE and the username and password variables are
 # set, this will attempt to Notarize the signed DMG
-JOKER_INSTALLER_VERSION=$(python installer-version.py)
+FLAX_INSTALLER_VERSION=$(python installer-version.py)
 
-if [ ! "$JOKER_INSTALLER_VERSION" ]; then
-	echo "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0."
-	JOKER_INSTALLER_VERSION="0.0.0"
+if [ ! "$FLAX_INSTALLER_VERSION" ]; then
+	echo "WARNING: No environment variable FLAX_INSTALLER_VERSION set. Using 0.0.0."
+	FLAX_INSTALLER_VERSION="0.0.0"
 fi
-echo "Joker Installer Version is: $JOKER_INSTALLER_VERSION"
+echo "Flax Installer Version is: $FLAX_INSTALLER_VERSION"
 
 echo "Installing npm and electron packagers"
 npm install electron-packager -g
@@ -57,11 +57,11 @@ fi
 
 # sets the version for joker-blockchain in package.json
 cp package.json package.json.orig
-jq --arg VER "$JOKER_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
+jq --arg VER "$FLAX_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
 
 electron-packager . joker-blockchain --asar.unpack="**/daemon/**" --platform=linux \
---icon=src/assets/img/joker.icns --overwrite --app-bundle-id=net.joker.blockchain \
---appVersion=$JOKER_INSTALLER_VERSION
+--icon=src/assets/img/Flax.icns --overwrite --app-bundle-id=net.joker.blockchain \
+--appVersion=$FLAX_INSTALLER_VERSION
 LAST_EXIT_CODE=$?
 
 # reset the package.json to the original
@@ -75,11 +75,11 @@ fi
 mv $DIR_NAME ../build_scripts/dist/
 cd ../build_scripts || exit
 
-echo "Create Joker-$JOKER_INSTALLER_VERSION.deb"
+echo "Create flax-$FLAX_INSTALLER_VERSION.deb"
 rm -rf final_installer
 mkdir final_installer
 electron-installer-debian --src dist/$DIR_NAME/ --dest final_installer/ \
---arch "$PLATFORM" --options.version $JOKER_INSTALLER_VERSION
+--arch "$PLATFORM" --options.version $FLAX_INSTALLER_VERSION
 LAST_EXIT_CODE=$?
 if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	echo >&2 "electron-installer-debian failed!"

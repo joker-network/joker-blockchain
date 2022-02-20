@@ -51,9 +51,9 @@ class Wallet:
 
     @staticmethod
     async def create(
-            wallet_state_manager: Any,
-            info: WalletInfo,
-            name: str = None,
+        wallet_state_manager: Any,
+        info: WalletInfo,
+        name: str = None,
     ):
         self = Wallet()
         self.log = logging.getLogger(name if name else __name__)
@@ -194,15 +194,15 @@ class Wallet:
         return (await self.wallet_state_manager.get_unused_derivation_record(self.id(), in_transaction)).puzzle_hash
 
     def make_solution(
-            self,
-            primaries: Optional[List[Dict[str, Any]]] = None,
-            min_time=0,
-            me=None,
-            coin_announcements: Optional[Set[bytes32]] = None,
-            coin_announcements_to_assert: Optional[Set[bytes32]] = None,
-            puzzle_announcements: Optional[Set[bytes32]] = None,
-            puzzle_announcements_to_assert: Optional[Set[bytes32]] = None,
-            fee=0,
+        self,
+        primaries: Optional[List[Dict[str, Any]]] = None,
+        min_time=0,
+        me=None,
+        coin_announcements: Optional[Set[bytes32]] = None,
+        coin_announcements_to_assert: Optional[Set[bytes32]] = None,
+        puzzle_announcements: Optional[Set[bytes32]] = None,
+        puzzle_announcements_to_assert: Optional[Set[bytes32]] = None,
+        fee=0,
     ) -> Program:
         assert fee >= 0
         condition_list = []
@@ -284,15 +284,15 @@ class Wallet:
         return used_coins
 
     async def _generate_unsigned_transaction(
-            self,
-            amount: uint64,
-            newpuzzlehash: bytes32,
-            fee: uint64 = uint64(0),
-            origin_id: bytes32 = None,
-            coins: Set[Coin] = None,
-            primaries_input: Optional[List[Dict[str, Any]]] = None,
-            ignore_max_send_amount: bool = False,
-            announcements_to_consume: Set[Announcement] = None,
+        self,
+        amount: uint64,
+        newpuzzlehash: bytes32,
+        fee: uint64 = uint64(0),
+        origin_id: bytes32 = None,
+        coins: Set[Coin] = None,
+        primaries_input: Optional[List[Dict[str, Any]]] = None,
+        ignore_max_send_amount: bool = False,
+        announcements_to_consume: Set[Announcement] = None,
     ) -> List[CoinSpend]:
         """
         Generates a unsigned transaction in form of List(Puzzle, Solutions)
@@ -376,15 +376,15 @@ class Wallet:
         )
 
     async def generate_signed_transaction(
-            self,
-            amount: uint64,
-            puzzle_hash: bytes32,
-            fee: uint64 = uint64(0),
-            origin_id: bytes32 = None,
-            coins: Set[Coin] = None,
-            primaries: Optional[List[Dict[str, bytes32]]] = None,
-            ignore_max_send_amount: bool = False,
-            announcements_to_consume: Set[Announcement] = None,
+        self,
+        amount: uint64,
+        puzzle_hash: bytes32,
+        fee: uint64 = uint64(0),
+        origin_id: bytes32 = None,
+        coins: Set[Coin] = None,
+        primaries: Optional[List[Dict[str, bytes32]]] = None,
+        ignore_max_send_amount: bool = False,
+        announcements_to_consume: Set[Announcement] = None,
     ) -> TransactionRecord:
         """
         Use this to generate transaction.
@@ -437,14 +437,14 @@ class Wallet:
         await self.wallet_state_manager.add_pending_transaction(tx)
 
     # This is to be aggregated together with a coloured coin offer to ensure that the trade happens
-    async def create_spend_bundle_relative_chia(self, chia_amount: int, exclude: List[Coin]) -> SpendBundle:
+    async def create_spend_bundle_relative_joker(self, joker_amount: int, exclude: List[Coin]) -> SpendBundle:
         list_of_solutions = []
         utxos = None
 
         # If we're losing value then get coins with at least that much value
         # If we're gaining value then our amount doesn't matter
-        if chia_amount < 0:
-            utxos = await self.select_coins(abs(chia_amount), exclude)
+        if joker_amount < 0:
+            utxos = await self.select_coins(abs(joker_amount), exclude)
         else:
             utxos = await self.select_coins(0, exclude)
 
@@ -452,7 +452,7 @@ class Wallet:
 
         # Calculate output amount given sum of utxos
         spend_value = sum([coin.amount for coin in utxos])
-        chia_amount = spend_value + chia_amount
+        joker_amount = spend_value + joker_amount
 
         # Create coin solutions for each utxo
         output_created = None
@@ -460,7 +460,7 @@ class Wallet:
             puzzle = await self.puzzle_for_puzzle_hash(coin.puzzle_hash)
             if output_created is None:
                 newpuzhash = await self.get_new_puzzlehash()
-                primaries = [{"puzzlehash": newpuzhash, "amount": chia_amount}]
+                primaries = [{"puzzlehash": newpuzhash, "amount": joker_amount}]
                 solution = self.make_solution(primaries=primaries)
                 output_created = coin
             list_of_solutions.append(CoinSpend(coin, puzzle, solution))

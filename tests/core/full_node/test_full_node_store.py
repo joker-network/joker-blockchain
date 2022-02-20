@@ -133,12 +133,12 @@ class TestFullNodeStore:
         assert len(sub_slots) == 5
 
         assert (
-                store.get_finished_sub_slots(
-                    BlockCache({}),
-                    None,
-                    sub_slots[0].challenge_chain.challenge_chain_end_of_slot_vdf.challenge,
-                )
-                == []
+            store.get_finished_sub_slots(
+                BlockCache({}),
+                None,
+                sub_slots[0].challenge_chain.challenge_chain_end_of_slot_vdf.challenge,
+            )
+            == []
         )
         # Test adding non-connecting sub-slots genesis
         assert store.get_sub_slot(test_constants.GENESIS_CHALLENGE) is None
@@ -164,8 +164,8 @@ class TestFullNodeStore:
         assert store.get_finished_sub_slots(BlockCache({}), None, std_hash(b"not a valid hash")) is None
 
         assert (
-                store.get_finished_sub_slots(BlockCache({}), None, sub_slots[-2].challenge_chain.get_hash())
-                == sub_slots[:-1]
+            store.get_finished_sub_slots(BlockCache({}), None, sub_slots[-2].challenge_chain.get_hash())
+            == sub_slots[:-1]
         )
 
         # Test adding genesis peak
@@ -192,12 +192,12 @@ class TestFullNodeStore:
         assert slot_4[0] == sub_slots[4]
 
         assert (
-                store.get_finished_sub_slots(
-                    blockchain,
-                    peak,
-                    sub_slots[-1].challenge_chain.get_hash(),
-                )
-                == []
+            store.get_finished_sub_slots(
+                blockchain,
+                peak,
+                sub_slots[-1].challenge_chain.get_hash(),
+            )
+            == []
         )
 
         # Test adding non genesis peak directly
@@ -222,7 +222,7 @@ class TestFullNodeStore:
             sb = blockchain.block_record(block.header_hash)
             sp_sub_slot, ip_sub_slot = await blockchain.get_sp_and_ip_sub_slots(block.header_hash)
             res = store.new_peak(sb, block, sp_sub_slot, ip_sub_slot, None, blockchain)
-            assert res[0] is None
+            assert res.added_eos is None
 
         # Add reorg blocks
         blocks_reorg = bt.get_consecutive_blocks(
@@ -243,7 +243,7 @@ class TestFullNodeStore:
                 sb = blockchain.block_record(block.header_hash)
                 sp_sub_slot, ip_sub_slot = await blockchain.get_sp_and_ip_sub_slots(block.header_hash)
                 res = store.new_peak(sb, block, sp_sub_slot, ip_sub_slot, fork_block, blockchain)
-                assert res[0] is None
+                assert res.added_eos is None
 
         # Add slots to the end
         blocks_2 = bt.get_consecutive_blocks(
@@ -297,7 +297,7 @@ class TestFullNodeStore:
                 sp_sub_slot, ip_sub_slot = await blockchain.get_sp_and_ip_sub_slots(blocks[-1].header_hash)
 
                 res = store.new_peak(sb, blocks[-1], sp_sub_slot, ip_sub_slot, fork_block, blockchain)
-                assert res[0] is None
+                assert res.added_eos is None
                 if sb.overflow and sp_sub_slot is not None:
                     assert sp_sub_slot != ip_sub_slot
                     break
@@ -358,8 +358,8 @@ class TestFullNodeStore:
         saved_sp_hash = None
         for slot_offset in range(1, len(finished_sub_slots)):
             for i in range(
-                    1,
-                    test_constants.NUM_SPS_SUB_SLOT - test_constants.NUM_SP_INTERVALS_EXTRA,
+                1,
+                test_constants.NUM_SPS_SUB_SLOT - test_constants.NUM_SP_INTERVALS_EXTRA,
             ):
                 sp = get_signage_point(
                     test_constants,
@@ -404,18 +404,17 @@ class TestFullNodeStore:
 
         # Get signage point by index
         assert (
-                store.get_signage_point_by_index(
-                    finished_sub_slots[0].challenge_chain.get_hash(),
-                    uint8(4),
-                    finished_sub_slots[0].reward_chain.get_hash(),
-                )
-                is not None
+            store.get_signage_point_by_index(
+                finished_sub_slots[0].challenge_chain.get_hash(),
+                uint8(4),
+                finished_sub_slots[0].reward_chain.get_hash(),
+            )
+            is not None
         )
 
         assert (
-                store.get_signage_point_by_index(finished_sub_slots[0].challenge_chain.get_hash(), uint8(4),
-                                                 std_hash(b"1"))
-                is None
+            store.get_signage_point_by_index(finished_sub_slots[0].challenge_chain.get_hash(), uint8(4), std_hash(b"1"))
+            is None
         )
 
         # Get signage point by hash
@@ -452,8 +451,8 @@ class TestFullNodeStore:
 
         for slot_offset in range(1, len(finished_sub_slots) + 1):
             for i in range(
-                    1,
-                    test_constants.NUM_SPS_SUB_SLOT - test_constants.NUM_SP_INTERVALS_EXTRA,
+                1,
+                test_constants.NUM_SPS_SUB_SLOT - test_constants.NUM_SP_INTERVALS_EXTRA,
             ):
                 sp = get_signage_point(
                     test_constants,
@@ -486,15 +485,15 @@ class TestFullNodeStore:
 
         # If this is not the case, fix test to find a block that is
         assert (
-                blocks_4[-1].reward_chain_block.signage_point_index
-                < test_constants.NUM_SPS_SUB_SLOT - test_constants.NUM_SP_INTERVALS_EXTRA
+            blocks_4[-1].reward_chain_block.signage_point_index
+            < test_constants.NUM_SPS_SUB_SLOT - test_constants.NUM_SP_INTERVALS_EXTRA
         )
         await blockchain.receive_block(blocks_4[-1])
         sb = blockchain.block_record(blocks_4[-1].header_hash)
         store.new_peak(sb, blocks_4[-1], None, None, None, blockchain)
         for i in range(
-                sb.signage_point_index + test_constants.NUM_SP_INTERVALS_EXTRA,
-                test_constants.NUM_SPS_SUB_SLOT,
+            sb.signage_point_index + test_constants.NUM_SP_INTERVALS_EXTRA,
+            test_constants.NUM_SPS_SUB_SLOT,
         ):
             if is_overflow_block(test_constants, uint8(i)):
                 finished_sub_slots = blocks_5[-1].finished_sub_slots
@@ -545,15 +544,15 @@ class TestFullNodeStore:
             peak = sb
             peak_full_block = block
             res = store.new_peak(sb, block, sp_sub_slot, ip_sub_slot, None, blockchain)
-            assert res[0] is None
+            assert res.added_eos is None
 
         assert store.new_finished_sub_slot(dependant_sub_slots[0], blockchain, peak, peak_full_block) is None
         block = blocks[-2]
         sb = blockchain.block_record(block.header_hash)
         sp_sub_slot, ip_sub_slot = await blockchain.get_sp_and_ip_sub_slots(block.header_hash)
         res = store.new_peak(sb, block, sp_sub_slot, ip_sub_slot, None, blockchain)
-        assert res[0] == dependant_sub_slots[0]
-        assert res[1] == res[2] == []
+        assert res.added_eos == dependant_sub_slots[0]
+        assert res.new_signage_points == res.new_infusion_points == []
 
         # Test future IP cache
         store.initialize_genesis_sub_slot()
@@ -571,7 +570,7 @@ class TestFullNodeStore:
 
             sp_sub_slot, ip_sub_slot = await blockchain.get_sp_and_ip_sub_slots(block.header_hash)
             res = store.new_peak(sb, block, sp_sub_slot, ip_sub_slot, None, blockchain)
-            assert res[0] is None
+            assert res.added_eos is None
 
         case_0, case_1 = False, False
         for i in range(5, len(blocks) - 1):
@@ -594,10 +593,10 @@ class TestFullNodeStore:
             res = store.new_peak(sb, prev_block, sp_sub_slot, ip_sub_slot, None, blockchain)
             if len(block.finished_sub_slots) == 0:
                 case_0 = True
-                assert res[2] == [new_ip]
+                assert res.new_infusion_points == [new_ip]
             else:
                 case_1 = True
-                assert res[2] == []
+                assert res.new_infusion_points == []
                 found_ips: List[timelord_protocol.NewInfusionPointVDF] = []
                 for ss in block.finished_sub_slots:
                     ipvdf = store.new_finished_sub_slot(ss, blockchain, sb, prev_block)
@@ -631,11 +630,11 @@ class TestFullNodeStore:
             i2 = blocks[-2].reward_chain_block.signage_point_index
             i1 = blocks[-1].reward_chain_block.signage_point_index
             if (
-                    len(blocks[-2].finished_sub_slots) == len(blocks[-1].finished_sub_slots) == 0
-                    and not is_overflow_block(test_constants, signage_point_index=i2)
-                    and not is_overflow_block(test_constants, signage_point_index=i1)
-                    and i2 > i3 + 3
-                    and i1 > (i2 + 3)
+                len(blocks[-2].finished_sub_slots) == len(blocks[-1].finished_sub_slots) == 0
+                and not is_overflow_block(test_constants, signage_point_index=i2)
+                and not is_overflow_block(test_constants, signage_point_index=i1)
+                and i2 > i3 + 3
+                and i1 > (i2 + 3)
             ):
                 # We hit all the conditions that we want
                 all_sps: List[Optional[SignagePoint]] = [None] * test_constants.NUM_SPS_SUB_SLOT

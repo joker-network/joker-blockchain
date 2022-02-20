@@ -1,4 +1,5 @@
 def format_bytes(bytes: int) -> str:
+
     if not isinstance(bytes, int) or bytes < 0:
         return "Invalid"
 
@@ -14,6 +15,7 @@ def format_bytes(bytes: int) -> str:
 
 
 def format_minutes(minutes: int) -> str:
+
     if not isinstance(minutes, int):
         return "Invalid"
 

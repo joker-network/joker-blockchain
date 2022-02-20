@@ -50,6 +50,9 @@ class BlockStore:
 
         # Height index so we can look up in order of height for sync purposes
         await self.db.execute("CREATE INDEX IF NOT EXISTS full_block_height on full_blocks(height)")
+        # this index is not used by any queries, don't create it for new
+        # installs, and remove it from existing installs in the future
+        # await self.db.execute("DROP INDEX IF EXISTS is_block on full_blocks(is_block)")
         await self.db.execute("CREATE INDEX IF NOT EXISTS is_fully_compactified on full_blocks(is_fully_compactified)")
 
         await self.db.execute("CREATE INDEX IF NOT EXISTS height on block_records(height)")
@@ -98,7 +101,7 @@ class BlockStore:
         await cursor_2.close()
 
     async def persist_sub_epoch_challenge_segments(
-            self, ses_block_hash: bytes32, segments: List[SubEpochChallengeSegment]
+        self, ses_block_hash: bytes32, segments: List[SubEpochChallengeSegment]
     ) -> None:
         async with self.db_wrapper.lock:
             cursor_1 = await self.db.execute(
@@ -109,8 +112,8 @@ class BlockStore:
             await self.db.commit()
 
     async def get_sub_epoch_challenge_segments(
-            self,
-            ses_block_hash: bytes32,
+        self,
+        ses_block_hash: bytes32,
     ) -> Optional[List[SubEpochChallengeSegment]]:
         cached = self.ses_challenge_cache.get(ses_block_hash)
         if cached is not None:
@@ -238,9 +241,9 @@ class BlockStore:
         return None
 
     async def get_block_records_in_range(
-            self,
-            start: int,
-            stop: int,
+        self,
+        start: int,
+        stop: int,
     ) -> Dict[bytes32, BlockRecord]:
         """
         Returns a dictionary with all blocks in range between start and stop
@@ -260,7 +263,7 @@ class BlockStore:
         return ret
 
     async def get_block_records_close_to_peak(
-            self, blocks_n: int
+        self, blocks_n: int
     ) -> Tuple[Dict[bytes32, BlockRecord], Optional[bytes32]]:
         """
         Returns a dictionary with all blocks that have height >= peak height - blocks_n, as well as the

@@ -80,14 +80,14 @@ class WalletBlockchain(BlockchainInterface):
 
     @staticmethod
     async def create(
-            block_store: WalletBlockStore,
-            coin_store: WalletCoinStore,
-            tx_store: WalletTransactionStore,
-            pool_store: WalletPoolStore,
-            consensus_constants: ConsensusConstants,
-            new_transaction_block_callback: Callable,  # f(removals: List[Coin], additions: List[Coin], height: uint32)
-            reorg_rollback: Callable,
-            lock: asyncio.Lock,
+        block_store: WalletBlockStore,
+        coin_store: WalletCoinStore,
+        tx_store: WalletTransactionStore,
+        pool_store: WalletPoolStore,
+        consensus_constants: ConsensusConstants,
+        new_transaction_block_callback: Callable,  # f(removals: List[Coin], additions: List[Coin], height: uint32)
+        reorg_rollback: Callable,
+        lock: asyncio.Lock,
     ):
         """
         Initializes a blockchain with the BlockRecords from disk, assuming they have all been
@@ -151,12 +151,12 @@ class WalletBlockchain(BlockchainInterface):
         return self.height_to_block_record(self._peak_height)
 
     async def receive_block(
-            self,
-            header_block_record: HeaderBlockRecord,
-            pre_validation_result: Optional[PreValidationResult] = None,
-            trusted: bool = False,
-            fork_point_with_peak: Optional[uint32] = None,
-            additional_coin_spends: List[CoinSpend] = None,
+        self,
+        header_block_record: HeaderBlockRecord,
+        pre_validation_result: Optional[PreValidationResult] = None,
+        trusted: bool = False,
+        fork_point_with_peak: Optional[uint32] = None,
+        additional_coin_spends: List[CoinSpend] = None,
     ) -> Tuple[ReceiveBlockResult, Optional[Err], Optional[uint32]]:
         """
         Adds a new block into the blockchain, if it's valid and connected to the current
@@ -264,12 +264,12 @@ class WalletBlockchain(BlockchainInterface):
                 return ReceiveBlockResult.ADDED_AS_ORPHAN, None, None
 
     async def _reconsider_peak(
-            self,
-            block_record: BlockRecord,
-            genesis: bool,
-            fork_point_with_peak: Optional[uint32],
-            additional_coin_spends_from_wallet: Optional[List[CoinSpend]],
-            heights_changed: Set[Tuple[uint32, Optional[bytes32]]],
+        self,
+        block_record: BlockRecord,
+        genesis: bool,
+        fork_point_with_peak: Optional[uint32],
+        additional_coin_spends_from_wallet: Optional[List[CoinSpend]],
+        heights_changed: Set[Tuple[uint32, Optional[bytes32]]],
     ) -> Tuple[Optional[uint32], List[BlockRecord]]:
         """
         When a new block is added, this is called, to check if the new block is the new peak of the chain.
@@ -286,7 +286,7 @@ class WalletBlockchain(BlockchainInterface):
                 assert block is not None
                 replaced = None
                 if uint32(0) in self.__height_to_hash:
-                    replaced = (self.__height_to_hash[uint32(0)],)
+                    replaced = self.__height_to_hash[uint32(0)]
                 self.__height_to_hash[uint32(0)] = block.header_hash
                 heights_changed.add((uint32(0), replaced))
                 assert len(block.additions) == 0 and len(block.removals) == 0
@@ -378,7 +378,7 @@ class WalletBlockchain(BlockchainInterface):
         return get_next_sub_slot_iters_and_difficulty(self.constants, new_slot, curr, self)[0]
 
     async def pre_validate_blocks_multiprocessing(
-            self, blocks: List[HeaderBlock], batch_size: int = 4
+        self, blocks: List[HeaderBlock], batch_size: int = 4
     ) -> Optional[List[PreValidationResult]]:
         return await pre_validate_blocks_multiprocessing(
             self.constants, self.constants_json, self, blocks, self.pool, True, {}, None, batch_size
@@ -471,7 +471,7 @@ class WalletBlockchain(BlockchainInterface):
         return await self.block_store.get_block_records_in_range(start, stop)
 
     async def get_header_blocks_in_range(
-            self, start: int, stop: int, tx_filter: bool = True
+        self, start: int, stop: int, tx_filter: bool = True
     ) -> Dict[bytes32, HeaderBlock]:
         return await self.block_store.get_header_blocks_in_range(start, stop)
 

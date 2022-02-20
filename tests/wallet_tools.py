@@ -96,14 +96,14 @@ class WalletTool:
         return solution_for_conditions(Program.to(ret))
 
     def generate_unsigned_transaction(
-            self,
-            amount: uint64,
-            new_puzzle_hash: bytes32,
-            coins: List[Coin],
-            condition_dic: Dict[ConditionOpcode, List[ConditionWithArgs]],
-            fee: int = 0,
-            secret_key: Optional[PrivateKey] = None,
-            additional_outputs: Optional[List[Tuple[bytes32, int]]] = None,
+        self,
+        amount: uint64,
+        new_puzzle_hash: bytes32,
+        coins: List[Coin],
+        condition_dic: Dict[ConditionOpcode, List[ConditionWithArgs]],
+        fee: int = 0,
+        secret_key: Optional[PrivateKey] = None,
+        additional_outputs: Optional[List[Tuple[bytes32, int]]] = None,
     ) -> List[CoinSpend]:
         spends = []
 
@@ -183,13 +183,13 @@ class WalletTool:
         return spend_bundle
 
     def generate_signed_transaction(
-            self,
-            amount: uint64,
-            new_puzzle_hash: bytes32,
-            coin: Coin,
-            condition_dic: Dict[ConditionOpcode, List[ConditionWithArgs]] = None,
-            fee: int = 0,
-            additional_outputs: Optional[List[Tuple[bytes32, int]]] = None,
+        self,
+        amount: uint64,
+        new_puzzle_hash: bytes32,
+        coin: Coin,
+        condition_dic: Dict[ConditionOpcode, List[ConditionWithArgs]] = None,
+        fee: int = 0,
+        additional_outputs: Optional[List[Tuple[bytes32, int]]] = None,
     ) -> SpendBundle:
         if condition_dic is None:
             condition_dic = {}
@@ -200,13 +200,13 @@ class WalletTool:
         return self.sign_transaction(transaction)
 
     def generate_signed_transaction_multiple_coins(
-            self,
-            amount: uint64,
-            new_puzzle_hash: bytes32,
-            coins: List[Coin],
-            condition_dic: Dict[ConditionOpcode, List[ConditionWithArgs]] = None,
-            fee: int = 0,
-            additional_outputs: Optional[List[Tuple[bytes32, int]]] = None,
+        self,
+        amount: uint64,
+        new_puzzle_hash: bytes32,
+        coins: List[Coin],
+        condition_dic: Dict[ConditionOpcode, List[ConditionWithArgs]] = None,
+        fee: int = 0,
+        additional_outputs: Optional[List[Tuple[bytes32, int]]] = None,
     ) -> SpendBundle:
         if condition_dic is None:
             condition_dic = {}
