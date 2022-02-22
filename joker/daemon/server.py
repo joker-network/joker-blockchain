@@ -57,7 +57,7 @@ except ImportError:
 
 log = logging.getLogger(__name__)
 
-service_plotter = "joker_plotter"
+service_plotter = "chia_plotter"
 
 
 async def fetch(url: str):
