@@ -32,13 +32,13 @@ testnet_kwargs = {
     # Forks of joker should change this value to provide replay attack protection. This is set to mainnet genesis chall
     "AGG_SIG_ME_ADDITIONAL_DATA": bytes.fromhex("e361525c6797d147dcee1de0363ccd465ea11f92c6606f23dfb561456d746586"),
     "GENESIS_PRE_FARM_POOL_PUZZLE_HASH": bytes.fromhex(
-        "0xf635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
+        "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
     ),
     "GENESIS_PRE_FARM_FARMER_PUZZLE_HASH": bytes.fromhex(
-        "0x95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
+        "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
     ),
     "GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH": bytes.fromhex(
-        "0xe0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
+        "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
     ),
     "MAX_VDF_WITNESS_SIZE": 64,
     # Size of mempool = 50x the size of block
