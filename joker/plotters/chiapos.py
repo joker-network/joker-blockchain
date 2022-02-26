@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 def get_chiapos_install_info() -> Optional[Dict[str, Any]]:
     chiapos_version: str = pkg_resources.get_distribution("chiapos").version
-    return {"display_name": "Joker Proof of Space", "version": chiapos_version, "installed": True}
+    return {"display_name": "Chia Proof of Space", "version": chiapos_version, "installed": True}
 
 
 class Params:
@@ -36,7 +36,7 @@ class Params:
 
 def plot_joker(args, root_path):
     if args.size < 30 and not args.override:
-        print("k=30 is the minimum size for farming.")
+        print("k=29 is the minimum size for farming.")
         print("If you are testing and you want to use smaller size please add the --override flag.")
         return
     elif args.size < 25 and args.override:

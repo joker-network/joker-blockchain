@@ -8,8 +8,7 @@ from blspy import G1Element, G2Element
 from chiabip158 import PyBIP158
 
 from joker.consensus.block_record import BlockRecord
-from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, \
-    calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, calculate_pool_reward
 from joker.consensus.blockchain_interface import BlockchainInterface
 from joker.consensus.coinbase import create_community_coin, create_farmer_coin, create_pool_coin
 from joker.consensus.constants import ConsensusConstants
@@ -37,22 +36,22 @@ log = logging.getLogger(__name__)
 
 
 def create_foliage(
-        constants: ConsensusConstants,
-        reward_block_unfinished: RewardChainBlockUnfinished,
-        block_generator: Optional[BlockGenerator],
-        aggregate_sig: G2Element,
-        additions: List[Coin],
-        removals: List[Coin],
-        prev_block: Optional[BlockRecord],
-        blocks: BlockchainInterface,
-        total_iters_sp: uint128,
-        timestamp: uint64,
-        farmer_reward_puzzlehash: bytes32,
-        community_reward_puzzlehash: bytes32,
-        pool_target: PoolTarget,
-        get_plot_signature: Callable[[bytes32, G1Element], G2Element],
-        get_pool_signature: Callable[[PoolTarget, Optional[G1Element]], Optional[G2Element]],
-        seed: bytes32 = b"",
+    constants: ConsensusConstants,
+    reward_block_unfinished: RewardChainBlockUnfinished,
+    block_generator: Optional[BlockGenerator],
+    aggregate_sig: G2Element,
+    additions: List[Coin],
+    removals: List[Coin],
+    prev_block: Optional[BlockRecord],
+    blocks: BlockchainInterface,
+    total_iters_sp: uint128,
+    timestamp: uint64,
+    farmer_reward_puzzlehash: bytes32,
+    community_reward_puzzlehash: bytes32,
+    pool_target: PoolTarget,
+    get_plot_signature: Callable[[bytes32, G1Element], G2Element],
+    get_pool_signature: Callable[[PoolTarget, Optional[G1Element]], Optional[G2Element]],
+    seed: bytes32 = b"",
 ) -> Tuple[Foliage, Optional[FoliageTransactionBlock], Optional[TransactionsInfo]]:
     """
     Creates a foliage for a given reward chain block. This may or may not be a tx block. In the case of a tx block,
@@ -69,6 +68,7 @@ def create_foliage(
         total_iters_sp: total iters at the signage point
         timestamp: timestamp to put into the foliage block
         farmer_reward_puzzlehash: where to pay out farming reward
+        community_reward_puzzlehash: where to pay out community reward
         pool_target: where to pay out pool reward
         get_plot_signature: retrieve the signature corresponding to the plot public key
         get_pool_signature: retrieve the signature corresponding to the pool public key
@@ -87,7 +87,7 @@ def create_foliage(
 
     random.seed(seed)
     # Use the extension data to create different blocks based on header hash
-    extension_data: bytes32 = random.randint(4, 100000000).to_bytes(32, "big")
+    extension_data: bytes32 = random.randint(0, 100000000).to_bytes(32, "big")
     if prev_block is None:
         height: uint32 = uint32(0)
     else:
@@ -166,14 +166,14 @@ def create_foliage(
                 uint64(calculate_base_farmer_reward(curr.height) + curr.fees),
                 constants.GENESIS_CHALLENGE,
             )
-
+            
             community_coin = create_community_coin(
                 curr.height,
                 constants.GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH,
                 calculate_base_community_reward(curr.height),
                 constants.GENESIS_CHALLENGE,
             )
-
+            
             assert curr.header_hash == prev_transaction_block.header_hash
             reward_claims_incorporated += [pool_coin, farmer_coin, community_coin]
 
@@ -271,7 +271,7 @@ def create_foliage(
         )
         assert foliage_transaction_block is not None
 
-        foliage_transaction_block_hash: Optional[bytes32] = foliage_transaction_block.get_hash()
+        foliage_transaction_block_hash: bytes32 = foliage_transaction_block.get_hash()
         foliage_transaction_block_signature: Optional[G2Element] = get_plot_signature(
             foliage_transaction_block_hash, reward_block_unfinished.proof_of_space.plot_public_key
         )
@@ -296,29 +296,29 @@ def create_foliage(
 
 
 def create_unfinished_block(
-        constants: ConsensusConstants,
-        sub_slot_start_total_iters: uint128,
-        sub_slot_iters: uint64,
-        signage_point_index: uint8,
-        sp_iters: uint64,
-        ip_iters: uint64,
-        proof_of_space: ProofOfSpace,
-        slot_cc_challenge: bytes32,
-        farmer_reward_puzzle_hash: bytes32,
-        community_reward_puzzle_hash: bytes32,
-        pool_target: PoolTarget,
-        get_plot_signature: Callable[[bytes32, G1Element], G2Element],
-        get_pool_signature: Callable[[PoolTarget, Optional[G1Element]], Optional[G2Element]],
-        signage_point: SignagePoint,
-        timestamp: uint64,
-        blocks: BlockchainInterface,
-        seed: bytes32 = b"",
-        block_generator: Optional[BlockGenerator] = None,
-        aggregate_sig: G2Element = G2Element(),
-        additions: Optional[List[Coin]] = None,
-        removals: Optional[List[Coin]] = None,
-        prev_block: Optional[BlockRecord] = None,
-        finished_sub_slots_input: List[EndOfSubSlotBundle] = None,
+    constants: ConsensusConstants,
+    sub_slot_start_total_iters: uint128,
+    sub_slot_iters: uint64,
+    signage_point_index: uint8,
+    sp_iters: uint64,
+    ip_iters: uint64,
+    proof_of_space: ProofOfSpace,
+    slot_cc_challenge: bytes32,
+    farmer_reward_puzzle_hash: bytes32,
+    community_reward_puzzle_hash: bytes32,
+    pool_target: PoolTarget,
+    get_plot_signature: Callable[[bytes32, G1Element], G2Element],
+    get_pool_signature: Callable[[PoolTarget, Optional[G1Element]], Optional[G2Element]],
+    signage_point: SignagePoint,
+    timestamp: uint64,
+    blocks: BlockchainInterface,
+    seed: bytes32 = b"",
+    block_generator: Optional[BlockGenerator] = None,
+    aggregate_sig: G2Element = G2Element(),
+    additions: Optional[List[Coin]] = None,
+    removals: Optional[List[Coin]] = None,
+    prev_block: Optional[BlockRecord] = None,
+    finished_sub_slots_input: List[EndOfSubSlotBundle] = None,
 ) -> UnfinishedBlock:
     """
     Creates a new unfinished block using all the information available at the signage point. This will have to be
@@ -362,7 +362,7 @@ def create_unfinished_block(
 
     new_sub_slot: bool = len(finished_sub_slots) > 0
 
-    cc_sp_hash: Optional[bytes32] = slot_cc_challenge
+    cc_sp_hash: bytes32 = slot_cc_challenge
 
     # Only enters this if statement if we are in testing mode (making VDF proofs here)
     if signage_point.cc_vdf is not None:

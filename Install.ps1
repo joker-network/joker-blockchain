@@ -44,16 +44,15 @@ Write-Output "Python version is:" $pythonVersion
 py -m venv venv
 
 venv\scripts\python -m pip install --upgrade pip setuptools wheel
-venv\scripts\pip install --extra-index-url https://pypi.chia.net/simple/ miniupnpc==2.2.2
-venv\scripts\pip install --editable . --extra-index-url https://pypi.chia.net/simple/
+#venv\scripts\pip install --extra-index-url https://pypi.chia.net/simple/ miniupnpc==2.2.2
+venv\scripts\python -m pip install https://pypi.chia.net/simple/miniupnpc/miniupnpc-2.2.2-cp39-cp39-win_amd64.whl
+venv\scripts\python -m pip install --editable . --extra-index-url https://pypi.chia.net/simple/
 
 Write-Output ""
 Write-Output "Joker blockchain .\Install.ps1 complete."
-Write-Output "For assistance join us on Discord in the #support chat channel:"
-Write-Output "https://discord.gg/yEWaF6CQcA"
 Write-Output ""
 Write-Output "Try the Quick Start Guide to running joker-blockchain:"
-Write-Output "https://github.com/Joker-Network/joker-blockchain/wiki/Quick-Start-Guide"
+Write-Output "https://github.com/Joker-network/joker-blockchain/wiki/Quick-Start-Guide"
 Write-Output ""
 Write-Output "To install the GUI type '.\Install-gui.ps1' after '.\venv\scripts\Activate.ps1'."
 Write-Output ""

@@ -4,10 +4,15 @@ min_mainnet_k_size: 30
 ping_interval: 120
 self_hostname: &self_hostname "localhost"
 prefer_ipv6: False
-daemon_port: 55555
+daemon_port: 56900
 daemon_max_message_size: 50000000 # maximum size of RPC message in bytes
 inbound_rate_limit_percent: 100
 outbound_rate_limit_percent: 30
+
+# Limit the number of start_full_node worker processes to reduce ram and cpu usage
+# This allows users to farm more forks without running out of ram
+# Setting this too low reduces sync speed, but a synced node can stay synced with a multiprocessing_limit of 2
+# A value higher than 61 takes no effect, as chia limits the workers to 61 (windows server related python bug)
 
 multiprocessing_limit: 4
 
@@ -16,20 +21,23 @@ network_overrides: &network_overrides
     mainnet:
       NETWORK_TYPE: 0
       GENESIS_CHALLENGE: 9e60c04ed621118823f47c752240361a220967c27fb244132eb12ff4cc00465e
-      #GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
-      #GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
+      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
+      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
       GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
     testnet0:
       MIN_PLOT_SIZE: 18
-      GENESIS_CHALLENGE: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      GENESIS_CHALLENGE: 9e60c04ed621118823f47c752240361a220967c27fb244132eb12ff4cc00465e
       NETWORK_TYPE: 1
-      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "d23da14695a188ae5708dd152263c4db883eb27edeb936178d4d988b8f3ce5fc"
-      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "3d8765d3a597ec1d99663f6c9816d915b9f68613ac94009884c4addaefcce6af"
+      GENESIS_PRE_FARM_POOL_PUZZLE_HASH: "f635c3d6b9178e1f42673f95c9324b2a093e43aaee842adea2ad0231aa6ff7af"
+      GENESIS_PRE_FARM_FARMER_PUZZLE_HASH: "95b9855d96846ccf54f54a64977c4135e9cdfdb2d31f305d044b79106e313be5"
+      GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH: "e0390b609a38201df8985c958b84d89fcdbf887036deb843160b63aae389b826"
   config:
     mainnet:
       address_prefix: "xjk"
+      default_full_node_port: 18444
     testnet0:
       address_prefix: "txjk"
+      default_full_node_port: 58444
 
 selected_network: &selected_network "mainnet"
 ALERTS_URL: https://download.mykc.cc/notify/mainnet_alert.txt
@@ -55,7 +63,7 @@ daemon_ssl:
 logging: &logging
   log_stdout: False  # If True, outputs to stdout instead of a file
   log_filename: "log/debug.log"
-  log_level: "WARNING"  # Can be CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+  log_level: "INFO"  # Can be CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
   log_maxfilesrotation: 7 #  Max files in rotation. Default value 7 if the key is not set
   log_syslog: False  # If True, outputs to SysLog host and port specified
   log_syslog_host: "localhost"  # Send logging messages to a remote or local Unix syslog
@@ -71,7 +79,7 @@ harvester:
   # If True, starts an RPC server at the following port
   start_rpc_server: True
   rpc_port: 18560
-  num_threads: 30
+  num_threads: 60
   plots_refresh_parameter:
     interval_seconds: 120 # The interval in seconds to refresh the plot file manager
     retry_invalid_seconds: 1200 # How long to wait before re-trying plots which failed to load
@@ -103,7 +111,7 @@ harvester:
 
 pool:
   # Replace this with a real puzzle hash
-  # xjk_target_address: txjk102gkhhzs60grx7cfnpng5n6rjecr89r86l5s8xux2za8k820cxsq64ssdg
+  # xjk_target_address: txjk17c6u844ez78p7sn8872ujvjt9gynusa2a6zz4h4z45prr2n077hs05xw7t
   logging: *logging
   network_overrides: *network_overrides
   selected_network: *selected_network
@@ -123,7 +131,7 @@ farmer:
   pool_public_keys: []
 
   # Replace this with a real puzzle hash
-  # xjk_target_address: txjk102gkhhzs60grx7cfnpng5n6rjecr89r86l5s8xux2za8k820cxsq64ssdg
+  # xjk_target_address: txjk1jkuc2hvks3kv7484ffjfwlzpxh5umldj6v0nqhgyfdu3qm3380jsjdv4at
 
   # If True, starts an RPC server at the following port
   start_rpc_server: True
@@ -214,11 +222,19 @@ full_node:
   #         the particular system we're running on. Defaults to "full".
   db_sync: auto
 
+  # when this is true, minor data base updates may be performed on startup.
+  # the database upgrades are minor, in that they typically remove unnevessary
+  # indices or re-build certain indices. The intention of these updates is to
+  # improve performance of the node at the expense of a one-time startup cost.
+  # also note that enabling this may prohibit down-grading the node to a
+  # previous version, or may trigger an index rebuild on startup on down-grades.
+  allow_database_upgrades: False
+
   # Run multiple nodes with different databases by changing the database_path
   database_path: db/blockchain_v1_CHALLENGE.sqlite
-  peer_db_path: db/peer_table_node.sqlite
+  peers_file_path: db/peers.dat
   simulator_database_path: sim_db/simulator_blockchain_v1_CHALLENGE.sqlite
-  simulator_peer_db_path: sim_db/peer_table_node.sqlite
+  simulator_peers_file_path: sim_db/peer_table_node.dat
 
   # If True, starts an RPC server at the following port
   start_rpc_server: True
@@ -251,7 +267,7 @@ full_node:
   # Only connect to peers who we have heard about in the last recent_peer_threshold seconds
   recent_peer_threshold: 6000
 
-  # Send to a Bluebox (sanitizing timelord) uncompact blocks once every
+  # Send to a Bluebox (sanatizing timelord) uncompact blocks once every
   # 'send_uncompact_interval' seconds. Set to 0 if you don't use this feature.
   send_uncompact_interval: 0
   # At every 'send_uncompact_interval' seconds, send blueboxes 'target_uncompact_proofs' proofs to be normalized.
@@ -281,7 +297,7 @@ full_node:
       host: *self_hostname
       port: 18446
   introducer_peer:
-      host: introducer.mykc.cc  # Flax AWS introducer IPv4/IPv6
+      host: introducer.mykc.cc  # Joker AWS introducer IPv4/IPv6
       port: 18444
   wallet_peer:
     host: *self_hostname
@@ -312,7 +328,7 @@ ui:
   # this is where the electron UI will find its daemon
   # defaults to the one running locally with its private keys
   daemon_host: *self_hostname
-  daemon_port: 55400
+  daemon_port: 56900
   daemon_ssl:
     private_crt: config/ssl/daemon/private_daemon.crt
     private_key: config/ssl/daemon/private_daemon.key
@@ -334,7 +350,7 @@ introducer:
 
 wallet:
   port: 18449
-  rpc_port: 19256
+  rpc_port: 18256
 
   enable_profiler: False
 
@@ -355,7 +371,7 @@ wallet:
 
   testing: False
   database_path: wallet/db/blockchain_wallet_v1_CHALLENGE_KEY.sqlite
-  wallet_peers_path: wallet/db/wallet_peers.sqlite
+  wallet_peers_file_path: wallet/db/wallet_peers.dat
 
   logging: *logging
   network_overrides: *network_overrides
@@ -368,7 +384,7 @@ wallet:
   recent_peer_threshold: 6000
 
   introducer_peer:
-    host: introducer.mykc.cc # Flax AWS introducer IPv4/IPv6
+    host: introducer.mykc.cc # Joker AWS introducer IPv4/IPv6
     port: 18444
 
   ssl:

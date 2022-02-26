@@ -6,7 +6,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 
 from blspy import PrivateKey, G1Element
 
-from joker.consensus.block_rewards import calculate_base_farmer_reward, calculate_base_community_reward, calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, calculate_pool_reward
 from joker.pools.pool_wallet import PoolWallet
 from joker.pools.pool_wallet_info import create_pool_state, FARMING_TO_POOL, PoolWalletInfo, PoolState
 from joker.protocols.protocol_message_types import ProtocolMessageTypes
@@ -1138,9 +1138,9 @@ class WalletRpcApi:
                     continue
                 pool_reward_amount += record.amount
             height = record.height_farmed(self.service.constants.GENESIS_CHALLENGE)
-
-
-
+            # Joker Network Code
+            # Do not need to calculate the Community Rewards Amount To Wallet Card
+            # 只添加了一行代码,余下的代码只是做了缩进
             if( uint64(calculate_base_community_reward(height)) != uint64(record.amount) ):
                 if record.type == TransactionType.FEE_REWARD:
                     fee_amount += record.amount - calculate_base_farmer_reward(height)

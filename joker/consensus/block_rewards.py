@@ -50,13 +50,12 @@ def calculate_base_farmer_reward(height: uint32) -> uint64:
     else:
         return uint64(int((1 / 8) * 0.125 * 0.9 * 10 * _mojo_per_joker))
 
-
 def calculate_base_community_reward(height: uint32) -> uint64:
     """
-    Community Rewards: 10% every block
+    Community Rewards: 10% every block at stage 1 & 2 & 3
     """
     if height == 0:
-        return uint64(int((1 / 10) * 0 * 10 * _mojo_per_joker))
+        return uint64(int((1 / 10) * 0 * _mojo_per_joker))
     elif height < 1 * _blocks_per_year:
         return uint64(int((1 / 10) * 2 * 10 * _mojo_per_joker))
     elif height < 2 * _blocks_per_year:

@@ -28,6 +28,8 @@ def init_cmd(ctx: click.Context, create_certs: str, fix_ssl_permissions: bool, t
     - Shut down all joker daemon processes with `joker stop all -d`
     - Run `joker init -c [directory]` on your remote harvester,
       where [directory] is the the copy of your Farming Machine CA directory
+    - Get more details on remote harvester on Joker wiki:
+      https://github.com/Joker-network/joker-blockchain/wiki/Farming-on-many-machines
     """
     from pathlib import Path
     from .init_funcs import init

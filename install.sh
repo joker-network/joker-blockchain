@@ -1,5 +1,29 @@
 #!/bin/bash
 set -e
+
+USAGE_TEXT="\
+Usage: $0 [-d]
+
+  -d                          install development dependencies
+  -h                          display this help and exit
+"
+
+usage() {
+  echo "${USAGE_TEXT}"
+}
+
+EXTRAS=
+
+while getopts dh flag
+do
+  case "${flag}" in
+    # development
+    d) EXTRAS=${EXTRAS}dev,;;
+    h) usage; exit 0;;
+    *) echo; usage; exit 1;;
+  esac
+done
+
 UBUNTU=false
 DEBIAN=false
 if [ "$(uname)" = "Linux" ]; then
@@ -18,9 +42,9 @@ fi
 if [ "$(uname -m)" = "armv7l" ]; then
   echo ""
 	echo "WARNING:"
-	echo "The Joker Blockchain requires a 64 bit OS and this is 32 bit armv7l"
+	echo "The Chives Blockchain requires a 64 bit OS and this is 32 bit armv7l"
 	echo "For more information, see"
-	echo "https://github.com/Joker-Network/joker-blockchain/wiki/Raspberry-Pi"
+	echo "https://github.com/Joker-network/joker-blockchain/wiki/Raspberry-Pi"
 	echo "Exiting."
 	exit 1
 fi
@@ -109,18 +133,30 @@ if [ ! -f "activate" ]; then
 	ln -s venv/bin/activate .
 fi
 
+EXTRAS=${EXTRAS%,}
+if [ -n "${EXTRAS}" ]; then
+  EXTRAS=[${EXTRAS}]
+fi
+
 # shellcheck disable=SC1091
 . ./activate
 # pip 20.x+ supports Linux binary wheels
 python -m pip install --upgrade pip
 python -m pip install wheel
+python -m pip install requests
 #if [ "$INSTALL_PYTHON_VERSION" = "3.8" ]; then
 # This remains in case there is a diversion of binary wheels
 python -m pip install --extra-index-url https://pypi.chia.net/simple/ miniupnpc==2.2.2
-python -m pip install -e . --extra-index-url https://pypi.chia.net/simple/
+python -m pip install -e ."${EXTRAS}" --extra-index-url https://pypi.chia.net/simple/
 
 echo ""
-echo "Joker blockchain install.sh complete."
+echo "Chives blockchain install.sh complete."
+echo "For assistance join us on Keybase in the #support chat channel:"
+echo "https://keybase.io/team/joker_network.public"
+echo ""
+echo "Try the Quick Start Guide to running joker-blockchain:"
+echo "https://github.com/Joker-network/joker-blockchain/wiki/Quick-Start-Guide"
+echo ""
 echo "To install the GUI type 'sh install-gui.sh' after '. ./activate'."
 echo ""
 echo "Type '. ./activate' and then 'joker init' to begin."

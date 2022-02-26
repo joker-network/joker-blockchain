@@ -140,10 +140,9 @@ class WalletStateManager:
         self.db_connection = await aiosqlite.connect(db_path)
         await self.db_connection.execute("pragma journal_mode=wal")
 
-        # Never use pragma synchronous=OFF in Flax.
-        # await self.db_connection.execute(
-        #     "pragma synchronous={}".format(db_synchronous_on(self.config.get("db_sync", "auto"), db_path))
-        # )
+        await self.db_connection.execute(
+            "pragma synchronous={}".format(db_synchronous_on(self.config.get("db_sync", "auto"), db_path))
+        )
 
         self.db_wrapper = DBWrapper(self.db_connection)
         self.coin_store = await WalletCoinStore.create(self.db_wrapper)
@@ -980,8 +979,8 @@ class WalletStateManager:
 
         my_puzzle_hashes = self.puzzle_store.all_puzzle_hashes
 
-        removals_of_interest: bytes32 = []
-        additions_of_interest: bytes32 = []
+        removals_of_interest: List[bytes32] = []
+        additions_of_interest: List[bytes32] = []
 
         (
             trade_removals,

@@ -217,10 +217,10 @@ async def setup_farmer(
     config = bt.config["farmer"]
     config_pool = bt.config["pool"]
 
-    config["xjk_target_address"] = encode_puzzle_hash(b_tools.farmer_ph, "xfx")
+    config["xjk_target_address"] = encode_puzzle_hash(b_tools.farmer_ph, "xch")
     config["pool_public_keys"] = [bytes(pk).hex() for pk in b_tools.pool_pubkeys]
     config["port"] = port
-    config_pool["xjk_target_address"] = encode_puzzle_hash(b_tools.pool_ph, "xfx")
+    config_pool["xjk_target_address"] = encode_puzzle_hash(b_tools.pool_ph, "xch")
 
     if full_node_port:
         config["full_node_peer"]["host"] = self_hostname
@@ -268,7 +268,7 @@ async def setup_introducer(port):
 
 
 async def setup_vdf_client(port):
-    vdf_task_1 = asyncio.create_task(spawn_process(self_hostname, port, 1))
+    vdf_task_1 = asyncio.create_task(spawn_process(self_hostname, port, 1, bt.config.get("prefer_ipv6")))
 
     def stop():
         asyncio.create_task(kill_processes())
@@ -281,9 +281,9 @@ async def setup_vdf_client(port):
 
 
 async def setup_vdf_clients(port):
-    vdf_task_1 = asyncio.create_task(spawn_process(self_hostname, port, 1))
-    vdf_task_2 = asyncio.create_task(spawn_process(self_hostname, port, 2))
-    vdf_task_3 = asyncio.create_task(spawn_process(self_hostname, port, 3))
+    vdf_task_1 = asyncio.create_task(spawn_process(self_hostname, port, 1, bt.config.get("prefer_ipv6")))
+    vdf_task_2 = asyncio.create_task(spawn_process(self_hostname, port, 2, bt.config.get("prefer_ipv6")))
+    vdf_task_3 = asyncio.create_task(spawn_process(self_hostname, port, 3, bt.config.get("prefer_ipv6")))
 
     def stop():
         asyncio.create_task(kill_processes())

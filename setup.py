@@ -2,7 +2,8 @@ from setuptools import setup
 
 dependencies = [
     "multidict==5.1.0",  # Avoid 5.2.0 due to Avast
-    "blspy==1.0.6",  # Signature library
+    "aiofiles==0.7.0",  # Async IO for files
+    "blspy==1.0.7",  # Signature library
     "chiavdf==1.0.3",  # timelord and vdf verification
     "chiabip158==1.0",  # bip158-style wallet filters
     "chiapos==1.0.6",  # proof of space
@@ -37,18 +38,27 @@ upnp_dependencies = [
 dev_dependencies = [
     "pytest",
     "pytest-asyncio",
+    "pytest-monitor; sys_platform == 'linux'",
+    "pytest-xdist",
     "flake8",
     "mypy",
     "black",
     "aiohttp_cors",  # For blackd
     "ipython",  # For asyncio debugging
+    "types-aiofiles",
+    "types-click",
+    "types-cryptography",
+    "types-pkg_resources",
+    "types-pyyaml",
     "types-setuptools",
 ]
 
 kwargs = dict(
     name="joker-blockchain",
-    description="joker blockchain full node, farmer, timelord, and wallet.",
-    url="https://mykc.cc/",
+    author="Jackson",
+    author_email="jacksonste1983@gmail.com",
+    description="Joker blockchain full node, farmer, timelord, and wallet.",
+    url="https://jokercoin.org/",
     license="Apache License",
     python_requires=">=3.7, <4",
     keywords="joker blockchain node",
@@ -113,7 +123,7 @@ kwargs = dict(
         "mozilla-ca": ["cacert.pem"],
     },
     use_scm_version={"fallback_version": "unknown-no-.git-directory"},
-    long_description=open("README.md").read(),
+    long_description=open("README.md", encoding='UTF-8').read(),
     long_description_content_type="text/markdown",
     zip_safe=False,
 )

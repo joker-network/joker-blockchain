@@ -9,7 +9,7 @@ wallet_program_files = set(
     [
         "joker/wallet/puzzles/calculate_synthetic_public_key.clvm",
         "joker/wallet/puzzles/cc.clvm",
-        "joker/wallet/puzzles/jokerlisp_deserialisation.clvm",
+        "joker/wallet/puzzles/jokerslisp_deserialisation.clvm",
         "joker/wallet/puzzles/rom_bootstrap_generator.clvm",
         "joker/wallet/puzzles/generator_for_single_coin.clvm",
         "joker/wallet/puzzles/genesis-by-coin-id-with-0.clvm",

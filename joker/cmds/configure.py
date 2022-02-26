@@ -95,7 +95,7 @@ def configure(
             testnet_port = "58444"
             testnet_introducer = "beta_introducer.mykc.cc"
             testnet_dns_introducer = "dns-introducer-testnet.mykc.cc"
-            testnet = "testnet7"
+            testnet = "testnet0"
             config["full_node"]["port"] = int(testnet_port)
             config["full_node"]["introducer_peer"]["port"] = int(testnet_port)
             config["farmer"]["full_node_peer"]["port"] = int(testnet_port)

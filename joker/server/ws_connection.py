@@ -113,7 +113,7 @@ class WSJokerConnection:
             outbound_handshake = make_msg(
                 ProtocolMessageTypes.handshake,
                 Handshake(
-                    'joker-' + network_id,
+                    network_id,
                     protocol_version,
                     joker_full_version_str(),
                     uint16(server_port),
@@ -137,7 +137,7 @@ class WSJokerConnection:
             if message_type != ProtocolMessageTypes.handshake:
                 raise ProtocolError(Err.INVALID_HANDSHAKE)
 
-            if inbound_handshake.network_id != 'joker-' + network_id:
+            if inbound_handshake.network_id != network_id:
                 raise ProtocolError(Err.INCOMPATIBLE_NETWORK_ID)
 
             self.version = inbound_handshake.software_version
@@ -164,12 +164,12 @@ class WSJokerConnection:
                 raise ProtocolError(Err.INVALID_HANDSHAKE)
 
             inbound_handshake = Handshake.from_bytes(message.data)
-            if inbound_handshake.network_id != 'joker-' + network_id:
+            if inbound_handshake.network_id != network_id:
                 raise ProtocolError(Err.INCOMPATIBLE_NETWORK_ID)
             outbound_handshake = make_msg(
                 ProtocolMessageTypes.handshake,
                 Handshake(
-                    'joker-' + network_id,
+                    network_id,
                     protocol_version,
                     joker_full_version_str(),
                     uint16(server_port),
@@ -274,11 +274,12 @@ class WSJokerConnection:
             self.log.error(f"Exception: {e}")
             self.log.error(f"Exception Stack: {error_stack}")
 
-    async def send_message(self, message: Message):
+    async def send_message(self, message: Message) -> bool:
         """Send message sends a message with no tracking / callback."""
         if self.closed:
-            return None
+            return False
         await self.outgoing_queue.put(message)
+        return True
 
     def __getattr__(self, attr_name: str):
         # TODO KWARGS
@@ -368,11 +369,6 @@ class WSJokerConnection:
             self.request_results.pop(result.id)
 
         return result
-
-    async def reply_to_request(self, response: Message):
-        if self.closed:
-            return None
-        await self.outgoing_queue.put(response)
 
     async def send_messages(self, messages: List[Message]):
         if self.closed:

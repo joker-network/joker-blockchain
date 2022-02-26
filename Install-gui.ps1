@@ -13,17 +13,12 @@ if ($null -eq (Get-Command node -ErrorAction SilentlyContinue))
     Exit 1
 }
 
-Write-Output "Running 'git submodule update --init --recursive'."
-Write-Output ""
-git submodule update --init --recursive
-
 Push-Location
 try {
-    Set-Location Joker-blockchain-gui
-
+    Set-Location joker-blockchain-gui
     $ErrorActionPreference = "SilentlyContinue"
     npm install --loglevel=error
-    npm audit fix
+    npm audit fix --force
     npm run build
     py ..\installhelper.py
 
@@ -34,3 +29,4 @@ try {
 } finally {
     Pop-Location
 }
+

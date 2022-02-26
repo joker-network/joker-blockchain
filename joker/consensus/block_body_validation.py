@@ -2,6 +2,7 @@ import collections
 import logging
 from typing import Dict, List, Optional, Set, Tuple, Union, Callable
 
+from blspy import AugSchemeMPL, G1Element
 from chiabip158 import PyBIP158
 from clvm.casts import int_from_bytes
 
@@ -41,17 +42,17 @@ log = logging.getLogger(__name__)
 
 
 async def validate_block_body(
-    constants: ConsensusConstants,
-    blocks: BlockchainInterface,
-    block_store: BlockStore,
-    coin_store: CoinStore,
-    peak: Optional[BlockRecord],
-    block: Union[FullBlock, UnfinishedBlock],
-    height: uint32,
-    npc_result: Optional[NPCResult],
-    fork_point_with_peak: Optional[uint32],
-    get_block_generator: Callable,
-    validate_signature=True,
+        constants: ConsensusConstants,
+        blocks: BlockchainInterface,
+        block_store: BlockStore,
+        coin_store: CoinStore,
+        peak: Optional[BlockRecord],
+        block: Union[FullBlock, UnfinishedBlock],
+        height: uint32,
+        npc_result: Optional[NPCResult],
+        fork_point_with_peak: Optional[uint32],
+        get_block_generator: Callable,
+        validate_signature=True,
 ) -> Tuple[Optional[Err], Optional[NPCResult]]:
     """
     This assumes the header block has been completely validated.
@@ -70,9 +71,9 @@ async def validate_block_body(
     # None
     if block.foliage.foliage_transaction_block_hash is None:
         if (
-            block.foliage_transaction_block is not None
-            or block.transactions_info is not None
-            or block.transactions_generator is not None
+                block.foliage_transaction_block is not None
+                or block.transactions_info is not None
+                or block.transactions_generator is not None
         ):
             return Err.NOT_BLOCK_BUT_HAS_DATA, None
 
@@ -481,7 +482,7 @@ async def validate_block_body(
     if validate_signature:
         force_cache: bool = isinstance(block, UnfinishedBlock)
         if not cached_bls.aggregate_verify(
-            pairs_pks, pairs_msgs, block.transactions_info.aggregated_signature, force_cache
+                pairs_pks, pairs_msgs, block.transactions_info.aggregated_signature, force_cache
         ):
             return Err.BAD_AGGREGATE_SIGNATURE, None
 

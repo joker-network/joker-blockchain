@@ -15,7 +15,7 @@ if [ "$(id -u)" = 0 ]; then
 fi
 
 # Allows overriding the branch or commit to build in joker-blockchain-gui
-SUBMODULE_BRANCH=$1
+SUBMODULE_BRANCH=main
 
 UBUNTU=false
 # Manage npm and other install requirements on an OS specific basis
@@ -26,7 +26,7 @@ if [ "$(uname)" = "Linux" ]; then
 		UBUNTU=true
 
 		# Check if we are running a Raspberry PI 4
-		if [ "$(uname -m)" = "aarch64" ] \
+		if [ "$(uname -m)" = "arch64" ] \
 		&& [ "$(uname -n)" = "raspberrypi" ]; then
 			# Check if NodeJS & NPM is installed
 			type npm >/dev/null 2>&1 || {
@@ -84,23 +84,15 @@ fi
 # Pipelines directly, so skip unless you are completing a source/developer install.
 # Ubuntu special cases above.
 if [ ! "$CI" ]; then
+
 	echo "Running git submodule update --init --recursive."
 	echo ""
 	git submodule update --init --recursive
 	echo "Running git submodule update."
 	echo ""
 	git submodule update
+	
 	cd joker-blockchain-gui
-
-	if [ "$SUBMODULE_BRANCH" ];
-	then
-    git fetch
-		git checkout "$SUBMODULE_BRANCH"
-    git pull
-		echo ""
-		echo "Building the GUI with branch $SUBMODULE_BRANCH"
-		echo ""
-	fi
 
 	npm install
 	npm audit fix || true

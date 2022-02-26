@@ -360,7 +360,7 @@ def joker_init(
             f"or manually migrate config.yaml"
         )
 
-    print(f"JOKER directory {root_path}")
+    print(f"Joker directory {root_path}")
     if root_path.is_dir() and Path(root_path / "config" / "config.yaml").exists():
         # This is reached if JOKER_ROOT is set, or if user has run joker init twice
         # before a new update.

@@ -153,7 +153,7 @@ class Farmer:
         # This is the farmer configuration
         self.farmer_target_encoded = self.config["xjk_target_address"]
         self.farmer_target = decode_puzzle_hash(self.farmer_target_encoded)
-
+        
         self.community_target = self.constants.GENESIS_PRE_FARM_COMMUNITY_PUZZLE_HASH
 
         self.pool_public_keys = [G1Element.from_bytes(bytes.fromhex(pk)) for pk in self.config["pool_public_keys"]]

@@ -3,15 +3,12 @@ import asyncio
 from blspy import G2Element
 from clvm_tools import binutils
 
-from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, \
-    calculate_pool_reward
+from joker.consensus.block_rewards import calculate_base_community_reward, calculate_base_farmer_reward, calculate_pool_reward
 from joker.rpc.full_node_rpc_client import FullNodeRpcClient
 from joker.types.blockchain_format.program import Program
-from joker.types.coin_spend import CoinSpend
-from joker.types.condition_opcodes import ConditionOpcode
+from joker.types.coin_solution import CoinSolution
 from joker.types.spend_bundle import SpendBundle
 from joker.util.bech32m import decode_puzzle_hash
-from joker.util.condition_tools import parse_sexp_to_conditions
 from joker.util.config import load_config
 from joker.util.default_root import DEFAULT_ROOT_PATH
 from joker.util.ints import uint32, uint16
@@ -35,9 +32,9 @@ async def main() -> None:
         assert farmer_amounts == farmer_prefarm.amount // 2
         assert pool_amounts == pool_prefarm.amount // 2
         assert community_amounts == community_prefarm.amount // 2
-        address1 = "xjk1jkuc2hvks3kv7484ffjfwlzpxh5umldj6v0nqhgyfdu3qm3380jsjdv4at"  # Key 1
-        address2 = "xjk17c6u844ez78p7sn8872ujvjt9gynusa2a6zz4h4z45prr2n077hs05xw7t"  # Key 2
-        address3 = "xjk1uquskcy68qspm7yctj2chpxcnlxmlzrsxm0tssckpd364cufhqnq223dl5"  # Key 3
+        address1 = "xjk1rdatypul5c642jkeh4yp933zu3hw8vv8tfup8ta6zfampnyhjnusxdgns6"  # Key 1
+        address2 = "xjk1duvy5ur5eyj7lp5geetfg84cj2d7xgpxt7pya3lr2y6ke3696w9qvda66e"  # Key 2
+        address3 = "xjk1duvy5ur5eyj7lp5geetfg84cj2d7xgpxt7pya3lr2y6ke3696w9qvda66e"  # Key 3
 
         ph1 = decode_puzzle_hash(address1)
         ph2 = decode_puzzle_hash(address2)
@@ -55,9 +52,9 @@ async def main() -> None:
 
         p_solution = Program.to(binutils.assemble("()"))
 
-        sb_community = SpendBundle([CoinSpend(community_prefarm, p_community_2, p_solution)], G2Element())
-        sb_farmer = SpendBundle([CoinSpend(farmer_prefarm, p_farmer_2, p_solution)], G2Element())
-        sb_pool = SpendBundle([CoinSpend(pool_prefarm, p_pool_2, p_solution)], G2Element())
+        sb_community = SpendBundle([CoinSolution(community_prefarm, p_community_2, p_solution)], G2Element())
+        sb_farmer = SpendBundle([CoinSolution(farmer_prefarm, p_farmer_2, p_solution)], G2Element())
+        sb_pool = SpendBundle([CoinSolution(pool_prefarm, p_pool_2, p_solution)], G2Element())
 
         print(sb_pool, sb_farmer, sb_community)
         res = await client.push_tx(sb_farmer)
@@ -66,7 +63,7 @@ async def main() -> None:
         print(res)
         up = await client.get_coin_records_by_puzzle_hash(farmer_prefarm.puzzle_hash, True)
         uf = await client.get_coin_records_by_puzzle_hash(pool_prefarm.puzzle_hash, True)
-        uc = await client.get_coin_records_by_puzzle_hash(community_prefarm.puzzle_hash, True)
+        uc = await client.get_coin_records_by_puzzle_hash(pool_community.puzzle_hash, True)
         print(up)
         print(uf)
         print(uc)

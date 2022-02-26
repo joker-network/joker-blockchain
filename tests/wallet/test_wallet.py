@@ -3,7 +3,7 @@ import pytest
 import time
 from joker.consensus.block_rewards import calculate_base_farmer_reward, calculate_pool_reward
 from joker.protocols.full_node_protocol import RespondBlock
-from joker.server.server import JokerServer
+from joker.server.server import ChivesServer
 from joker.simulator.simulator_protocol import FarmNewBlockProtocol, ReorgProtocol
 from joker.types.peer_info import PeerInfo
 from joker.util.ints import uint16, uint32, uint64
@@ -48,7 +48,7 @@ class TestWalletSimulator:
         num_blocks = 10
         full_nodes, wallets = wallet_node
         full_node_api = full_nodes[0]
-        server_1: JokerServer = full_node_api.full_node.server
+        server_1: ChivesServer = full_node_api.full_node.server
         wallet_node, server_2 = wallets[0]
 
         wallet = wallet_node.wallet_state_manager.main_wallet
