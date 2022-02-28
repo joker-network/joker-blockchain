@@ -44,10 +44,10 @@ jobs:
 
     - name: Create keychain for CI use
       run: |
-        security create-keychain -p foo chiveschain
-        security default-keychain -s chiveschain
-        security unlock-keychain -p foo chiveschain
-        security set-keychain-settings -t 7200 -u chiveschain
+        security create-keychain -p foo jokerchain
+        security default-keychain -s jokerchain
+        security unlock-keychain -p foo jokerchain
+        security set-keychain-settings -t 7200 -u jokerchain
 
     - name: Get pip cache dir
       id: pip-cache
@@ -66,7 +66,7 @@ jobs:
     - name: Checkout test blocks and plots
       uses: actions/checkout@v2
       with:
-        repository: 'Chives-Network/test-cache'
+        repository: 'Joker-Network/test-cache'
         path: '.joker'
         ref: '0.27.0'
         fetch-depth: 1
@@ -74,9 +74,9 @@ jobs:
     - name: Link home directory
       run: |
         cd $HOME
-        ln -s $GITHUB_WORKSPACE/.chives
-        echo "$HOME/.chives"
-        ls -al $HOME/.chives
+        ln -s $GITHUB_WORKSPACE/.joker
+        echo "$HOME/.joker"
+        ls -al $HOME/.joker
 
     - name: Run install script
       env:

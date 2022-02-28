@@ -63,7 +63,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-# Omitted checking out blocks and plots repo Chives-Network/test-cache
+# Omitted checking out blocks and plots repo Joker-Network/test-cache
 
     - name: Install ubuntu dependencies
       run: |

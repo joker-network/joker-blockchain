@@ -4,9 +4,9 @@
 # you have to install python and git command tools first.
 # Open the powershell as a adminstrator rool.
 # Go into the dir "joker-blockchain" and input the command:".\build_scripts\build_windows.ps1"
-# This script Copyright by Chives Newwork.
-# This script improved by Chives Newwork.
-# Having any question, email to : chivescoin@gmail.com or go the mykc.cc
+# This script Copyright by Joker Newwork.
+# This script improved by Joker Newwork.
+# Having any question, email to : jokercoin@gmail.com or go the mykc.cc
 # 2021-06-05
 
 # ERROR LIST AND SOLUTION:
@@ -56,8 +56,8 @@ if(Test-Path '.\joker-blockchain-gui\daemon')			{
 if(Test-Path '.\joker-blockchain-gui\release-builds')			{
 	# Remove-Item '.\joker-blockchain-gui\release-builds' -Recurse
 }
-if(Test-Path '.\joker-blockchain-gui\Chives-win32-x64')			{
-	# Remove-Item '.\joker-blockchain-gui\Chives-win32-x64' -Recurse
+if(Test-Path '.\joker-blockchain-gui\Joker-win32-x64')			{
+	# Remove-Item '.\joker-blockchain-gui\Joker-win32-x64' -Recurse
 }
 if(Test-Path '.\joker-blockchain-gui\build')			{
 	# Remove-Item '.\joker-blockchain-gui\build' -Recurse
@@ -95,17 +95,17 @@ pip install setuptools_scm
 pip install requests
 
 Write-Output "   ---"
-Write-Output "Get CHIVES_INSTALLER_VERSION"
-# The environment variable CHIVES_INSTALLER_VERSION needs to be defined
-$env:CHIVES_INSTALLER_VERSION = python .\build_scripts\installer-version.py -win
+Write-Output "Get JOKER_INSTALLER_VERSION"
+# The environment variable JOKER_INSTALLER_VERSION needs to be defined
+$env:JOKER_INSTALLER_VERSION = python .\build_scripts\installer-version.py -win
 
-# $env:CHIVES_INSTALLER_VERSION = "1.2.11"
+# $env:JOKER_INSTALLER_VERSION = "1.2.11"
 
-if (-not (Test-Path env:CHIVES_INSTALLER_VERSION)) {
-  $env:CHIVES_INSTALLER_VERSION = '0.0.0'
-  Write-Output "WARNING: No environment variable CHIVES_INSTALLER_VERSION set. Using 0.0.0"
+if (-not (Test-Path env:JOKER_INSTALLER_VERSION)) {
+  $env:JOKER_INSTALLER_VERSION = '0.0.0'
+  Write-Output "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0"
   }
-Write-Output "Chives Version is: $env:CHIVES_INSTALLER_VERSION"
+Write-Output "Joker Version is: $env:JOKER_INSTALLER_VERSION"
 Write-Output "   ---"
 
 Write-Output "Checking if madmax exists"
@@ -177,11 +177,11 @@ If ($LastExitCode -gt 0){
 Write-Output "   ---"
 Write-Output "Increase the stack for joker command for (joker plots create) chiapos limitations"
 # editbin.exe needs to be in the path
-editbin.exe /STACK:8000000 daemon\chives.exe
+editbin.exe /STACK:8000000 daemon\joker.exe
 Write-Output "   ---"
 
-$packageVersion = "$env:CHIVES_INSTALLER_VERSION"
-$packageName = "Chives-$packageVersion"
+$packageVersion = "$env:JOKER_INSTALLER_VERSION"
+$packageName = "Joker-$packageVersion"
 
 Write-Output "packageName is $packageName"
 
@@ -189,14 +189,14 @@ Write-Output "   ---"
 Write-Output "fix version in package.json"
 choco install jq
 cp package.json package.json.orig
-jq --arg VER "$env:CHIVES_INSTALLER_VERSION" '.version=$VER' package.json > temp.json
+jq --arg VER "$env:JOKER_INSTALLER_VERSION" '.version=$VER' package.json > temp.json
 rm package.json
 mv temp.json package.json
 Write-Output "   ---"
 
 Write-Output "   ---"
 Write-Output "electron-packager"
-electron-packager . Chives --asar.unpack="**\daemon\**" --overwrite --icon=.\src\assets\img\chives.ico --app-version=$packageVersion
+electron-packager . Joker --asar.unpack="**\daemon\**" --overwrite --icon=.\src\assets\img\joker.ico --app-version=$packageVersion
 Write-Output "   ---"
 
 Write-Output "   ---"
@@ -210,8 +210,8 @@ If ($env:HAS_SECRET) {
    Write-Output "   ---"
    Write-Output "Add timestamp and verify signature"
    Write-Output "   ---"
-   signtool.exe timestamp /v /t http://timestamp.comodoca.com/ .\release-builds\windows-installer\ChivesSetup-$packageVersion.exe
-   signtool.exe verify /v /pa .\release-builds\windows-installer\ChivesSetup-$packageVersion.exe
+   signtool.exe timestamp /v /t http://timestamp.comodoca.com/ .\release-builds\windows-installer\JokerSetup-$packageVersion.exe
+   signtool.exe verify /v /pa .\release-builds\windows-installer\JokerSetup-$packageVersion.exe
    }   Else    {
    Write-Output "Skipping timestamp and verify signatures - no authorization to install certificates"
 }

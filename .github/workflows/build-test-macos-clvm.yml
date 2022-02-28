@@ -44,10 +44,10 @@ jobs:
 
     - name: Create keychain for CI use
       run: |
-        security create-keychain -p foo chiveschain
-        security default-keychain -s chiveschain
-        security unlock-keychain -p foo chiveschain
-        security set-keychain-settings -t 7200 -u chiveschain
+        security create-keychain -p foo jokerchain
+        security default-keychain -s jokerchain
+        security unlock-keychain -p foo jokerchain
+        security set-keychain-settings -t 7200 -u jokerchain
 
     - name: Get pip cache dir
       id: pip-cache
@@ -63,7 +63,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-# Omitted checking out blocks and plots repo Chives-Network/test-cache
+# Omitted checking out blocks and plots repo Joker-Network/test-cache
 
     - name: Run install script
       env:

@@ -4,16 +4,16 @@ set -euo pipefail
 
 pip install setuptools_scm
 pip install requests
-# The environment variable CHIVES_INSTALLER_VERSION needs to be defined.
+# The environment variable JOKER_INSTALLER_VERSION needs to be defined.
 # If the env variable NOTARIZE and the username and password variables are
 # set, this will attempt to Notarize the signed DMG.
-CHIVES_INSTALLER_VERSION=$(python installer-version.py)
+JOKER_INSTALLER_VERSION=$(python installer-version.py)
 
-if [ ! "$CHIVES_INSTALLER_VERSION" ]; then
-	echo "WARNING: No environment variable CHIVES_INSTALLER_VERSION set. Using 0.0.0."
-	CHIVES_INSTALLER_VERSION="0.0.0"
+if [ ! "$JOKER_INSTALLER_VERSION" ]; then
+	echo "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0."
+	JOKER_INSTALLER_VERSION="0.0.0"
 fi
-echo "Chives Installer Version is: $CHIVES_INSTALLER_VERSION"
+echo "Joker Installer Version is: $JOKER_INSTALLER_VERSION"
 
 echo "Installing npm and electron packagers"
 npm install electron-installer-dmg -g
@@ -54,11 +54,11 @@ fi
 # sets the version for joker-blockchain in package.json
 brew install jq
 cp package.json package.json.orig
-jq --arg VER "$CHIVES_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
+jq --arg VER "$JOKER_INSTALLER_VERSION" '.version=$VER' package.json > temp.json && mv temp.json package.json
 
-electron-packager . Chives --asar.unpack="**/daemon/**" --platform=darwin \
---icon=src/assets/img/Chives.icns --overwrite --app-bundle-id=net.joker.blockchain \
---appVersion=$CHIVES_INSTALLER_VERSION
+electron-packager . Joker --asar.unpack="**/daemon/**" --platform=darwin \
+--icon=src/assets/img/Joker.icns --overwrite --app-bundle-id=net.joker.blockchain \
+--appVersion=$JOKER_INSTALLER_VERSION
 LAST_EXIT_CODE=$?
 
 # reset the package.json to the original
@@ -70,8 +70,8 @@ if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 fi
 
 if [ "$NOTARIZE" == true ]; then
-  electron-osx-sign Chives-darwin-x64/Chives.app --platform=darwin \
-  --hardened-runtime=true --provisioning-profile=chivesblockchain.provisionprofile \
+  electron-osx-sign Joker-darwin-x64/Joker.app --platform=darwin \
+  --hardened-runtime=true --provisioning-profile=jokerblockchain.provisionprofile \
   --entitlements=entitlements.mac.plist --entitlements-inherit=entitlements.mac.plist \
   --no-gatekeeper-assess
 fi
@@ -81,13 +81,13 @@ if [ "$LAST_EXIT_CODE" -ne 0 ]; then
 	exit $LAST_EXIT_CODE
 fi
 
-mv Chives-darwin-x64 ../build_scripts/dist/
+mv Joker-darwin-x64 ../build_scripts/dist/
 cd ../build_scripts || exit
 
-DMG_NAME="Chives-$CHIVES_INSTALLER_VERSION.dmg"
+DMG_NAME="Joker-$JOKER_INSTALLER_VERSION.dmg"
 echo "Create $DMG_NAME"
 mkdir final_installer
-electron-installer-dmg dist/Chives-darwin-x64/Chives.app Chives-$CHIVES_INSTALLER_VERSION \
+electron-installer-dmg dist/Joker-darwin-x64/Joker.app Joker-$JOKER_INSTALLER_VERSION \
 --overwrite --out final_installer
 LAST_EXIT_CODE=$?
 if [ "$LAST_EXIT_CODE" -ne 0 ]; then

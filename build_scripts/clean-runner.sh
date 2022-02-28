@@ -5,7 +5,7 @@ PWD=$(pwd)
 
 rm -rf ../venv || true
 rm -rf venv || true
-rm -rf chives_blockchain.egg-info || true
+rm -rf joker_blockchain.egg-info || true
 rm -rf build_scripts/final_installer || true
 rm -rf build_scripts/dist || true
 rm -rf build_scripts/pyinstaller || true
