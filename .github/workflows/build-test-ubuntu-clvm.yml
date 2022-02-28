@@ -38,7 +38,7 @@ jobs:
         fetch-depth: 0
 
     - name: Setup Python environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -63,7 +63,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-# Omitted checking out blocks and plots repo Chives-Network/test-cache
+# Omitted checking out blocks and plots repo Joker-Network/test-cache
 
     - name: Install ubuntu dependencies
       run: |

@@ -42,7 +42,7 @@ jobs:
       run: bash build_scripts/clean-runner.sh || true
 
     - name: Setup Python environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -139,5 +139,5 @@ jobs:
     - name: Upload MacOS artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: Chives-Installer-on-MacOS-10.15-dmg
+        name: Joker-Installer-on-MacOS-10.15-dmg
         path: ${{ github.workspace }}/build_scripts/final_installer/

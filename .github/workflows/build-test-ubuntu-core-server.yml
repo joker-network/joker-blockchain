@@ -38,7 +38,7 @@ jobs:
         fetch-depth: 0
 
     - name: Setup Python environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -66,7 +66,7 @@ jobs:
     - name: Checkout test blocks and plots
       uses: actions/checkout@v2
       with:
-        repository: 'Chives-Network/test-cache'
+        repository: 'Joker-Network/test-cache'
         path: '.joker'
         ref: '0.27.0'
         fetch-depth: 1
@@ -74,9 +74,9 @@ jobs:
     - name: Link home directory
       run: |
         cd $HOME
-        ln -s $GITHUB_WORKSPACE/.chives
-        echo "$HOME/.chives"
-        ls -al $HOME/.chives
+        ln -s $GITHUB_WORKSPACE/.joker
+        echo "$HOME/.joker"
+        ls -al $HOME/.joker
 
     - name: Install ubuntu dependencies
       run: |

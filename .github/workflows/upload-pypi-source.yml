@@ -29,7 +29,7 @@ jobs:
         fetch-depth: 0
         submodules: recursive
 
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v3
       name: Install Python
       with:
         python-version: '3.8'
@@ -51,7 +51,7 @@ jobs:
 
     - name: Lint source with flake8
       run: |
-        flake8 chives tests
+        flake8 joker tests
 
     - name: Lint source with mypy
       run: |
