@@ -20,7 +20,7 @@ import {
   Loading,
   TooltipIcon,
   Flex,
-} from '@chives/core';
+} from '@joker/core';
 import {
   unix_to_short_date,
   hex_to_array,
@@ -28,7 +28,7 @@ import {
   sha256,
 } from '../../util/utils';
 import { getBlockRecord, getBlock } from '../../modules/fullnodeMessages';
-import { mojo_to_chives } from '../../util/chives';
+import { mojo_to_joker } from '../../util/joker';
 import { calculatePoolReward, calculateBaseFarmerReward, calculateBaseCommunityReward } from '../../util/blockRewards';
 import LayoutMain from '../layout/LayoutMain';
 import toBech32m from '../../util/toBech32m';
@@ -169,12 +169,12 @@ export default function Block() {
       ? blockRecord.weight - prevBlockRecord.weight
       : blockRecord?.weight ?? 0;
 
-  const poolReward = mojo_to_chives(calculatePoolReward(blockRecord.height));
-  const baseFarmerReward = mojo_to_chives(calculateBaseFarmerReward(blockRecord.height));
-  const baseCommunityReward = mojo_to_chives(calculateBaseCommunityReward(blockRecord.height));
+  const poolReward = mojo_to_joker(calculatePoolReward(blockRecord.height));
+  const baseFarmerReward = mojo_to_joker(calculateBaseFarmerReward(blockRecord.height));
+  const baseCommunityReward = mojo_to_joker(calculateBaseCommunityReward(blockRecord.height));
 
-  const chivesFees = blockRecord.fees
-    ? mojo_to_chives(BigInt(blockRecord.fees))
+  const jokerFees = blockRecord.fees
+    ? mojo_to_joker(BigInt(blockRecord.fees))
     : '';
 
   const rows = [
@@ -265,7 +265,7 @@ export default function Block() {
       value: (
         <Link
           target="_blank"
-          href={`https://explorer.mykc.cc/addressview.php?goback=block&hash=${blockRecord.farmer_puzzle_hash}`}
+          href={`https://explorer.jokercoin.org/addressview.php?goback=block&hash=${blockRecord.farmer_puzzle_hash}`}
         >
           {currencyCode
             ? toBech32m(
@@ -281,7 +281,7 @@ export default function Block() {
       value: (
         <Link
           target="_blank"
-          href={`https://explorer.mykc.cc/addressview.php?goback=block&hash=${blockRecord.pool_puzzle_hash}`}
+          href={`https://explorer.jokercoin.org/addressview.php?goback=block&hash=${blockRecord.pool_puzzle_hash}`}
         >
           {currencyCode
             ? toBech32m(
@@ -320,7 +320,7 @@ export default function Block() {
     },
     {
       name: <Trans>Fees Amount</Trans>,
-      value: chivesFees ? `${chivesFees} ${currencyCode}` : '',
+      value: jokerFees ? `${jokerFees} ${currencyCode}` : '',
       tooltip: (
         <Trans>
           The total transactions fees in this block. Rewarded to the farmer.
@@ -335,7 +335,7 @@ export default function Block() {
         title={
           <Back variant="h5">
             <Trans>
-              Block at height {blockRecord.height} in the Chives blockchain
+              Block at height {blockRecord.height} in the Joker blockchain
             </Trans>
           </Back>
         }

@@ -15,7 +15,7 @@ msgstr ""
 "X-Crowdin-Project: joker-blockchain\n"
 "X-Crowdin-Project-ID: 440660\n"
 "X-Crowdin-Language: it\n"
-"X-Crowdin-File: /[Chives-Network.joker-blockchain-gui] main/src/locales/en-US/messages.po\n"
+"X-Crowdin-File: /[Joker-Network.joker-blockchain-gui] main/src/locales/en-US/messages.po\n"
 "X-Crowdin-File-ID: 118\n"
 
 #: src/components/plot/add/PlotAddChoosePlotter.tsx:78
@@ -31,8 +31,8 @@ msgid "(Optional)"
 msgstr "(Opzionale)"
 
 #: src/components/farm/FarmLatestBlockChallenges.tsx:64
-msgid "*Want to explore Chives’s blocks further? Check out <0>Chives Explorer</0> built by an open source developer."
-msgstr "*Vuoi esplorare ulteriormente i blocchi della rete Chives? Dai uno sguardo a <0>Chives Explorer</0> creato da uno sviluppatore open source."
+msgid "*Want to explore Joker’s blocks further? Check out <0>Joker Explorer</0> built by an open source developer."
+msgstr "*Vuoi esplorare ulteriormente i blocchi della rete Joker? Dai uno sguardo a <0>Joker Explorer</0> creato da uno sviluppatore open source."
 
 #: src/components/plot/add/PlotAddNFT.tsx:128
 msgid "+ Add New Plot NFT"
@@ -60,8 +60,8 @@ msgstr ""
 
 #: src/electron/main.tsx:431
 #: src/electron/main.tsx:518
-msgid "About Chives Blockchain"
-msgstr "Informazioni sulla Blockchain di Chives"
+msgid "About Joker Blockchain"
+msgstr "Informazioni sulla Blockchain di Joker"
 
 #: src/components/trading/ViewOffer.jsx:74
 msgid "Accept"
@@ -127,7 +127,7 @@ msgid "Add plot directory"
 msgstr "Aggiungi una cartella per i plot (in farm)"
 
 #: src/components/plotNFT/select/PlotNFTSelectFaucet.tsx:42
-msgid "Request {currencyCode} from the Chives Discord"
+msgid "Request {currencyCode} from the Joker Discord"
 msgstr "Aggiungi {currencyCode} dal Faucet"
 
 #: src/components/wallet/coloured/WalletColoured.tsx:561
@@ -250,8 +250,8 @@ msgid "Block VDF Iterations"
 msgstr "Blocco Iterazioni VDF"
 
 #: src/components/block/Block.jsx:337
-msgid "Block at height {0} in the Chives blockchain"
-msgstr "Blocco all'altezza {0} nella blockchain Chives"
+msgid "Block at height {0} in the Joker blockchain"
+msgstr "Blocco all'altezza {0} nella blockchain Joker"
 
 #: src/components/fullNode/FullNode.jsx:331
 #~ msgid "Block hash"
@@ -355,16 +355,16 @@ msgid "Chat on KeyBase"
 msgstr "Chatta su KeyBase"
 
 #: src/electron/main.tsx:428
-msgid "Chives"
-msgstr "Chives"
+msgid "Joker"
+msgstr "Joker"
 
 #: src/electron/main.tsx:367
-msgid "Chives Blockchain Wiki"
-msgstr "Wiki della Blockchain Chives"
+msgid "Joker Blockchain Wiki"
+msgstr "Wiki della Blockchain Joker"
 
 #: src/components/wallet/standard/WalletStandard.tsx:642
-msgid "Chives Wallet"
-msgstr "Portafoglio Chives"
+msgid "Joker Wallet"
+msgstr "Portafoglio Joker"
 
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:34
 msgid "Choose Number of Plots"
@@ -583,7 +583,7 @@ msgstr "Crea un Plot NFT"
 
 #: src/components/selectKey/SelectKey.tsx:254
 msgid "Create a new private key"
-msgstr "Crea una nuova chivesve privata"
+msgstr "Crea una nuova jokerve privata"
 
 #: src/components/wallet/create/WalletCreate.jsx:186
 msgid "Create admin wallet"
@@ -649,7 +649,7 @@ msgstr "Stato attuale dello scambio"
 
 #: src/components/selectKey/SelectKey.tsx:227
 msgid "DANGER: permanently delete private key"
-msgstr "ATTENZIONE: cancella permanentemente la chivesve privata"
+msgstr "ATTENZIONE: cancella permanentemente la jokerve privata"
 
 #: src/components/wallet/Wallets.tsx:53
 #~ msgid "DID Wallet"
@@ -701,7 +701,7 @@ msgstr "Elimina Transazioni non Confermate"
 #: src/components/selectKey/SelectKey.tsx:114
 #: src/components/selectKey/SelectKey.tsx:273
 msgid "Delete all keys"
-msgstr "Elimina tutte le chivesvi"
+msgstr "Elimina tutte le jokervi"
 
 #: src/components/selectKey/SelectKey.tsx:58
 #~ msgid "Delete key"
@@ -709,11 +709,11 @@ msgstr "Elimina tutte le chivesvi"
 
 #: src/components/selectKey/SelectKey.tsx:75
 msgid "Delete key {fingerprint}"
-msgstr "Elimina chivesve {fingerprint}"
+msgstr "Elimina jokerve {fingerprint}"
 
 #: src/components/selectKey/SelectKey.tsx:126
 #~ msgid "Deleting all keys will permanently remove the keys from your computer, make sure you have backups. Are you sure you want to continue?"
-#~ msgstr "Eliminando tutte le chivesvi queste saranno rimosse definitivamente dal tuo computer, assicurati di avere un backup. Sei sicuro di voler continuare?"
+#~ msgstr "Eliminando tutte le jokervi queste saranno rimosse definitivamente dal tuo computer, assicurati di avere un backup. Sei sicuro di voler continuare?"
 
 #: src/components/app/AppPassPrompt.tsx:194
 msgid "Deleting key"
@@ -721,7 +721,7 @@ msgstr ""
 
 #: src/components/selectKey/SelectKey.tsx:101
 #~ msgid "Deleting the key will permanently remove the key from your computer, make sure you have backups. Are you sure you want to continue?"
-#~ msgstr "Eliminando la chivesve questa sarà rimossa definitivamente dal tuo computer, assicurati di avere un backup. Sei sicuro di voler continuare?"
+#~ msgstr "Eliminando la jokerve questa sarà rimossa definitivamente dal tuo computer, assicurati di avere un backup. Sei sicuro di voler continuare?"
 
 #: src/components/plot/add/PlotAddChoosePlotter.tsx:96
 msgid "Depending on your system configuration, you may find that an alternative plotter produces plots faster than the default Chia Proof of Space plotter. If unsure, use the default Chia Proof of Space plotter."
@@ -825,8 +825,8 @@ msgid "Enter a strong passphrase to secure your keys:"
 msgstr ""
 
 #: src/components/wallet/WalletImport.tsx:146
-msgid "Enter the 24 word mnemonic that you have saved in order to restore your Chives wallet."
-msgstr "Inserisci le 24 parole mnemoniche che hai salvato per poter ripristinare il tuo wallet Chives."
+msgid "Enter the 24 word mnemonic that you have saved in order to restore your Joker wallet."
+msgstr "Inserisci le 24 parole mnemoniche che hai salvato per poter ripristinare il tuo wallet Joker."
 
 #: src/components/settings/RemovePassphrasePrompt.tsx:118
 msgid "Enter your passphrase:"
@@ -843,8 +843,8 @@ msgid "Error"
 msgstr "Errore"
 
 #: src/components/wallet/standard/WalletStandard.tsx:450
-msgid "Error: Cannot send chives to coloured address. Please enter a chives address."
-msgstr "Errore: impossibile inviare chives ad un indirizzo colorato. Perfavore inserisci un indirizzo chives."
+msgid "Error: Cannot send joker to coloured address. Please enter a joker address."
+msgstr "Errore: impossibile inviare joker ad un indirizzo colorato. Perfavore inserisci un indirizzo joker."
 
 #: src/components/fullNode/card/FullNodeEstimatedNetworkSpace.tsx:20
 msgid "Estimated Network Space"
@@ -896,7 +896,7 @@ msgstr "Coltiva"
 
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:297
 msgid "Farmer Public Key"
-msgstr "Chivesve pubblica del farmer"
+msgstr "Jokerve pubblica del farmer"
 
 #: src/components/block/Block.jsx:268
 msgid "Farmer Puzzle Hash"
@@ -930,7 +930,7 @@ msgstr "Il farmer non è in esecuzione"
 
 #: src/middleware/middleware_api.jsx:247
 msgid "Farmer public key:"
-msgstr "Chivesve pubblica del farmer:"
+msgstr "Jokerve pubblica del farmer:"
 
 #: src/components/farm/overview/FarmOverviewHero.tsx:33
 msgid "Farmers earn block rewards and transaction fees by committing spare space to the network to help secure transactions. This is where your farm will be once you add a plot. <0>Learn more</0>"
@@ -1049,7 +1049,7 @@ msgstr "Visualizza come griglia"
 
 #: src/components/wallet/standard/WalletStandard.tsx:576
 msgid "HD or Hierarchical Deterministic keys are a type of public key/private key scheme where one private key can have a nearly infinite number of different public keys (and therefor wallet receive addresses) that will all ultimately come back to and be spendable by a single private key."
-msgstr "HD o Hierarchical Deterministic keys sono un tipo di schema a chivesve pubblica/chivesve privata dove una chivesve privata può avere un numero quasi infinito di chivesvi pubbliche diverse (e quindi indirizzi di ricezione del wallet) che sono spendibili da una singola chivesve privata."
+msgstr "HD o Hierarchical Deterministic keys sono un tipo di schema a jokerve pubblica/jokerve privata dove una jokerve privata può avere un numero quasi infinito di jokervi pubbliche diverse (e quindi indirizzi di ricezione del wallet) che sono spendibili da una singola jokerve privata."
 
 #: src/components/plot/overview/PlotOverviewPlots.tsx:49
 #~ msgid "Harvester ID"
@@ -1166,7 +1166,7 @@ msgstr "Stato non valido"
 
 #: src/components/plotNFT/PlotNFTGetPoolLoginLinkDialog.tsx:94
 msgid "It is a one-time login link that can be used to log in to a pool's website. It contains a signature using the farmer's key from the plot NFT. Not all pools support this feature."
-msgstr "Si tratta di un collegamento di accesso una tantum che può essere utilizzato per accedere al sito web di una pool. Contiene una firma che utilizza la chivesve del farmer dal plot NFT. Non tutte le pool supportano questa funzione."
+msgstr "Si tratta di un collegamento di accesso una tantum che può essere utilizzato per accedere al sito web di una pool. Contiene una firma che utilizza la jokerve del farmer dal plot NFT. Non tutte le pool supportano questa funzione."
 
 #: src/components/plotNFT/PlotNFTCard.tsx:406
 #: src/components/pool/PoolOverview.tsx:113
@@ -1201,7 +1201,7 @@ msgstr ""
 
 #: src/components/dashboard/DashboardSideBar.tsx:69
 msgid "Keys"
-msgstr "Chivesvi"
+msgstr "Jokervi"
 
 #: src/components/farm/FarmFullNodeConnections.tsx:64
 #: src/components/farm/FarmYourHarvesterNetwork.tsx:64
@@ -1401,7 +1401,7 @@ msgstr "No"
 
 #: src/middleware/middleware_api.jsx:273
 msgid "No 24 word seed, since this key is imported."
-msgstr "Nessun seed di 24 parole, dato che la chivesve è importata."
+msgstr "Nessun seed di 24 parole, dato che la jokerve è importata."
 
 #: src/components/farm/card/FarmCardLastHeightFarmed.tsx:21
 msgid "No blocks farmed yet"
@@ -1413,7 +1413,7 @@ msgstr "Nessuna transazione precedente"
 
 #: src/components/farm/FarmManageFarmingRewards.tsx:160
 msgid "No private keys for one or both addresses. Safe only if you are sending rewards to another wallet."
-msgstr "Nessuna chivesve privata per uno o entrambi gli indirizzi. Sicuro solo se stai inviando ricompense ad un altro wallet."
+msgstr "Nessuna jokerve privata per uno o entrambi gli indirizzi. Sicuro solo se stai inviando ricompense ad un altro wallet."
 
 #: src/components/farm/FarmFullNodeConnections.tsx:32
 #: src/components/farm/FarmYourHarvesterNetwork.tsx:32
@@ -1741,7 +1741,7 @@ msgstr "Id Plot"
 
 #: src/components/plot/overview/PlotOverviewPlots.tsx:75
 msgid "Plot Key"
-msgstr "Chivesve Plot"
+msgstr "Jokerve Plot"
 
 #: src/components/pool/PoolOverview.tsx:40
 msgid "Plot NFT"
@@ -1758,7 +1758,7 @@ msgstr "Il Plot NFT con p2_singleton_puzzle_hash {plotNFTId} non esiste"
 
 #: src/components/block/Block.jsx:260
 msgid "Plot Public Key"
-msgstr "Chivesve Pubblica del Plot"
+msgstr "Jokerve Pubblica del Plot"
 
 #: src/components/plot/overview/PlotOverviewPlots.tsx:49
 #~ msgid "Plot Seed"
@@ -1793,8 +1793,8 @@ msgid "Plots Passed Filter"
 msgstr "Plot che hanno passato il filtro"
 
 #: src/components/plot/overview/PlotOverviewHero.tsx:35
-msgid "Plots are allocated space on your hard drive used to farm and earn Chives. <0>Learn more</0>"
-msgstr "I plot sono dello spazio allocato sui tuoi dischi che viene usato per coltivare e guadagnare Chives. <0>Per saperne di più</0>"
+msgid "Plots are allocated space on your hard drive used to farm and earn Joker. <0>Learn more</0>"
+msgstr "I plot sono dello spazio allocato sui tuoi dischi che viene usato per coltivare e guadagnare Joker. <0>Per saperne di più</0>"
 
 #: src/components/plot/add/PlotAddChoosePlotter.tsx:107
 msgid "Plotter"
@@ -1842,7 +1842,7 @@ msgstr "Indirizzo Contratto Pool"
 
 #: src/components/plot/overview/PlotOverviewPlots.tsx:81
 msgid "Pool Key"
-msgstr "Chivesve Pool"
+msgstr "Jokerve Pool"
 
 #: src/components/plotNFT/PlotNFTGetPoolLoginLinkDialog.tsx:81
 msgid "Pool Login Link"
@@ -1855,7 +1855,7 @@ msgstr "Istruzioni Di Pagamento Pool"
 #: src/components/block/Block.jsx:264
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:308
 msgid "Pool Public Key"
-msgstr "Chivesve Pubblica Pool"
+msgstr "Jokerve Pubblica Pool"
 
 #: src/components/block/Block.jsx:284
 msgid "Pool Puzzle Hash"
@@ -1891,7 +1891,7 @@ msgstr "La pool non fornisce target_puzzle_hash."
 
 #: src/middleware/middleware_api.jsx:255
 msgid "Pool public key:"
-msgstr "Chivesve Pubblica Pool:"
+msgstr "Jokerve Pubblica Pool:"
 
 #: src/components/plotNFT/PlotExternalNFTCard.tsx:272
 #: src/components/plotNFT/PlotNFTCard.tsx:327
@@ -1938,15 +1938,15 @@ msgstr "Hash Header Precedente"
 
 #: src/components/selectKey/SelectKey.tsx:207
 msgid "Private key with public fingerprint {fingerprint}"
-msgstr "Chivesve privata con impronta pubblica {fingerprint}"
+msgstr "Jokerve privata con impronta pubblica {fingerprint}"
 
 #: src/middleware/middleware_api.jsx:221
 msgid "Private key {0}"
-msgstr "Chivesve privata {0}"
+msgstr "Jokerve privata {0}"
 
 #: src/middleware/middleware_api.jsx:231
 msgid "Private key:"
-msgstr "Chivesve privata:"
+msgstr "Jokerve privata:"
 
 #: src/components/block/Block.jsx:252
 msgid "Proof of Space Size"
@@ -1967,7 +1967,7 @@ msgstr "Pubkey"
 
 #: src/middleware/middleware_api.jsx:239
 msgid "Public key:"
-msgstr "Chivesve pubblica:"
+msgstr "Jokerve pubblica:"
 
 #: src/components/wallet/did/WalletDID.tsx:1005
 msgid "Puzzlehash"
@@ -2127,7 +2127,7 @@ msgstr ""
 
 #: src/components/selectKey/SelectKey.tsx:216
 msgid "See private key"
-msgstr "Vedi chivesve privata"
+msgstr "Vedi jokerve privata"
 
 #: src/middleware/middleware_api.jsx:265
 msgid "Seed:"
@@ -2143,7 +2143,7 @@ msgstr "Selezione Cartella Finale"
 
 #: src/components/selectKey/SelectKey.tsx:175
 msgid "Select Key"
-msgstr "Selezione Chivesve"
+msgstr "Selezione Jokerve"
 
 #: src/components/trading/ViewOffer.jsx:37
 msgid "Select Offer"
@@ -2311,8 +2311,8 @@ msgstr "Lunghezza Intervallo di Spesa (numero di blocchi)"
 
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:401
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:448
-msgid "Spending Limit (chives per interval): {0}"
-msgstr "Limite di Spesa (chives per intervallo): {0}"
+msgid "Spending Limit (joker per interval): {0}"
+msgstr "Limite di Spesa (joker per intervallo): {0}"
 
 #: src/components/fullNode/FullNode.jsx:100
 msgid "State"
@@ -2360,8 +2360,8 @@ msgstr "Stato:"
 #~ msgstr "Sub Block Height"
 
 #: src/components/block/Block.jsx:338
-#~ msgid "Sub Block at height {0} in the Chives blockchain"
-#~ msgstr "Sub Block at height {0} in the Chives blockchain"
+#~ msgid "Sub Block at height {0} in the Joker blockchain"
+#~ msgstr "Sub Block at height {0} in the Joker blockchain"
 
 #: src/components/app/AppPassPrompt.tsx:202
 #: src/components/wallet/did/WalletDID.tsx:889
@@ -2519,8 +2519,8 @@ msgid "This feature is available only from the GUI."
 msgstr "Questa funzione è disponibile solo sulla GUI."
 
 #: src/components/wallet/card/WalletCardSpendableBalance.tsx:26
-msgid "This is the amount of Chives that you can currently use to make transactions. It does not include pending farming rewards, pending incoming transactions, and Chives that you have just spent but is not yet in the blockchain."
-msgstr "Questo è l'ammontare di Chives che puoi utilizzare attualmente per fare transazioni. Non include le ricompense coltivate in sospeso, transazioni in entrata in sospeso, e Chives che tua hai appena speso ma non sono ancora nella blockchain."
+msgid "This is the amount of Joker that you can currently use to make transactions. It does not include pending farming rewards, pending incoming transactions, and Joker that you have just spent but is not yet in the blockchain."
+msgstr "Questo è l'ammontare di Joker che puoi utilizzare attualmente per fare transazioni. Non include le ricompense coltivate in sospeso, transazioni in entrata in sospeso, e Joker che tua hai appena speso ma non sono ancora nella blockchain."
 
 #: src/components/wallet/card/WalletCardPendingChange.tsx:26
 msgid "This is the pending change, which are change coins which you have sent to yourself, but have not been confirmed yet."
@@ -2539,8 +2539,8 @@ msgid "This is the time the block was created by the farmer, which is before it 
 msgstr "Questo è il tempo in cui il blocco è stato creato dal coltivatore, che è precedente a quando è stato finalizzato con una prova di tempo"
 
 #: src/components/wallet/card/WalletCardTotalBalance.tsx:34
-msgid "This is the total amount of chives in the blockchain at the current peak sub block that is controlled by your private keys. It includes frozen farming rewards, but not pending incoming and outgoing transactions."
-msgstr "Questo è l'ammontare totale di chives nella blockchain nell'attuale sottoblocco di picco che è controllato dalle tue chivesvi private. Questo include le ricompense da farming congelate, ma non le transazioni in entrata e uscita che sono in attesa."
+msgid "This is the total amount of joker in the blockchain at the current peak sub block that is controlled by your private keys. It includes frozen farming rewards, but not pending incoming and outgoing transactions."
+msgstr "Questo è l'ammontare totale di joker nella blockchain nell'attuale sottoblocco di picco che è controllato dalle tue jokervi private. Questo include le ricompense da farming congelate, ma non le transazioni in entrata e uscita che sono in attesa."
 
 #: src/components/wallet/card/WalletCardPendingTotalBalance.tsx:29
 msgid "This is the total balance + pending balance: it is what your balance will be after all pending transactions are confirmed."
@@ -2562,7 +2562,7 @@ msgstr "Questo nodo è pronto e sta validando la rete"
 
 #: src/components/plotNFT/PlotExternalNFTCard.tsx:308
 msgid "This plot NFT is assigned to a different key. You can still create plots for this plot NFT, but you can not make changes."
-msgstr "Questo plot NFT è assegnato a una chivesve diversa. Puoi ancora creare dei plot per questo plot NFT, ma non puoi apportare modifiche."
+msgstr "Questo plot NFT è assegnato a una jokerve diversa. Puoi ancora creare dei plot per questo plot NFT, ma non puoi apportare modifiche."
 
 #: src/components/plotNFT/PlotNFTGetPoolLoginLinkDialog.tsx:52
 msgid "This plot NFT is not connected to pool"
@@ -2585,8 +2585,8 @@ msgid "This trade was included on blockchain at this block height"
 msgstr "Questo commercio è stato incluso sulla blockchain a questa altezza di blocco"
 
 #: src/components/app/AppTimeBombAlert.tsx:19
-msgid "This version of Chives is no longer compatible with the blockchain and can not safely farm."
-msgstr "Questa versione di Chives non è più compatibile con la blockchain e non può coltivare in modo sicuro."
+msgid "This version of Joker is no longer compatible with the blockchain and can not safely farm."
+msgstr "Questa versione di Joker non è più compatibile con la blockchain e non può coltivare in modo sicuro."
 
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:154
 msgid "Thread Multiplier for Phase 2"
@@ -2614,8 +2614,8 @@ msgstr "A"
 msgid "Total Balance"
 msgstr "Bilancio Totale"
 
-#: src/components/farm/card/FarmCardTotalChivesFarmed.tsx:15
-#~ msgid "Total Chives Farmed"
+#: src/components/farm/card/FarmCardTotalJokerFarmed.tsx:15
+#~ msgid "Total Joker Farmed"
 #~ msgstr ""
 
 #: src/components/fullNode/card/FullNodeCardTotalIterations.tsx:20
@@ -2799,7 +2799,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/wallet/Wallets.tsx:30
-#~ msgid "WalletItem.chivesWallet"
+#~ msgid "WalletItem.jokerWallet"
 #~ msgstr ""
 
 #: src/components/wallet/Wallets.tsx:48
@@ -2836,8 +2836,8 @@ msgid "Want to Join a Pool? Create a Plot NFT"
 msgstr "Vuoi unirti a una Pool? Crea un plot NFT"
 
 #: src/components/plot/overview/PlotOverviewPlots.tsx:139
-msgid "Want to earn more Chives? Add more plots to your farm."
-msgstr "Vuoi guadagnare più Chives? Aggingi più plot alla tua coltivazione."
+msgid "Want to earn more Joker? Add more plots to your farm."
+msgstr "Vuoi guadagnare più Joker? Aggingi più plot alla tua coltivazione."
 
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:87
 msgid "Want to have a delay before the next plot starts?"
@@ -2850,15 +2850,15 @@ msgstr ""
 #: src/components/selectKey/SelectKey.tsx:88
 #: src/components/selectKey/SelectKey.tsx:119
 msgid "Warning: This key is used for a wallet that may have a non-zero balance. By deleting this key you may lose access to this wallet"
-msgstr "Attenzione: Questa chivesve è usata per un wallet che può avere un saldo diverso da zero. Eliminando questa chivesve potresti perdere l'accesso a questo wallet"
+msgstr "Attenzione: Questa jokerve è usata per un wallet che può avere un saldo diverso da zero. Eliminando questa jokerve potresti perdere l'accesso a questo wallet"
 
 #: src/components/selectKey/SelectKey.tsx:81
 msgid "Warning: This key is used for your farming rewards address. By deleting this key you may lose access to any future farming rewards"
-msgstr "Attenzione: Questa chivesve è utilizzata per il tuo indirizzo delle ricompense per il farming. Eliminando questa chivesve potresti perdere l'accesso a qualsiasi ricompensa futura per il farming"
+msgstr "Attenzione: Questa jokerve è utilizzata per il tuo indirizzo delle ricompense per il farming. Eliminando questa jokerve potresti perdere l'accesso a qualsiasi ricompensa futura per il farming"
 
 #: src/components/selectKey/SelectKey.tsx:94
 msgid "Warning: This key is used for your pool rewards address. By deleting this key you may lose access to any future pool rewards"
-msgstr "Attenzione: Questa chivesve è utilizzata per il tuo indirizzo delle ricompense per il farming. Eliminando questa chivesve potresti perdere l'accesso a qualsiasi ricompensa futura per il farming"
+msgstr "Attenzione: Questa jokerve è utilizzata per il tuo indirizzo delle ricompense per il farming. Eliminando questa jokerve potresti perdere l'accesso a qualsiasi ricompensa futura per il farming"
 
 #: src/components/block/Block.jsx:206
 msgid "Weight"
@@ -2869,8 +2869,8 @@ msgid "Weight is the total added difficulty of all sub blocks up to and includin
 msgstr "Il peso è la difficoltà aggiunta in totale a tutti i sottoblocchi fino a e incluso questo"
 
 #: src/components/selectKey/SelectKey.tsx:183
-msgid "Welcome to Chives. Please log in with an existing key, or create a new key."
-msgstr "Benvenuto da Chives. Per favore accedi con una chivesve esistente, o crea una nuova chivesve."
+msgid "Welcome to Joker. Please log in with an existing key, or create a new key."
+msgstr "Benvenuto da Joker. Per favore accedi con una jokerve esistente, o crea una nuova jokerve."
 
 #: src/components/wallet/WalletAdd.tsx:66
 msgid "Welcome! The following words are used for your wallet backup. Without them, you will lose access to your wallet, keep them safe! Write down each word along with the order number next to them. (Order is important)"
@@ -2944,8 +2944,8 @@ msgid "You need to claim your rewards first"
 msgstr "Devi prima reclamare le tue ricompense"
 
 #: src/components/app/AppTimeBomb.tsx:28
-#~ msgid "You need to upgrade the Chives application as this version will stop working soon!"
-#~ msgstr "You need to upgrade the Chives application as this version will stop working soon!"
+#~ msgid "You need to upgrade the Joker application as this version will stop working soon!"
+#~ msgstr "You need to upgrade the Joker application as this version will stop working soon!"
 
 #: src/components/plotNFT/select/PlotNFTSelectFaucet.tsx:37
 msgid "You need {currencyCode} to join a pool."
@@ -3002,7 +3002,7 @@ msgstr ""
 #: src/components/app/AppKeyringMigrator.tsx:177
 #: src/components/settings/ChangePassphrasePrompt.tsx:227
 #: src/components/settings/SetPassphrasePrompt.tsx:197
-msgid "Your passphrase can be stored in your system's secure credential store. Chives will be able to access your keys without prompting for your passphrase."
+msgid "Your passphrase can be stored in your system's secure credential store. Joker will be able to access your keys without prompting for your passphrase."
 msgstr ""
 
 #: src/components/settings/Settings.tsx:80
@@ -3083,9 +3083,9 @@ msgstr "{0} punti {1} - {2} ore fa"
 msgid "{currencyCode} Block Rewards"
 msgstr "{currencyCode} Ricompense Blocco"
 
-#: src/components/farm/card/FarmCardTotalChivesFarmed.tsx:29
-msgid "{currencyCode} Total Chives Farmed"
-msgstr "{currencyCode} Chives Farmati in Totale"
+#: src/components/farm/card/FarmCardTotalJokerFarmed.tsx:29
+msgid "{currencyCode} Total Joker Farmed"
+msgstr "{currencyCode} Joker Farmati in Totale"
 
 #: src/components/farm/card/FarmCardUserFees.tsx:28
 msgid "{currencyCode} User Transaction Fees"

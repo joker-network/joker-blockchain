@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Trans } from '@lingui/macro';
-import { AlertDialog, Flex, TooltipIcon } from '@chives/core';
+import { AlertDialog, Flex, TooltipIcon } from '@joker/core';
 import { openDialog } from '../../modules/dialog';
 import { RootState } from 'modules/rootReducer';
 import { remove_keyring_passphrase_action } from '../../modules/message';
@@ -81,7 +81,7 @@ export default function RemovePassphrasePrompt(props: Props) {
       setActionInProgress(false);
     }
   }
-  
+
   async function handleCancel() {
     onCancel();
   }
@@ -92,12 +92,12 @@ export default function RemovePassphrasePrompt(props: Props) {
       'Escape' : handleCancel,
     };
     const handler: () => Promise<void> | undefined = keyHandlerMapping[e.key];
-  
+
     if (handler) {
       // Disable default event handling to avoid navigation updates
       e.preventDefault();
       e.stopPropagation();
-  
+
       await handler();
     }
   }

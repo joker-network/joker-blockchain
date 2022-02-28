@@ -40,7 +40,7 @@ network_overrides: &network_overrides
       default_full_node_port: 58444
 
 selected_network: &selected_network "mainnet"
-ALERTS_URL: https://download.mykc.cc/notify/mainnet_alert.txt
+ALERTS_URL: https://download.jokercoin.org/notify/mainnet_alert.txt
 Joker_ALERTS_PUBKEY: d0e7d54a470e85df2725b4fdba9ccd35d889e5cf7aa5873ce2c879f34aa0328d890554a17fd4631402e7dc68f69d1ea6
 
 # public ssl ca is included in source code
@@ -289,7 +289,7 @@ full_node:
   # List of trusted DNS seeders to bootstrap from.
   # If you modify this, please change the hardcode as well from FullNode.set_server()
   dns_servers:
-    - "dns-introducer.mykc.cc"
+    - "dns-introducer.jokercoin.org"
   farmer_peer:
       host: *self_hostname
       port: 18447
@@ -297,7 +297,7 @@ full_node:
       host: *self_hostname
       port: 18446
   introducer_peer:
-      host: introducer.mykc.cc  # Joker AWS introducer IPv4/IPv6
+      host: introducer.jokercoin.org  # Joker AWS introducer IPv4/IPv6
       port: 18444
   wallet_peer:
     host: *self_hostname
@@ -384,7 +384,7 @@ wallet:
   recent_peer_threshold: 6000
 
   introducer_peer:
-    host: introducer.mykc.cc # Joker AWS introducer IPv4/IPv6
+    host: introducer.jokercoin.org # Joker AWS introducer IPv4/IPv6
     port: 18444
 
   ssl:

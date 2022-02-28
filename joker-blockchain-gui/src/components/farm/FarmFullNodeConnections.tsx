@@ -10,7 +10,7 @@ import {
   Card,
   FormatBytes,
   FormatConnectionStatus,
-} from '@chives/core';
+} from '@joker/core';
 import Connection from '../../types/Connection';
 import type { RootState } from '../../modules/rootReducer';
 import FarmCloseConnection from './FarmCloseConnection';

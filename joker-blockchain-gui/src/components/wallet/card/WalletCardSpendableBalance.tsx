@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import FarmCard from '../../farm/card/FarmCard';
 import useWallet from '../../../hooks/useWallet';
 import useCurrencyCode from '../../../hooks/useCurrencyCode';
-import { mojo_to_chives_string } from '../../../util/chives';
+import { mojo_to_joker_string } from '../../../util/joker';
 
 type Props = {
   wallet_id: number;
@@ -24,15 +24,15 @@ export default function WalletCardSpendableBalance(props: Props) {
       title={<Trans>Spendable Balance</Trans>}
       tooltip={
         <Trans>
-          This is the amount of Chives that you can currently use to make
+          This is the amount of Joker that you can currently use to make
           transactions. It does not include pending farming rewards, pending
-          incoming transactions, and Chives that you have just spent but is not
+          incoming transactions, and Joker that you have just spent but is not
           yet in the blockchain.
         </Trans>
       }
       value={
         <>
-          {mojo_to_chives_string(value)} {currencyCode}
+          {mojo_to_joker_string(value)} {currencyCode}
         </>
       }
     />

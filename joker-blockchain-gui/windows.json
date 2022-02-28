@@ -1,5 +1,5 @@
 {
   "dest": "dist/installers/",
-  "icon": "src/assets/img/chives.ico",
+  "icon": "src/assets/img/joker.ico",
   "tags": ["Blockchain"]
 }

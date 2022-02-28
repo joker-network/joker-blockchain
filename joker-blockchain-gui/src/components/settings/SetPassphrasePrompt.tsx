@@ -17,7 +17,7 @@ import {
   Help as HelpIcon,
 } from '@material-ui/icons';
 import { t, Trans } from '@lingui/macro';
-import { AlertDialog } from '@chives/core';
+import { AlertDialog } from '@joker/core';
 import { openDialog } from '../../modules/dialog';
 import { change_keyring_passphrase_action } from '../../modules/message';
 import { validateChangePassphraseParams } from '../app/AppPassPrompt';
@@ -108,7 +108,7 @@ export default function SetPassphrasePrompt(props: Props) {
       setNeedsFocusAndSelect(true);
     }
   }
-  
+
   async function handleCancel() {
     onCancel();
   }
@@ -119,12 +119,12 @@ export default function SetPassphrasePrompt(props: Props) {
       'Escape' : handleCancel,
     };
     const handler: () => Promise<void> | undefined = keyHandlerMapping[e.key];
-  
+
     if (handler) {
       // Disable default event handling to avoid navigation updates
       e.preventDefault();
       e.stopPropagation();
-  
+
       await handler();
     }
   }
@@ -194,7 +194,7 @@ export default function SetPassphrasePrompt(props: Props) {
               label={t`Save passphrase`}
               style={{ marginRight: '8px' }}
             />
-            <Tooltip title={t`Your passphrase can be stored in your system's secure credential store. Chives will be able to access your keys without prompting for your passphrase.`}>
+            <Tooltip title={t`Your passphrase can be stored in your system's secure credential store. Joker will be able to access your keys without prompting for your passphrase.`}>
               <HelpIcon style={{ color: '#c8c8c8', fontSize: 12 }} />
             </Tooltip>
           </Box>

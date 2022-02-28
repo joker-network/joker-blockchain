@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
-import { AlertDialog } from '@chives/core';
+import { AlertDialog } from '@joker/core';
 import {
   Typography,
   Button,
@@ -20,7 +20,7 @@ import {
 } from '../../../modules/createWallet';
 import { useStyles } from './WalletCreate';
 import { create_cc_action } from '../../../modules/message';
-import { chives_to_mojo } from '../../../util/chives';
+import { joker_to_mojo } from '../../../util/joker';
 import { openDialog } from '../../../modules/dialog';
 
 export const customStyles = makeStyles((theme) => ({
@@ -83,8 +83,8 @@ export const CreateNewCCWallet = () => {
       return;
     }
     dispatch(createState(true, true));
-    const amount = chives_to_mojo(amount_input.value);
-    const fee = chives_to_mojo(fee_input.value);
+    const amount = joker_to_mojo(amount_input.value);
+    const fee = joker_to_mojo(fee_input.value);
     dispatch(create_cc_action(amount, fee));
   }
 

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { StateColor } from '@chives/core';
+import { StateColor } from '@joker/core';
 import { FiberManualRecord as FiberManualRecordIcon } from '@material-ui/icons';
 
 const StyledFiberManualRecordIcon = styled(({ color, ...rest }) => (

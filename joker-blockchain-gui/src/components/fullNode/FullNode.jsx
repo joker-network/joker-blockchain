@@ -9,8 +9,8 @@ import {
   Loading,
   StateColor,
   Table,
-} from '@chives/core';
-import { Status } from '@chives/icons';
+} from '@joker/core';
+import { Status } from '@joker/icons';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, Tooltip, Typography } from '@material-ui/core';

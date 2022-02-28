@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { Container } from '@material-ui/core';
 import styled from 'styled-components';
-import { Flex, Loading } from '@chives/core';
+import { Flex, Loading } from '@joker/core';
 import DashboardTitle from '../dashboard/DashboardTitle';
 
 const StyledContainer = styled(Container)`

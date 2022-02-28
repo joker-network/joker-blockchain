@@ -5,7 +5,7 @@ import useDarkMode from 'use-dark-mode';
 import isElectron from 'is-electron';
 import { createGlobalStyle } from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
-import { ThemeProvider } from '@chives/core';
+import { ThemeProvider } from '@joker/core';
 import AppRouter from './AppRouter';
 import darkTheme from '../../theme/dark';
 import lightTheme from '../../theme/light';

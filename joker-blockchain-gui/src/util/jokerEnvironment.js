@@ -9,7 +9,7 @@ const fs = require('fs');
 const PY_MAC_DIST_FOLDER = '../../../app.asar.unpacked/daemon';
 const PY_WIN_DIST_FOLDER = '../../../app.asar.unpacked/daemon';
 const PY_DIST_FILE = 'daemon';
-const PY_FOLDER = '../chives/daemon';
+const PY_FOLDER = '../joker/daemon';
 const PY_MODULE = 'server'; // without .py suffix
 
 let pyProc = null;
@@ -45,10 +45,10 @@ const getExecutablePath = (dist_file) => {
   return path.join(__dirname, PY_MAC_DIST_FOLDER, dist_file);
 };
 
-const getChivesVersion = () => {
+const getJokerVersion = () => {
   let version = null;
-  const exePath = getExecutablePath('chives');
-  // first see if we can get a chives exe in a standard location relative to where we are
+  const exePath = getExecutablePath('joker');
+  // first see if we can get a joker exe in a standard location relative to where we are
   try {
     version = child_process
       .execFileSync(exePath, ['version'], {
@@ -56,7 +56,7 @@ const getChivesVersion = () => {
       })
       .trim();
   } catch (e1) {
-    // that didn't work, let's try as if we're in the venv or chives is on the path
+    // that didn't work, let's try as if we're in the venv or joker is on the path
     try {
       version = child_process
         .execFileSync(path.basename(exePath), ['version'], {
@@ -71,7 +71,7 @@ const getChivesVersion = () => {
   return version;
 };
 
-const startChivesDaemon = () => {
+const startJokerDaemon = () => {
   let script = getScriptPath(PY_DIST_FILE);
   let processOptions = {};
   //processOptions.detached = true;
@@ -138,7 +138,7 @@ const startChivesDaemon = () => {
 };
 
 module.exports = {
-  startChivesDaemon,
-  getChivesVersion,
+  startJokerDaemon,
+  getJokerVersion,
   guessPackaged,
 };

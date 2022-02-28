@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Flex } from '@chives/core';
+import { Flex } from '@joker/core';
 import { Typography } from '@material-ui/core';
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
@@ -26,7 +26,7 @@ export default function Back(props: Props) {
       history.goBack();
       return;
     }
-  
+
     if (to) {
       history.push(to);
     }

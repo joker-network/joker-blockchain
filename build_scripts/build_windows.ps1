@@ -6,7 +6,7 @@
 # Go into the dir "joker-blockchain" and input the command:".\build_scripts\build_windows.ps1"
 # This script Copyright by Joker Newwork.
 # This script improved by Joker Newwork.
-# Having any question, email to : jokercoin@gmail.com or go the mykc.cc
+# Having any question, email to : jokercoin@gmail.com or go the jokercoin.org
 # 2021-06-05
 
 # ERROR LIST AND SOLUTION:
@@ -78,7 +78,7 @@ If ($LastExitCode -gt 0){
 }
 else
 {
-    Set-Location -Path - -PassThru
+    Set-Location -Path --PassThru
     Write-Output "miniupnpc download successful."
 }
 

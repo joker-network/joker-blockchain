@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
-import { Flex } from '@chives/core';
+import { Flex } from '@joker/core';
 import {
   Typography,
   Grid,

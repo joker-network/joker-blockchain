@@ -17,7 +17,7 @@ export default function AppTimeBomb() {
     return (
       <Alert severity="warning">
         <Trans>
-          This version of Chives is no longer compatible with the blockchain and
+          This version of Joker is no longer compatible with the blockchain and
           can not safely farm.
         </Trans>
       </Alert>

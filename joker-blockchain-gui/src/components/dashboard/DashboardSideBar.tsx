@@ -11,8 +11,8 @@ import {
   Plot as PlotIcon,
   Pool as PoolIcon,
   Settings as SettingsIcon,
-} from '@chives/icons';
-import { Flex, SideBarItem } from '@chives/core';
+} from '@joker/icons';
+import { Flex, SideBarItem } from '@joker/core';
 import { logOut } from '../../modules/message';
 import { RootState } from '../../modules/rootReducer';
 

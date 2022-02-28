@@ -1,6 +1,6 @@
 import React, { ReactNode, ReactElement } from 'react';
 import styled from 'styled-components';
-import { Flex, TooltipIcon } from '@chives/core';
+import { Flex, TooltipIcon } from '@joker/core';
 import {
   Box,
   Card,

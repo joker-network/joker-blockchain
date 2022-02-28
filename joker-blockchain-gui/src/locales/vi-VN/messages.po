@@ -6,16 +6,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: vi_VN\n"
-"Project-Id-Version: chives-blockchain\n"
+"Project-Id-Version: joker-blockchain\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2021-09-17 17:39\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: chives-blockchain\n"
+"X-Crowdin-Project: joker-blockchain\n"
 "X-Crowdin-Project-ID: 440660\n"
 "X-Crowdin-Language: vi\n"
-"X-Crowdin-File: /[Chives-Network.chives-blockchain-gui] main/src/locales/en-US/messages.po\n"
+"X-Crowdin-File: /[Joker-Network.joker-blockchain-gui] main/src/locales/en-US/messages.po\n"
 "X-Crowdin-File-ID: 118\n"
 
 #: src/components/plot/add/PlotAddNFT.tsx:62
@@ -23,8 +23,8 @@ msgid "(Optional)"
 msgstr ""
 
 #: src/components/farm/FarmLatestBlockChallenges.tsx:64
-msgid "*Want to explore Chives’s blocks further? Check out <0>Chives Explorer</0> built by an open source developer."
-msgstr "* Bạn muốn khám phá thêm về Chives Blockchain? Xem <0> Chives Explorer </0> được xây dựng bởi các nhà phát triển nguồn mở."
+msgid "*Want to explore Joker’s blocks further? Check out <0>Joker Explorer</0> built by an open source developer."
+msgstr "* Bạn muốn khám phá thêm về Joker Blockchain? Xem <0> Joker Explorer </0> được xây dựng bởi các nhà phát triển nguồn mở."
 
 #: src/components/plot/add/PlotAddNFT.tsx:123
 msgid "+ Add New Plot NFT"
@@ -48,8 +48,8 @@ msgstr "Harvester là một dịch vụ chạy trên một máy chứa các tệ
 
 #: src/electron/main.tsx:422
 #: src/electron/main.tsx:509
-msgid "About Chives Blockchain"
-msgstr "Về Chives Blockchain"
+msgid "About Joker Blockchain"
+msgstr "Về Joker Blockchain"
 
 #: src/components/trading/ViewOffer.jsx:74
 msgid "Accept"
@@ -115,7 +115,7 @@ msgid "Add plot directory"
 msgstr "Thêm thư mục plot"
 
 #: src/components/plotNFT/select/PlotNFTSelectFaucet.tsx:42
-msgid "Request {currencyCode} from the Chives Discord"
+msgid "Request {currencyCode} from the Joker Discord"
 msgstr ""
 
 #: src/components/wallet/coloured/WalletColoured.tsx:561
@@ -230,8 +230,8 @@ msgid "Block VDF Iterations"
 msgstr "Khối VDF lặp lại"
 
 #: src/components/block/Block.jsx:337
-msgid "Block at height {0} in the Chives blockchain"
-msgstr "Khối tại height {0} trong Chives blockchain"
+msgid "Block at height {0} in the Joker blockchain"
+msgstr "Khối tại height {0} trong Joker blockchain"
 
 #: src/components/fullNode/FullNode.jsx:331
 #~ msgid "Block hash"
@@ -325,16 +325,16 @@ msgid "Chat on KeyBase"
 msgstr "Chat trên Keybase"
 
 #: src/electron/main.tsx:419
-msgid "Chives"
-msgstr "Chives"
+msgid "Joker"
+msgstr "Joker"
 
 #: src/electron/main.tsx:358
-msgid "Chives Blockchain Wiki"
-msgstr "Chives Blockchain Wiki"
+msgid "Joker Blockchain Wiki"
+msgstr "Joker Blockchain Wiki"
 
 #: src/components/wallet/standard/WalletStandard.tsx:649
-msgid "Chives Wallet"
-msgstr "Ví Chives"
+msgid "Joker Wallet"
+msgstr "Ví Joker"
 
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:36
 msgid "Choose Number of Plots"
@@ -741,8 +741,8 @@ msgid "Edit Payout Instructions"
 msgstr ""
 
 #: src/components/wallet/WalletImport.tsx:147
-msgid "Enter the 24 word mnemonic that you have saved in order to restore your Chives wallet."
-msgstr "Nhập 24 từ ghi nhớ mà bạn đã lưu để khôi phục ví Chives của bạn."
+msgid "Enter the 24 word mnemonic that you have saved in order to restore your Joker wallet."
+msgstr "Nhập 24 từ ghi nhớ mà bạn đã lưu để khôi phục ví Joker của bạn."
 
 #: src/components/farm/card/FarmCardStatus.tsx:35
 #: src/components/farm/card/FarmCardStatus.tsx:49
@@ -755,8 +755,8 @@ msgid "Error"
 msgstr "Lỗi"
 
 #: src/components/wallet/standard/WalletStandard.tsx:456
-msgid "Error: Cannot send chives to coloured address. Please enter a chives address."
-msgstr "Lỗi: Không thể gửi chives đến địa chỉ coloured. Vui lòng nhập địa chỉ chives."
+msgid "Error: Cannot send joker to coloured address. Please enter a joker address."
+msgstr "Lỗi: Không thể gửi joker đến địa chỉ coloured. Vui lòng nhập địa chỉ joker."
 
 #: src/components/fullNode/card/FullNodeEstimatedNetworkSpace.tsx:20
 msgid "Estimated Network Space"
@@ -1583,8 +1583,8 @@ msgid "Plots Passed Filter"
 msgstr "Plot đã lọc"
 
 #: src/components/plot/overview/PlotOverviewHero.tsx:35
-msgid "Plots are allocated space on your hard drive used to farm and earn Chives. <0>Learn more</0>"
-msgstr "Plot được phân bổ không gian trên ổ cứng của bạn dùng để farm và thu về Chives. <0> Tìm hiểu thêm </0>"
+msgid "Plots are allocated space on your hard drive used to farm and earn Joker. <0>Learn more</0>"
+msgstr "Plot được phân bổ không gian trên ổ cứng của bạn dùng để farm và thu về Joker. <0> Tìm hiểu thêm </0>"
 
 #: src/components/plot/queue/PlotQueueIndicator.tsx:34
 msgid "Plotting"
@@ -2048,8 +2048,8 @@ msgstr "Chi tiêu thời gian khoảng (số khối): {thời gian khoảng các
 
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:401
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:448
-msgid "Spending Limit (chives per interval): {0}"
-msgstr "Giới hạn Chi tiêu (chives cho mỗi khoảng thời gian): {0}"
+msgid "Spending Limit (joker per interval): {0}"
+msgstr "Giới hạn Chi tiêu (joker cho mỗi khoảng thời gian): {0}"
 
 #: src/components/fullNode/FullNode.jsx:100
 msgid "State"
@@ -2097,8 +2097,8 @@ msgstr "Tình trạng:"
 #~ msgstr "Sub Block Height"
 
 #: src/components/block/Block.jsx:338
-#~ msgid "Sub Block at height {0} in the Chives blockchain"
-#~ msgstr "Sub Block at height {0} in the Chives blockchain"
+#~ msgid "Sub Block at height {0} in the Joker blockchain"
+#~ msgstr "Sub Block at height {0} in the Joker blockchain"
 
 #: src/components/wallet/did/WalletDID.tsx:886
 #: src/components/wallet/rateLimited/WalletRateLimited.jsx:347
@@ -2247,8 +2247,8 @@ msgid "This feature is available only from the GUI."
 msgstr "Tính năng này chỉ khả dụng trên GUI."
 
 #: src/components/wallet/card/WalletCardSpendableBalance.tsx:26
-msgid "This is the amount of Chives that you can currently use to make transactions. It does not include pending farming rewards, pending incoming transactions, and Chives that you have just spent but is not yet in the blockchain."
-msgstr "Đây là số lượng Chives mà bạn hiện có thể sử dụng để thực hiện các giao dịch. Nó không bao gồm phần thưởng farm đang chờ xử lý, các giao dịch đến đang chờ xử lý và Chives mà bạn vừa chi tiêu nhưng chưa có trong blockchain."
+msgid "This is the amount of Joker that you can currently use to make transactions. It does not include pending farming rewards, pending incoming transactions, and Joker that you have just spent but is not yet in the blockchain."
+msgstr "Đây là số lượng Joker mà bạn hiện có thể sử dụng để thực hiện các giao dịch. Nó không bao gồm phần thưởng farm đang chờ xử lý, các giao dịch đến đang chờ xử lý và Joker mà bạn vừa chi tiêu nhưng chưa có trong blockchain."
 
 #: src/components/wallet/card/WalletCardPendingChange.tsx:26
 msgid "This is the pending change, which are change coins which you have sent to yourself, but have not been confirmed yet."
@@ -2267,7 +2267,7 @@ msgid "This is the time the block was created by the farmer, which is before it 
 msgstr "Đây là thời gian khối được tạo ra bởi farmer, trước khi nó được hoàn thiện với một bằng chứng về thời gian"
 
 #: src/components/wallet/card/WalletCardTotalBalance.tsx:34
-msgid "This is the total amount of chives in the blockchain at the current peak sub block that is controlled by your private keys. It includes frozen farming rewards, but not pending incoming and outgoing transactions."
+msgid "This is the total amount of joker in the blockchain at the current peak sub block that is controlled by your private keys. It includes frozen farming rewards, but not pending incoming and outgoing transactions."
 msgstr "Đây là tổng lượng XCC trong chuỗi khối ở khối phụ cao nhất hiện tại được kiểm soát bởi các khóa riêng của bạn. Nó bao gồm phần thưởng farm bị đóng băng, nhưng không phải là các giao dịch đến và đi đang chờ xử lý."
 
 #: src/components/wallet/card/WalletCardPendingTotalBalance.tsx:29
@@ -2313,8 +2313,8 @@ msgid "This trade was included on blockchain at this block height"
 msgstr "Giao dịch này đã được đưa vào blockchain ở chiều cao khối này"
 
 #: src/components/app/AppTimeBombAlert.tsx:19
-msgid "This version of Chives is no longer compatible with the blockchain and can not safely farm."
-msgstr "Phiên bản Chives này không còn tương thích với blockchain và không thể farm một cách an toàn."
+msgid "This version of Joker is no longer compatible with the blockchain and can not safely farm."
+msgstr "Phiên bản Joker này không còn tương thích với blockchain và không thể farm một cách an toàn."
 
 #: src/components/fullNode/FullNode.jsx:92
 msgid "Time Created"
@@ -2338,8 +2338,8 @@ msgstr "Đến"
 msgid "Total Balance"
 msgstr "Tổng số dư"
 
-#: src/components/farm/card/FarmCardTotalChivesFarmed.tsx:15
-#~ msgid "Total Chives Farmed"
+#: src/components/farm/card/FarmCardTotalJokerFarmed.tsx:15
+#~ msgid "Total Joker Farmed"
 #~ msgstr ""
 
 #: src/components/fullNode/card/FullNodeCardTotalIterations.tsx:20
@@ -2515,7 +2515,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/wallet/Wallets.tsx:30
-#~ msgid "WalletItem.chivesWallet"
+#~ msgid "WalletItem.jokerWallet"
 #~ msgstr ""
 
 #: src/components/wallet/Wallets.tsx:48
@@ -2552,8 +2552,8 @@ msgid "Want to Join a Pool? Create a Plot NFT"
 msgstr ""
 
 #: src/components/plot/overview/PlotOverviewPlots.tsx:139
-msgid "Want to earn more Chives? Add more plots to your farm."
-msgstr "Muốn thêm Chives? Thêm nhiều plot vào farm của bạn."
+msgid "Want to earn more Joker? Add more plots to your farm."
+msgstr "Muốn thêm Joker? Thêm nhiều plot vào farm của bạn."
 
 #: src/components/plot/add/PlotAddNumberOfPlots.tsx:86
 msgid "Want to have a delay before the next plot starts?"
@@ -2580,8 +2580,8 @@ msgid "Weight is the total added difficulty of all sub blocks up to and includin
 msgstr "Trọng lượng là tổng độ khó cộng thêm của tất cả các khối phụ lên đến và bao gồm khối này"
 
 #: src/components/selectKey/SelectKey.tsx:141
-msgid "Welcome to Chives. Please log in with an existing key, or create a new key."
-msgstr "Chào mừng đến với Chives. Vui lòng đăng nhập bằng khóa hiện có hoặc tạo khóa mới."
+msgid "Welcome to Joker. Please log in with an existing key, or create a new key."
+msgstr "Chào mừng đến với Joker. Vui lòng đăng nhập bằng khóa hiện có hoặc tạo khóa mới."
 
 #: src/components/wallet/WalletAdd.tsx:66
 msgid "Welcome! The following words are used for your wallet backup. Without them, you will lose access to your wallet, keep them safe! Write down each word along with the order number next to them. (Order is important)"
@@ -2651,8 +2651,8 @@ msgid "You need to claim your rewards first"
 msgstr ""
 
 #: src/components/app/AppTimeBomb.tsx:28
-#~ msgid "You need to upgrade the Chives application as this version will stop working soon!"
-#~ msgstr "You need to upgrade the Chives application as this version will stop working soon!"
+#~ msgid "You need to upgrade the Joker application as this version will stop working soon!"
+#~ msgstr "You need to upgrade the Joker application as this version will stop working soon!"
 
 #: src/components/plotNFT/select/PlotNFTSelectFaucet.tsx:37
 msgid "You need {currencyCode} to join a pool."
@@ -2743,9 +2743,9 @@ msgstr ""
 msgid "{currencyCode} Block Rewards"
 msgstr "{currencyCode} phần thưởng khối"
 
-#: src/components/farm/card/FarmCardTotalChivesFarmed.tsx:29
-msgid "{currencyCode} Total Chives Farmed"
-msgstr "{currencyCode} Tổng số Chives thu được"
+#: src/components/farm/card/FarmCardTotalJokerFarmed.tsx:29
+msgid "{currencyCode} Total Joker Farmed"
+msgstr "{currencyCode} Tổng số Joker thu được"
 
 #: src/components/farm/card/FarmCardUserFees.tsx:28
 msgid "{currencyCode} User Transaction Fees"

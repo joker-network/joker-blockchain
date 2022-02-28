@@ -2,7 +2,7 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Button, ConfirmDialog, Flex, Logo } from '@chives/core';
+import { Button, ConfirmDialog, Flex, Logo } from '@joker/core';
 import { Alert } from '@material-ui/lab';
 import {
   Card,
@@ -86,7 +86,7 @@ export default function SelectKey() {
 
           {response.wallet_balance && (<Alert severity="warning">
             <Trans>
-              Warning: This key is used for a wallet that may have a non-zero balance. 
+              Warning: This key is used for a wallet that may have a non-zero balance.
               By deleting this key you may lose access to this wallet
             </Trans>
           </Alert>)}
@@ -181,7 +181,7 @@ export default function SelectKey() {
               </Typography>
               <Typography variant="subtitle1">
                 <Trans>
-                  Welcome to Chives. Please log in with an existing key, or create
+                  Welcome to Joker. Please log in with an existing key, or create
                   a new key.
                 </Trans>
               </Typography>

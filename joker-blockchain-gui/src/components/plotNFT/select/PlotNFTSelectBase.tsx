@@ -12,7 +12,7 @@ import {
   RadioGroup,
   Fee,
   TextField,
-} from '@chives/core';
+} from '@joker/core';
 import {
   Grid,
   FormControl,

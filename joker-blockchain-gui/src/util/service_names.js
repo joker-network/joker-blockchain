@@ -1,8 +1,8 @@
-export const service_wallet = 'chives_wallet';
-export const service_full_node = 'chives_full_node';
-export const service_farmer = 'chives_farmer';
-export const service_harvester = 'chives_harvester';
-export const service_simulator = 'chives_full_node_simulator';
+export const service_wallet = 'joker_wallet';
+export const service_full_node = 'joker_full_node';
+export const service_farmer = 'joker_farmer';
+export const service_harvester = 'joker_harvester';
+export const service_simulator = 'joker_full_node_simulator';
 export const service_daemon = 'daemon';
 export const service_plotter = 'chia_plotter';
 

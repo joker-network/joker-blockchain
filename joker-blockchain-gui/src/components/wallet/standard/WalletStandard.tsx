@@ -5,13 +5,13 @@ import {
   Amount,
   Fee,
   Form,
-  TextField as ChivesTextField,
+  TextField as JokerTextField,
   AlertDialog,
   CopyToClipboard,
   Flex,
   Card,
   ConfirmDialog,
-} from '@chives/core';
+} from '@joker/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import isNumeric from 'validator/es/lib/isNumeric';
@@ -42,7 +42,7 @@ import {
   send_transaction,
   farm_block,
 } from '../../../modules/message';
-import { /* mojo_to_chives_string, */ chives_to_mojo } from '../../../util/chives';
+import { /* mojo_to_joker_string, */ joker_to_mojo } from '../../../util/joker';
 import { openDialog } from '../../../modules/dialog';
 import { get_transaction_result } from '../../../util/transaction_result';
 import config from '../../../config/config';
@@ -238,7 +238,7 @@ function BalanceCardSubSection(props: BalanceCardSubSectionProps) {
         </Box>
         <Box>
           <Typography variant="subtitle1">
-            {mojo_to_chives_string(props.balance)} {currencyCode}
+            {mojo_to_joker_string(props.balance)} {currencyCode}
           </Typography>
         </Box>
       </Box>
@@ -273,7 +273,7 @@ function BalanceCard(props: BalanceCardProps) {
         balance={balance}
         tooltip={
           <Trans>
-            This is the total amount of chives in the blockchain at the current
+            This is the total amount of joker in the blockchain at the current
             peak sub block that is controlled by your private keys. It includes
             frozen farming rewards, but not pending incoming and outgoing
             transactions.
@@ -285,9 +285,9 @@ function BalanceCard(props: BalanceCardProps) {
         balance={balance_spendable}
         tooltip={
           <Trans>
-            This is the amount of Chives that you can currently use to make
+            This is the amount of Joker that you can currently use to make
             transactions. It does not include pending farming rewards, pending
-            incoming transactions, and Chives that you have just spent but is not
+            incoming transactions, and Joker that you have just spent but is not
             yet in the blockchain.
           </Trans>
         }
@@ -448,7 +448,7 @@ function SendCard(props: SendCardProps) {
       openDialog(
         <AlertDialog>
           <Trans>
-            Error: Cannot send chives to coloured address. Please enter a chives
+            Error: Cannot send joker to coloured address. Please enter a joker
             address.
           </Trans>
         </AlertDialog>,
@@ -456,15 +456,15 @@ function SendCard(props: SendCardProps) {
       return;
     }
 
-    if (address.slice(0, 12) === 'chives_addr://') {
+    if (address.slice(0, 12) === 'joker_addr://') {
       address = address.slice(12);
     }
     if (address.startsWith('0x') || address.startsWith('0X')) {
       address = address.slice(2);
     }
 
-    const amountValue = Number.parseFloat(chives_to_mojo(amount));
-    const feeValue = Number.parseFloat(chives_to_mojo(fee));
+    const amountValue = Number.parseFloat(joker_to_mojo(amount));
+    const feeValue = Number.parseFloat(joker_to_mojo(fee));
 
     dispatch(send_transaction(wallet_id, amountValue, feeValue, address));
 
@@ -487,7 +487,7 @@ function SendCard(props: SendCardProps) {
       <Form methods={methods} onSubmit={handleSubmit}>
         <Grid spacing={2} container>
           <Grid xs={12} item>
-            <ChivesTextField
+            <JokerTextField
               name="address"
               variant="filled"
               color="secondary"
@@ -639,7 +639,7 @@ export default function StandardWallet(props: StandardWalletProps) {
         <Flex flexGrow={1}>
           {showTitle && (
             <Typography variant="h5" gutterBottom>
-              <Trans>Chives Wallet</Trans>
+              <Trans>Joker Wallet</Trans>
             </Typography>
           )}
         </Flex>

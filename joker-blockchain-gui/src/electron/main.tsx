@@ -11,8 +11,8 @@ import '../config/env';
 import handleSquirrelEvent from './handleSquirrelEvent';
 import config from '../config/config';
 import dev_config from '../dev_config';
-import chivesEnvironment from '../util/chivesEnvironment';
-import chivesConfig from '../util/config';
+import jokerEnvironment from '../util/jokerEnvironment';
+import jokerConfig from '../util/config';
 import { i18n } from '../config/locales';
 import About from '../components/about/About';
 import packageJson from '../../package.json';
@@ -93,7 +93,7 @@ if (!handleSquirrelEvent()) {
 
   const ensureCorrectEnvironment = () => {
     // check that the app is either packaged or running in the python venv
-    if (!chivesEnvironment.guessPackaged() && !('VIRTUAL_ENV' in process.env)) {
+    if (!jokerEnvironment.guessPackaged() && !('VIRTUAL_ENV' in process.env)) {
       console.log('App must be installed or in venv');
       app.quit();
       return false;
@@ -107,7 +107,7 @@ if (!handleSquirrelEvent()) {
   // if any of these checks return false, don't do any other initialization since the app is quitting
   if (ensureSingleInstance() && ensureCorrectEnvironment()) {
     // this needs to happen early in startup so all processes share the same global config
-    chivesConfig.loadConfig('mainnet');
+    jokerConfig.loadConfig('mainnet');
     global.sharedObj = { local_test };
 
     const exitPyProc = (e) => {};
@@ -168,7 +168,7 @@ if (!handleSquirrelEvent()) {
       });
 
       // don't show remote daeomn detials in the title bar
-      if (!chivesConfig.manageDaemonLifetime()) {
+      if (!jokerConfig.manageDaemonLifetime()) {
         mainWindow.webContents.on('did-finish-load', () => {
           mainWindow.setTitle(`${app.getName()} [${global.daemon_rpc_ws}]`);
         });
@@ -179,7 +179,7 @@ if (!handleSquirrelEvent()) {
       // }
       mainWindow.on('close', (e) => {
         // if the daemon isn't local we aren't going to try to start/stop it
-        if (decidedToClose || !chivesConfig.manageDaemonLifetime()) {
+        if (decidedToClose || !jokerConfig.manageDaemonLifetime()) {
           return;
         }
         e.preventDefault();
@@ -231,8 +231,8 @@ if (!handleSquirrelEvent()) {
       createWindow();
       app.applicationMenu = createMenu();
       // if the daemon isn't local we aren't going to try to start/stop it
-      if (chivesConfig.manageDaemonLifetime()) {
-        chivesEnvironment.startChivesDaemon();
+      if (jokerConfig.manageDaemonLifetime()) {
+        jokerEnvironment.startJokerDaemon();
       }
     };
 
@@ -383,39 +383,39 @@ if (!handleSquirrelEvent()) {
             type: 'separator',
           },
 		  {
-            label: i18n._(/* i18n */ { id: 'Chives Website' }),
+            label: i18n._(/* i18n */ { id: 'Joker Website' }),
             click: () => {
-              openExternal('https://mykc.cc');
+              openExternal('https://jokercoin.org');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Blockchain Explorer' }),
             click: () => {
-              openExternal('https://explorer.mykc.cc');
+              openExternal('https://explorer.jokercoin.org');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Community Autonomy' }),
             click: () => {
-              openExternal('https://community.mykc.cc');
+              openExternal('https://community.jokercoin.org');
             },
           },
           {
-            label: i18n._(/* i18n */ { id: 'Chives Swap' }),
+            label: i18n._(/* i18n */ { id: 'Joker Swap' }),
             click: () => {
-              openExternal('https://chivescoin.net');
+              openExternal('https://jokercoin.net');
             },
           },
           {
-            label: i18n._(/* i18n */ { id: 'Chives Pool' }),
+            label: i18n._(/* i18n */ { id: 'Joker Pool' }),
             click: () => {
-              openExternal('https://chivespool.com/');
+              openExternal('https://jokerpool.com/');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Foxy Pool' }),
             click: () => {
-              openExternal('https://chives.foxypool.io/');
+              openExternal('https://joker.foxypool.io/');
             },
           },
           {
@@ -433,49 +433,49 @@ if (!handleSquirrelEvent()) {
           {
             label: i18n._(/* i18n */ { id: 'Twitter' }),
             click: () => {
-              openExternal('https://twitter.com/chivesxcc');
+              openExternal('https://twitter.com/jokerxcc');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Discord' }),
             click: () => {
-              openExternal('https://discord.gg/chivescoin');
+              openExternal('https://discord.gg/jokercoin');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Facebook' }),
             click: () => {
-              openExternal('https://www.facebook.com/groups/chivescoin/');
+              openExternal('https://www.facebook.com/groups/jokercoin/');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Telegram' }),
             click: () => {
-              openExternal('https://t.me/chives_network');
+              openExternal('https://t.me/joker_network');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Reddit' }),
             click: () => {
-              openExternal('https://www.reddit.com/r/chives/');
+              openExternal('https://www.reddit.com/r/joker/');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Medium' }),
             click: () => {
-              openExternal('https://chivescoin.medium.com/');
+              openExternal('https://jokercoin.medium.com/');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Youtube' }),
             click: () => {
-              openExternal('https://www.youtube.com/c/ChivesCoinOfficial');
+              openExternal('https://www.youtube.com/c/JokerCoinOfficial');
             },
           },
           {
             label: i18n._(/* i18n */ { id: 'Instagram' }),
             click: () => {
-              openExternal('https://www.instagram.com/chivescoinofficial/');
+              openExternal('https://www.instagram.com/jokercoinofficial/');
             },
           },
           {
@@ -496,12 +496,12 @@ if (!handleSquirrelEvent()) {
     ];
 
     if (process.platform === 'darwin') {
-      // Chives Blockchain menu (Mac)
+      // Joker Blockchain menu (Mac)
       template.unshift({
-        label: i18n._(/* i18n */ { id: 'Chives' }),
+        label: i18n._(/* i18n */ { id: 'Joker' }),
         submenu: [
           {
-            label: i18n._(/* i18n */ { id: 'About Chives Blockchain' }),
+            label: i18n._(/* i18n */ { id: 'About Joker Blockchain' }),
             click: () => {
               openAbout();
             },
@@ -588,7 +588,7 @@ if (!handleSquirrelEvent()) {
           type: 'separator',
         },
         {
-          label: i18n._(/* i18n */ { id: 'About Chives Blockchain' }),
+          label: i18n._(/* i18n */ { id: 'About Joker Blockchain' }),
           click() {
             openAbout();
           },

@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../modules/rootReducer';
 import FarmCard from './FarmCard';
-import { mojo_to_chives } from '../../../util/chives';
+import { mojo_to_joker } from '../../../util/joker';
 import useCurrencyCode from '../../../hooks/useCurrencyCode';
 
 export default function FarmCardBlockRewards() {
@@ -15,7 +15,7 @@ export default function FarmCardBlockRewards() {
   const farmerRewardAmount = useSelector(
     (state: RootState) => state.wallet_state.farmed_amount?.farmer_reward_amount,
   );
-  
+
   const communityRewardAmount = useSelector(
     (state: RootState) => state.wallet_state.farmed_amount?.community_reward_amount,
   );
@@ -27,7 +27,7 @@ export default function FarmCardBlockRewards() {
   const blockRewards = useMemo(() => {
     if (farmerRewardAmount !== undefined && communityRewardAmount !== undefined && poolRewardAmount !== undefined) {
       const val = BigInt(farmerRewardAmount.toString()) + BigInt(communityRewardAmount.toString()) + BigInt(poolRewardAmount.toString());
-      return mojo_to_chives(val);
+      return mojo_to_joker(val);
     }
   }, [farmerRewardAmount, communityRewardAmount, poolRewardAmount]);
 

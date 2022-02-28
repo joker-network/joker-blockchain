@@ -3,7 +3,7 @@ import { linearGradientDef } from '@nivo/core';
 import { t } from '@lingui/macro';
 import { ResponsiveLine } from '@nivo/line';
 import { Typography, Paper } from '@material-ui/core';
-import { Flex } from '@chives/core';
+import { Flex } from '@joker/core';
 import styled from 'styled-components';
 
 const StyledRoot = styled.div`
@@ -173,7 +173,7 @@ export default function PlotNFTGraph(props: Props) {
             enableArea
           />
 
-          {/* 
+          {/*
         <StyledMaxTypography variant="body2" color="textSecondary">
           <FormatLargeNumber value={max} />
         </StyledMaxTypography>

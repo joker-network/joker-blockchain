@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Box, BoxProps } from '@material-ui/core';
-import { Chives } from '@chives/icons';
+import { Joker } from '@joker/icons';
 
-const StyledChives = styled(Chives)`
+const StyledJoker = styled(Joker)`
   max-width: 100%;
   width: auto;
   height: auto;
@@ -12,7 +12,7 @@ const StyledChives = styled(Chives)`
 export default function Logo(props: BoxProps) {
   return (
     <Box {...props}>
-      <StyledChives />
+      <StyledJoker />
     </Box>
   );
 }

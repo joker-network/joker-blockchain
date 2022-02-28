@@ -80,8 +80,8 @@ export default {
       'node_modules',
     ],
     alias: {
-      "@chives/core": `${__dirname}/src/components/core`,
-      "@chives/icons": `${__dirname}/src/components/icons`,
+      "@joker/core": `${__dirname}/src/components/core`,
+      "@joker/icons": `${__dirname}/src/components/icons`,
       crypto: 'crypto-browserify',
       stream: 'stream-browserify',
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
-import { AlertDialog } from '@chives/core';
+import { AlertDialog } from '@joker/core';
 import {
   Typography,
   Button,
@@ -20,7 +20,7 @@ import {
 } from '../../../modules/createWallet';
 import { useStyles } from './WalletCreate';
 import { create_rl_admin_action } from '../../../modules/message';
-import { chives_to_mojo } from '../../../util/chives';
+import { joker_to_mojo } from '../../../util/joker';
 import { openDialog } from '../../../modules/dialog';
 
 export const customStyles = makeStyles((theme) => ({
@@ -76,7 +76,7 @@ export const CreateRLAdminWallet = () => {
   const custom = customStyles();
   const dispatch = useDispatch();
   let interval_input = null;
-  let chivesper_input = null;
+  let jokerper_input = null;
   let userpubkey_input = null;
   let amount_input = null;
   let fee_input = null;
@@ -104,10 +104,10 @@ export const CreateRLAdminWallet = () => {
       return;
     }
     if (
-      chivesper_input.value === '' ||
-      Number(chivesper_input.value) === 0 ||
-      !Number(chivesper_input.value) ||
-      isNaN(Number(chivesper_input.value))
+      jokerper_input.value === '' ||
+      Number(jokerper_input.value) === 0 ||
+      !Number(jokerper_input.value) ||
+      isNaN(Number(jokerper_input.value))
     ) {
       dispatch(
         openDialog(
@@ -156,18 +156,18 @@ export const CreateRLAdminWallet = () => {
     dispatch(createState(true, true));
     const interval = interval_input.value;
     const interval_value = Number.parseInt(Number(interval));
-    const chivesper = chives_to_mojo(chivesper_input.value);
-    const chivesper_value = Number.parseInt(Number(chivesper));
+    const jokerper = joker_to_mojo(jokerper_input.value);
+    const jokerper_value = Number.parseInt(Number(jokerper));
     const userpubkey = userpubkey_input.value;
-    const amount = chives_to_mojo(amount_input.value);
+    const amount = joker_to_mojo(amount_input.value);
     const amount_value = Number.parseInt(Number(amount));
-    // var fee = chives_to_mojo(fee_input.value);
+    // var fee = joker_to_mojo(fee_input.value);
     // TODO(lipa): send fee to server
     // const fee_value = parseInt(Number(fee));
     dispatch(
       create_rl_admin_action(
         interval_value,
-        chivesper_value,
+        jokerper_value,
         userpubkey,
         amount_value,
       ),
@@ -225,7 +225,7 @@ export const CreateRLAdminWallet = () => {
               color="secondary"
               fullWidth
               inputRef={(input) => {
-                chivesper_input = input;
+                jokerper_input = input;
               }}
               label={<Trans>Spendable Amount</Trans>}
             />

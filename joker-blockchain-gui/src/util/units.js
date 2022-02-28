@@ -1,18 +1,18 @@
 const units = {
-  chives: 1,
+  joker: 1,
   mojo: 1 / 1e8,
   colouredcoin: 1 / 1e5,
 };
 
 const aliases = {
-  chives: ['ch', 'chives', 'Chives'],
+  joker: ['jk', 'joker', 'Joker'],
   mojo: ['mj', 'mojo'],
   colouredcoin: ['cc', 'colouredcoin'],
 };
 
 const display = {
-  chives: {
-    format: '{amount} CH',
+  joker: {
+    format: '{amount} JK',
     fractionDigits: 8,
   },
   mojo: {

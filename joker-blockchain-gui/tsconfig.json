@@ -8,7 +8,7 @@
       "esnext"
     ],
     "paths": {
-      "@chives/*": ["./components/*"]
+      "@joker/*": ["./components/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

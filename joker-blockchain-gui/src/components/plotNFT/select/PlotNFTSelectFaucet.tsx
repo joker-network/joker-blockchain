@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
-import { Button, Flex, CardStep } from '@chives/core';
+import { Button, Flex, CardStep } from '@joker/core';
 import { Box, Typography } from '@material-ui/core';
 import useCurrencyCode from '../../../hooks/useCurrencyCode';
 import useOpenExternal from '../../../hooks/useOpenExternal';
@@ -16,7 +16,7 @@ export default function PlotNFTSelectFaucet(props: Props) {
   const openExternal = useOpenExternal();
 
   function handleClick() {
-    openExternal('https://discord.gg/chivescoin');
+    openExternal('https://discord.gg/jokercoin');
   }
 
   return (
@@ -39,7 +39,7 @@ export default function PlotNFTSelectFaucet(props: Props) {
 
       <Box>
         <Button onClick={handleClick} color="primary" variant="contained">
-          <Trans>Request {currencyCode} from the Chives Discord</Trans>
+          <Trans>Request {currencyCode} from the Joker Discord</Trans>
         </Button>
       </Box>
     </CardStep>

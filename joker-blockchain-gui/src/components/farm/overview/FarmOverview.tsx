@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
-import { Flex, More } from '@chives/core';
+import { Flex, More } from '@joker/core';
 import { useSelector } from 'react-redux';
 import {
   Box,

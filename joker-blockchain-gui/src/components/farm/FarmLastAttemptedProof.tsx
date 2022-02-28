@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Trans } from '@lingui/macro';
-import { Link, Table, Card, FormatBytes } from '@chives/core';
+import { Link, Table, Card, FormatBytes } from '@joker/core';
 import { Typography } from '@material-ui/core';
 import moment from 'moment';
 import type { Row } from '../core/components/Table/Table';

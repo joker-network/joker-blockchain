@@ -12,7 +12,7 @@ const convert = (amount, from, to) => {
   return Number.parseFloat(amountInFromUnit.div(units.getUnit(to)));
 };
 
-class Chives {
+class Joker {
   constructor(value, unit) {
     this._value = value;
     this._unit = unit;
@@ -73,42 +73,42 @@ class Chives {
   }
 }
 
-export const chives_formatter = (value, unit) => new Chives(value, unit);
+export const joker_formatter = (value, unit) => new Joker(value, unit);
 
-chives_formatter.convert = convert;
-chives_formatter.setDisplay = units.setDisplay;
-chives_formatter.setUnit = units.setUnit;
-chives_formatter.getUnit = units.getUnit;
-chives_formatter.setFiat = (currency, rate, display = null) => {
+joker_formatter.convert = convert;
+joker_formatter.setDisplay = units.setDisplay;
+joker_formatter.setUnit = units.setUnit;
+joker_formatter.getUnit = units.getUnit;
+joker_formatter.setFiat = (currency, rate, display = null) => {
   units.setUnit(currency, 1 / rate, display);
 };
 
-export const mojo_to_chives = (mojo) => {
-  return chives_formatter(Number.parseInt(mojo), 'mojo').to('chives').value();
+export const mojo_to_joker = (mojo) => {
+  return joker_formatter(Number.parseInt(mojo), 'mojo').to('joker').value();
 };
 
-export const chives_to_mojo = (chives) => {
-  return chives_formatter(Number.parseFloat(Number(chives)), 'chives')
+export const joker_to_mojo = (joker) => {
+  return joker_formatter(Number.parseFloat(Number(joker)), 'joker')
     .to('mojo')
     .value();
 };
 
-export const mojo_to_chives_string = (mojo) => {
-  return chives_formatter(Number(mojo), 'mojo').to('chives').toString();
+export const mojo_to_joker_string = (mojo) => {
+  return joker_formatter(Number(mojo), 'mojo').to('joker').toString();
 };
 
 export const mojo_to_colouredcoin = (mojo) => {
-  return chives_formatter(Number.parseInt(mojo), 'mojo')
+  return joker_formatter(Number.parseInt(mojo), 'mojo')
     .to('colouredcoin')
     .value();
 };
 
 export const colouredcoin_to_mojo = (colouredcoin) => {
-  return chives_formatter(Number.parseFloat(Number(colouredcoin)), 'colouredcoin')
+  return joker_formatter(Number.parseFloat(Number(colouredcoin)), 'colouredcoin')
     .to('mojo')
     .value();
 };
 
 export const mojo_to_colouredcoin_string = (mojo) => {
-  return chives_formatter(Number(mojo), 'mojo').to('colouredcoin').toString();
+  return joker_formatter(Number(mojo), 'mojo').to('colouredcoin').toString();
 };

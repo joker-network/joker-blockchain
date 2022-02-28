@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading, Flex } from '@chives/core';
+import { Loading, Flex } from '@joker/core';
 import { Grid } from '@material-ui/core';
 import PlotHero from './PlotOverviewHero';
 import PlotOverviewPlots from './PlotOverviewPlots';

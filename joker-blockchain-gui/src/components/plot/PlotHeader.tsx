@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Trans } from '@lingui/macro';
-import { Flex, More } from '@chives/core';
+import { Flex, More } from '@joker/core';
 import { createTeleporter } from 'react-teleporter';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';

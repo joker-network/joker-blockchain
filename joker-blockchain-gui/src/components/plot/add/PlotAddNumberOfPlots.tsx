@@ -8,7 +8,7 @@ import {
   Flex,
   Checkbox,
   TooltipIcon,
-} from '@chives/core';
+} from '@joker/core';
 import {
   Grid,
   FormControl,
@@ -77,7 +77,7 @@ export default function PlotAddNumberOfPlots(props: Props) {
                 </Flex>
               </RadioGroup>
             </FormControl>
-          </Grid>        
+          </Grid>
         )}
 
         {parallel && (

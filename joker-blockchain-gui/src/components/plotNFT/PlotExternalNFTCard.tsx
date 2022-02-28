@@ -11,7 +11,7 @@ import {
   Loading,
   FormatLargeNumber,
   Link,
-} from '@chives/core';
+} from '@joker/core';
 import {
   Box,
   Card,

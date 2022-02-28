@@ -2,7 +2,7 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 import { useSelector } from 'react-redux';
 import FarmCard from '../../farm/card/FarmCard';
-import { FormatBytes } from '@chives/core';
+import { FormatBytes } from '@joker/core';
 import { RootState } from '../../../modules/rootReducer';
 
 export default function FullNodeEstimatedNetworkSpace() {

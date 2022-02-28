@@ -3,8 +3,8 @@ import { Trans } from '@lingui/macro';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Grid, Typography, Divider } from '@material-ui/core';
-import { CardHero, Flex, Link } from '@chives/core';
-import { PlotHero as PlotHeroIcon } from '@chives/icons';
+import { CardHero, Flex, Link } from '@joker/core';
+import { PlotHero as PlotHeroIcon } from '@joker/icons';
 import PlotAddDirectoryDialog from '../PlotAddDirectoryDialog';
 import { refreshPlots } from '../../../modules/harvesterMessages';
 import useOpenDialog from '../../../hooks/useOpenDialog';
@@ -34,7 +34,7 @@ export default function PlotOverviewHero() {
           <Typography variant="body1">
             <Trans>
               {
-                'Plots are allocated space on your hard drive used to farm and earn Chives. '
+                'Plots are allocated space on your hard drive used to farm and earn Joker. '
               }
               <Link
                 target="_blank"

@@ -1,4 +1,4 @@
-export { default as Chives } from './Chives';
+export { default as Joker } from './Joker';
 export { default as Farm } from './Farm';
 export { default as Home } from './Home';
 export { default as Keys } from './Keys';

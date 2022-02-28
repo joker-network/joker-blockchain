@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Flex, Link } from '@chives/core';
+import { Flex, Link } from '@joker/core';
 import LayoutMain from '../layout/LayoutMain';
 import PoolOverview from './PoolOverview';
 import PlotNFTAdd from '../plotNFT/PlotNFTAdd';

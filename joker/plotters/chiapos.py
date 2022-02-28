@@ -36,7 +36,7 @@ class Params:
 
 def plot_joker(args, root_path):
     if args.size < 30 and not args.override:
-        print("k=29 is the minimum size for farming.")
+        print("k=30 is the minimum size for farming.")
         print("If you are testing and you want to use smaller size please add the --override flag.")
         return
     elif args.size < 25 and args.override:

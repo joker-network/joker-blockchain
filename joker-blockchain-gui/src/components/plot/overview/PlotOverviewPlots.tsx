@@ -9,7 +9,7 @@ import {
   FormatBytes,
   StateColor,
   Address,
-} from '@chives/core';
+} from '@joker/core';
 import {
   Box,
   Typography,
@@ -137,7 +137,7 @@ export default function PlotOverviewPlots() {
           <Flex flexGrow={1}>
             <Typography variant="body2">
               <Trans>
-                Want to earn more Chives? Add more plots to your farm.
+                Want to earn more Joker? Add more plots to your farm.
               </Trans>
             </Typography>
           </Flex>

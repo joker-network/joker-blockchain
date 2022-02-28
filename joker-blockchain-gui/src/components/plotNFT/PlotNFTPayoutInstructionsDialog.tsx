@@ -9,7 +9,7 @@ import {
   Loading,
   TextField,
   Form,
-} from '@chives/core';
+} from '@joker/core';
 import {
   Button,
   Dialog,

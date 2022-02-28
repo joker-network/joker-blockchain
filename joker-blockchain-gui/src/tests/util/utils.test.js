@@ -20,7 +20,7 @@ describe('utils', () => {
     });
 
     it('cannot find a variable', () => {
-      const result = utils.get_query_variable('chives');
+      const result = utils.get_query_variable('joker');
 
       expect(result).toBeUndefined();
     });

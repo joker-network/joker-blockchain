@@ -14,16 +14,16 @@ function getInstallerConfig () {
   const outPath = path.join(rootPath, 'release-builds')
 
   return Promise.resolve({
-    appDirectory: path.join(rootPath, 'Chives-win32-x64'),
-    authors: 'Chives Network',
-    version: process.env.CHIVES_INSTALLER_VERSION,
+    appDirectory: path.join(rootPath, 'Joker-win32-x64'),
+    authors: 'Joker Network',
+    version: process.env.JOKER_INSTALLER_VERSION,
     noMsi: true,
-    iconUrl: 'https://raw.githubusercontent.com/Chives-Network/joker-blockchain/master/electron-react/src/assets/img/chives.ico',
+    iconUrl: 'https://raw.githubusercontent.com/Joker-Network/joker-blockchain/master/electron-react/src/assets/img/joker.ico',
     outputDirectory: path.join(outPath, 'windows-installer'),
     certificateFile: 'win_code_sign_cert.p12',
     certificatePassword: process.env.WIN_CODE_SIGN_PASS,
-    exe: 'Chives.exe',
-    setupExe: 'ChivesSetup-' + process.env.CHIVES_INSTALLER_VERSION + '.exe',
-    setupIcon: path.join(rootPath, 'src', 'assets', 'img', 'chives.ico')
+    exe: 'Joker.exe',
+    setupExe: 'JokerSetup-' + process.env.JOKER_INSTALLER_VERSION + '.exe',
+    setupIcon: path.join(rootPath, 'src', 'assets', 'img', 'joker.ico')
   })
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 import { useSelector } from 'react-redux';
-import { State, StateIndicator } from '@chives/core';
+import { State, StateIndicator } from '@joker/core';
 import { Typography } from '@material-ui/core';
 import type { RootState } from '../../modules/rootReducer';
 import getWalletSyncingStatus from '../../util/getWalletSyncingStatus';

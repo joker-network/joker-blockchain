@@ -2,8 +2,8 @@ const units = require('../../util/units');
 
 describe('units', () => {
   describe('#getUnit', () => {
-    it('gets unit of chives', () => {
-      const result = units.getUnit('chives');
+    it('gets unit of joker', () => {
+      const result = units.getUnit('joker');
 
       expect(result).toBe(1);
     });
@@ -18,12 +18,12 @@ describe('units', () => {
       expect(result).toBe(1e-9);
     });
     it('supports uppercase characters', () => {
-      const result = units.getUnit('CHIVES');
+      const result = units.getUnit('JOKER');
 
       expect(result).toBe(1);
     });
-    it('gets unit of chives using alias', () => {
-      const result = units.getUnit('ch');
+    it('gets unit of joker using alias', () => {
+      const result = units.getUnit('jk');
 
       expect(result).toBe(1);
     });
@@ -46,11 +46,11 @@ describe('units', () => {
     });
   });
   describe('#getDisplay', () => {
-    it('gets display of chives', () => {
-      const result = units.getDisplay('chives');
+    it('gets display of joker', () => {
+      const result = units.getDisplay('joker');
 
       expect(result).toEqual({
-        format: '{amount} CH',
+        format: '{amount} JK',
         fractionDigits: 12,
       });
     });
@@ -87,13 +87,13 @@ describe('units', () => {
       expect(result).toEqual(1);
     });
     it('modifies an existing unit', () => {
-      units.setUnit('chives', 9);
+      units.setUnit('joker', 9);
 
-      const result = units.getUnit('chives');
+      const result = units.getUnit('joker');
 
       expect(result).toEqual(9);
 
-      units.setUnit('chives', 1);
+      units.setUnit('joker', 1);
     });
   });
   describe('#setDisplay', () => {
@@ -111,15 +111,15 @@ describe('units', () => {
       });
     });
     it('updates an existing display', () => {
-      units.setDisplay('chives', {
-        format: '{amount} TXCC',
+      units.setDisplay('joker', {
+        format: '{amount} TXJK',
         fractionDigits: 0,
       });
 
-      const result = units.getDisplay('chives');
+      const result = units.getDisplay('joker');
 
       expect(result).toEqual({
-        format: '{amount} TXCC',
+        format: '{amount} TXJK',
         fractionDigits: 0,
       });
     });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 import { useDispatch } from 'react-redux';
-import { AlertDialog, ConfirmDialog, UnitFormat } from '@chives/core';
+import { AlertDialog, ConfirmDialog, UnitFormat } from '@joker/core';
 import type PlotNFT from '../types/PlotNFT';
 import { pwAbsorbRewards } from '../modules/plotNFT';
 import useOpenDialog from './useOpenDialog';

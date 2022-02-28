@@ -16,7 +16,7 @@ function loadConfig(net) {
     const config_root_dir =
       'JOKER_ROOT' in process.env
         ? process.env.JOKER_ROOT
-        : path.join(os.homedir(), '.chives', net);
+        : path.join(os.homedir(), '.joker', net);
     const config = yaml.load(
       fs.readFileSync(path.join(config_root_dir, 'config/config.yaml'), 'utf8'),
     );
