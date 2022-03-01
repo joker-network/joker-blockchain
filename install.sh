@@ -42,7 +42,7 @@ fi
 if [ "$(uname -m)" = "armv7l" ]; then
   echo ""
 	echo "WARNING:"
-	echo "The Chives Blockchain requires a 64 bit OS and this is 32 bit armv7l"
+	echo "The Joker Blockchain requires a 64 bit OS and this is 32 bit armv7l"
 	echo "For more information, see"
 	echo "https://github.com/Joker-network/joker-blockchain/wiki/Raspberry-Pi"
 	echo "Exiting."
@@ -150,7 +150,7 @@ python -m pip install --extra-index-url https://pypi.chia.net/simple/ miniupnpc=
 python -m pip install -e ."${EXTRAS}" --extra-index-url https://pypi.chia.net/simple/
 
 echo ""
-echo "Chives blockchain install.sh complete."
+echo "Joker blockchain install.sh complete."
 echo "For assistance join us on Keybase in the #support chat channel:"
 echo "https://keybase.io/team/joker_network.public"
 echo ""

@@ -16,7 +16,7 @@ from typing import Callable, Dict, List, Optional, Tuple, Any
 from blspy import AugSchemeMPL, G1Element, G2Element, PrivateKey
 from chiabip158 import PyBIP158
 
-from joker.cmds.init_funcs import create_all_ssl, create_default_chives_config
+from joker.cmds.init_funcs import create_all_ssl, create_default_joker_config
 from joker.daemon.keychain_proxy import connect_to_keychain_and_validate, wrap_local_keychain
 from joker.full_node.bundle_tools import (
     best_solution_generator_from_template,
@@ -141,7 +141,7 @@ class BlockTools:
         self.root_path = root_path
         self.local_keychain = keychain
 
-        create_default_chives_config(root_path)
+        create_default_joker_config(root_path)
         create_all_ssl(root_path)
 
         self.local_sk_cache: Dict[bytes32, Tuple[PrivateKey, Any]] = {}
