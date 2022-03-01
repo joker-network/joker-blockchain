@@ -972,7 +972,7 @@ msgid "Fee"
 msgstr "Gebühr"
 
 #: src/components/wallet/coloured/WalletColoured.tsx:420
-#~ msgid "Fee (TXCC)"
+#~ msgid "Fee (TXJK)"
 #~ msgstr ""
 
 #: src/components/wallet/coloured/WalletColoured.tsx:420
@@ -1470,8 +1470,8 @@ msgid "Not found Plots"
 msgstr "Nicht gefundene Plots"
 
 #: src/components/farm/FarmManageFarmingRewards.tsx:188
-msgid "Note that this does not change your pooling payout addresses. This only affects old format plots, and the 0.25XCC reward for pooling plots."
-msgstr "Beachten Sie, dass dies Ihre Pooling-Auszahlungsadressen nicht ändert. Dies betrifft nur die alten Plots und die 0.25XCC Belohnung für Pooling-Plots."
+msgid "Note that this does not change your pooling payout addresses. This only affects old format plots, and the 0.25XJK reward for pooling plots."
+msgstr "Beachten Sie, dass dies Ihre Pooling-Auszahlungsadressen nicht ändert. Dies betrifft nur die alten Plots und die 0.25XJK Belohnung für Pooling-Plots."
 
 #: src/components/plotNFT/PlotExternalNFTCard.tsx:118
 #: src/components/plotNFT/PlotNFTCard.tsx:160
@@ -2402,23 +2402,23 @@ msgstr "Synchronisiere <0/>/<1/>"
 #~ msgstr "Syncing {progress}/{tip}"
 
 #: src/components/farm/card/FarmCardBlockRewards.tsx:15
-#~ msgid "TXCC Block Rewards"
+#~ msgid "TXJK Block Rewards"
 #~ msgstr ""
 
 #: src/components/farm/card/FarmCardCoinbaseRewards.tsx:12
-#~ msgid "TXCC Farming Rewards"
+#~ msgid "TXJK Farming Rewards"
 #~ msgstr ""
 
 #: src/components/farm/card/FarmCardFeesReward.tsx:12
-#~ msgid "TXCC Fees Collected"
+#~ msgid "TXJK Fees Collected"
 #~ msgstr ""
 
 #: src/components/farm/card/FarmCardUserFees.tsx:12
-#~ msgid "TXCC User Fees"
-#~ msgstr "TXCC User Fees"
+#~ msgid "TXJK User Fees"
+#~ msgstr "TXJK User Fees"
 
 #: src/components/farm/card/FarmCardUserFees.tsx:15
-#~ msgid "TXCC User Transaction Fees"
+#~ msgid "TXJK User Transaction Fees"
 #~ msgstr ""
 
 #: src/components/pool/PoolInfo.tsx:37

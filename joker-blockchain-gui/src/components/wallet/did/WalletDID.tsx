@@ -613,7 +613,7 @@ const BalanceCardSubSection = (props) => {
         </Box>
         <Box>
           <Typography variant="subtitle1">
-            {mojo_to_joker_string(props.balance)} TXCC
+            {mojo_to_joker_string(props.balance)} TXJK
           </Typography>
         </Box>
       </Box>
