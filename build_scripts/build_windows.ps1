@@ -115,7 +115,7 @@ Write-Output "------------------"
 Write-Output "Use pyinstaller to create joker .exe"
 Write-Output "------------------"
 $SPEC_FILE = (python -c 'import joker; print(joker.PYINSTALLER_SPEC_PATH)') -join "`n"
-pyinstaller --paths C:\Python39 --log-level INFO $SPEC_FILE
+pyinstaller --log-level INFO $SPEC_FILE
 Write-Output "------------------"
 Write-Output "Copy joker executables to joker-blockchain-gui\"
 Write-Output "------------------"
