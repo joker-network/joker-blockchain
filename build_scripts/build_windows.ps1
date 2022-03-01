@@ -161,8 +161,8 @@ If ($env:HAS_SECRET) {
    Write-Output "------------------"
    Write-Output "Add timestamp and verify signature"
    Write-Output "------------------"
-   signtool.exe timestamp /v /t http://timestamp.comodoca.com/ .\release-builds\windows-installer\ChiaSetup-$packageVersion.exe
-   signtool.exe verify /v /pa .\release-builds\windows-installer\ChiaSetup-$packageVersion.exe
+   signtool.exe timestamp /v /t http://timestamp.comodoca.com/ .\release-builds\windows-installer\JokerSetup-$packageVersion.exe
+   signtool.exe verify /v /pa .\release-builds\windows-installer\JokerSetup-$packageVersion.exe
    }   Else    {
    Write-Output "Skipping timestamp and verify signatures - no authorization to install certificates"
 }
