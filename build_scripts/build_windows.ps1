@@ -59,11 +59,11 @@ $env:JOKER_INSTALLER_VERSION = python .\build_scripts\installer-version.py -win
 
 $env:JOKER_INSTALLER_VERSION = "1.0.1"
 
-if (-not (Test-Path $env:JOKER_INSTALLER_VERSION))
-  {
-  $env:JOKER_INSTALLER_VERSION = '0.0.0'
-  Write-Output "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0"
-  }
+#if (-not (Test-Path $env:JOKER_INSTALLER_VERSION))
+#  {
+#  $env:JOKER_INSTALLER_VERSION = '0.0.0'
+#  Write-Output "WARNING: No environment variable JOKER_INSTALLER_VERSION set. Using 0.0.0"
+#  }
 
 Write-Output "Joker Version is: $env:JOKER_INSTALLER_VERSION"
 Write-Output "------------------"
