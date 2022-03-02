@@ -14,8 +14,8 @@ def main():
 
     left_full_version = scm_full_version.split("+")
     version = left_full_version[1].split(".")
-    scm_major_version = version[2]
-    scm_minor_version = version[3]
+    scm_major_version = version[0]
+    scm_minor_version = version[0]
 
     if len(version) == 3:  # If the length of the version array is more than 2
         patch_release_number = version[2]

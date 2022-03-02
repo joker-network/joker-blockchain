@@ -122,7 +122,7 @@ kwargs = dict(
         "joker.ssl": ["joker_ca.crt", "joker_ca.key", "dst_root_ca.pem"],
         "mozilla-ca": ["cacert.pem"],
     },
-    use_scm_version={"fallback_version": "unknown-no-.git-directory"},
+    version="1.0.0",
     long_description=open("README.md", encoding='UTF-8').read(),
     long_description_content_type="text/markdown",
     zip_safe=False,
