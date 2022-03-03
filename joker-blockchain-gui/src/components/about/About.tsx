@@ -70,6 +70,9 @@ const Spacer = styled.div`
   margin-bottom: 1rem;
 `;
 
+const url = 'https://jokercoin.org';
+
+
 type Props = {
   version: string;
   packageJson: {
