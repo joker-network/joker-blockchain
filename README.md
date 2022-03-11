@@ -2,7 +2,7 @@
 
 <img src=".\joker-blockchain-gui\src\assets\img\joker_logo.svg"/> 
 
-[**Discord**](https://discord.gg/QhK8yCZpBf)
+[**Join Our Discord Channel**](https://discord.gg/QhK8yCZpBf)
 
 # 1 Name：Joker  
 * English name: Joker 
