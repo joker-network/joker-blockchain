@@ -55,8 +55,8 @@ dev_dependencies = [
 
 kwargs = dict(
     name="joker-blockchain",
-    author="Jackson",
-    author_email="jacksonste1983@gmail.com",
+    author="Joker",
+    author_email="joker@jokercoin.org",
     description="Joker blockchain full node, farmer, timelord, and wallet.",
     url="https://jokercoin.org/",
     license="Apache License",
