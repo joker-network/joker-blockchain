@@ -57,7 +57,7 @@ Write-Output "Get JOKER_INSTALLER_VERSION"
 # The environment variable JOKER_INSTALLER_VERSION needs to be defined
 $env:JOKER_INSTALLER_VERSION = python .\build_scripts\installer-version.py -win
 
-$env:JOKER_INSTALLER_VERSION = "1.0.1"
+$env:JOKER_INSTALLER_VERSION = "1.0.2"
 
 #if (-not (Test-Path $env:JOKER_INSTALLER_VERSION))
 #  {
