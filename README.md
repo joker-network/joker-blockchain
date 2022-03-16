@@ -17,8 +17,8 @@
 * Total issuance: No upper limit 
 * Need to Replot (Can’t use chia plots)
 * Plot Size：K30 ,K31 
-* Project party Buy-back：YES ，Future plans
-* Project party XJK destruction：YES ，Future plans
+* Project Team Buy-back：YES ，Future plans
+* Project Team XJK destruction：YES ，Future plans
 
 JOKER is a fork created by volunteers in the community using Chia code. As a completely decentralized, no reservation, no ICO, and community autonomy crypto currency, it can create a low-power, green and environmentally friendly block chain system with Chia™.
 
