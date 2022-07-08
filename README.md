@@ -2,7 +2,7 @@
 
 <img src=".\joker-blockchain-gui\src\assets\img\joker_logo.svg"/> 
 
-[**Discord**](https://discord.gg/QhK8yCZpBf)  /[**Website**](https://www.jokercoin.org)   /[**Telegarm**](https://t.me/jokerblockchain)
+[**New Discord Channel**](https://discord.gg/yWRNdtChTT)  /[**Website**](https://www.jokercoin.org)   /[**Telegarm**](https://t.me/jokerblockchain)
 
 # 1 Name：Joker  
 * English name: Joker 
